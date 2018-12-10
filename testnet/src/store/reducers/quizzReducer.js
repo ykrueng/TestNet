@@ -2,6 +2,9 @@ import {
   QUIZZES_REQUEST,
   QUIZZES_SUCCESS,
   QUIZZES_FAILURE,
+  POST_QUIZZ_REQUEST,
+  POST_QUIZZ_SUCCESS,
+  POST_QUIZZ_FAILURE,
   QUESTIONS_REQUEST,
   QUESTIONS_SUCCESS,
   QUESTIONS_FAILURE,
@@ -10,6 +13,7 @@ import {
 const initialState = {
   quizzes: [],
   questions: [],
+  questionPosted: false,
   fetchingQuizzes: false,
   fetchingQuestions: false,
   error: null,
@@ -49,6 +53,23 @@ export const quizzReducer = (state=initialState, action) => {
       return {
         ...state,
         fetchingQuestions: false,
+        error: action.payload,
+      }
+      case POST_QUIZZ_REQUEST:
+      return {
+        ...state,
+        postingQuizz: true,
+      }
+    case POST_QUIZZ_SUCCESS:
+      return {
+        ...state,
+        postingQuizz: false,
+        questionPosted: action.payload,
+      }
+    case POST_QUIZZ_FAILURE:
+      return {
+        ...state,
+        postingQuizz: false,
         error: action.payload,
       }
     default:
