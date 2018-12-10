@@ -3,6 +3,7 @@ import { withRouter, Route, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 import dummydata from "./dummydata";
+import DummyView from "./views/DummyView";
 import QuizList from "./components/Quiz/QuizList";
 import PostList from "./components/post/PostList";
 import { login, register } from "./store/actions";
@@ -45,6 +46,7 @@ class App extends React.Component {
           render={props => <QuizView {...props} quizzes={dummydata} />}
         /> */}
         <Route exact path="/posts" render={props => <PostList {...props} />} />
+        <Route exact path="/dummy" render={props => <DummyView {...props} />} />
       </div>
     );
   }

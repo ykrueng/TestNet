@@ -8,6 +8,14 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+export const QUIZZES_REQUEST = "QUIZZES_REQUEST";
+export const QUIZZES_SUCCESS = "QUIZZES_SUCCESS";
+export const QUIZZES_FAILURE = "QUIZZES_FAILURE";
+
+export const QUESTIONS_REQUEST = "QUESTIONS_REQUEST";
+export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
+export const QUESTIONS_FAILURE = "QUESTIONS_FAILURE";
+
 export const register = (user) =>
   dispatch => {
     dispatch({ type: REGISTER_REQUEST });
@@ -45,6 +53,46 @@ export const login = (user) =>
       .catch( err => {
         dispatch({
           type: LOGIN_FAILURE,
+          payload: { err }
+        })
+      })
+  }
+
+export const getQuizzes = () =>
+  dispatch => {
+    dispatch({ type: QUIZZES_REQUEST });
+
+    study
+      .get('/quizzes')
+      .then( res => {
+        dispatch({
+          type: QUIZZES_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch( err => {
+        dispatch({
+          type: QUIZZES_FAILURE,
+          payload: { err }
+        })
+      })
+  }
+
+  export const getQuestions = id =>
+  dispatch => {
+    dispatch({ type: QUESTIONS_REQUEST });
+
+    study
+      .get(`/quizzes/${id}/questions`)
+      .then( res => {
+        dispatch({
+          type: QUESTIONS_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch( err => {
+        dispatch({
+          type: QUESTIONS_FAILURE,
           payload: { err }
         })
       })
