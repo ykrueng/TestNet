@@ -18,7 +18,7 @@ class Quiz extends React.Component {
             <div key={q.question}>
               <li>{q.question}</li>
               {q.answers.map((ans, index) => (
-                <label key={ans + index}>
+                <label key={index}>
                   <input
                     type="radio"
                     value={`option${index}`}
