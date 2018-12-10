@@ -20,6 +20,10 @@ export const POST_QUIZZ_REQUEST = "POST_QUIZZ_REQUEST";
 export const POST_QUIZZ_SUCCESS = "POST_QUIZZ_SUCCESS";
 export const POST_QUIZZ_FAILURE = "POST_QUIZZ_FAILURE";
 
+export const TOPICS_REQUEST = "TOPICS_REQUEST";
+export const TOPICS_SUCCESS = "TOPICS_SUCCESS";
+export const TOPICS_FAILURE = "TOPICS_FAILURE";
+
 export const QUESTIONS_REQUEST = "QUESTIONS_REQUEST";
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
 export const QUESTIONS_FAILURE = "QUESTIONS_FAILURE";
@@ -101,6 +105,26 @@ export const getQuizz = quizzId =>
       .catch( err => {
         dispatch({
           type: QUIZZ_FAILURE,
+          payload: { err }
+        })
+      })
+  }
+
+export const getTopics = () =>
+  dispatch => {
+    dispatch({ type: TOPICS_REQUEST });
+
+    study
+      .get(`/quizzes/topics`)
+      .then( res => {
+        dispatch({
+          type: TOPICS_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch( err => {
+        dispatch({
+          type: TOPICS_FAILURE,
           payload: { err }
         })
       })

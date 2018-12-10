@@ -5,6 +5,7 @@ import {
   login,
   getQuizzes,
   getQuizz,
+  getTopics,
   getQuestions,
   postQuizz,
 } from '../store/actions';
@@ -16,8 +17,9 @@ class DummyView extends React.Component {
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
     // this.props.getQuestions(1);
-    // this.props.postQuizz({ title: 'Redux-Thunk', topic: 'Redux'}, token);
+    // this.props.postQuizz({ title: 'Redux-Thunk', topic: 'JS' }, token);
     // this.props.getQuizz(1);
+    this.props.getTopics();
   }
 
   render() {
@@ -38,6 +40,7 @@ export default connect(mapStateToProps, {
   login,
   getQuizzes,
   getQuizz,
+  getTopics,
   getQuestions,
   postQuizz,
 })(DummyView);
