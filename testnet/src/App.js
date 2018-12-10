@@ -1,11 +1,39 @@
-import React from 'react';
+import React from "react";
+import { withRouter, Route, NavLink } from "react-router-dom";
+import dummydata from "./dummydata";
 
-const App = () => {
-  return (
-    <div>
-      Welcome to TestNet
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    isAuthed: false
+  };
+  componentDidMount() {
+    if (localStorage.getItem("token")) {
+      this.setState({ isAuthed: true });
+    }
+  }
+  render() {
+    const { isAuthed } = this.state;
+    return (
+      <div>
+        <nav>
+          <NavLink to="/">Home</NavLink>
+        </nav>
+        Welcome to TestNet
+        {isAuthed && (
+          <input
+            type="text"
+            name="comment"
+            placeholder="logged in comment area"
+          />
+        )}
+        <Route
+          exact
+          path="/"
+          render={props => <QuizView {...props} quizzes={dummydata} />}
+        />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);
