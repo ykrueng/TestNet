@@ -1,11 +1,11 @@
 import React from "react";
-import { withRouter, Route, NavLink } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import dummydata from "./dummydata";
 import NavBar from "./components/NavBar";
-import QuizList from "./components/Quiz/QuizList";
-import PostList from "./components/post/PostList";
+import QuizView from "./views/QuizView";
+import PostList from "./components/Post/PostList";
 import { login, register } from "./store/actions";
 
 class App extends React.Component {
@@ -22,6 +22,7 @@ class App extends React.Component {
     // })
   }
   render() {
+    console.log(dummydata);
     const { isAuthed } = this.state;
     return (
       <div>
@@ -37,21 +38,19 @@ class App extends React.Component {
         <Route
           exact
           path="/quizzes"
-          render={props => <QuizList {...props} quizzes={dummydata} />}
+          render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
         />
-        {/* <Route
-          path="/quizzes/:id"
-          render={props => <QuizView {...props} quizzes={dummydata} />}
-        /> */}
         <Route exact path="/posts" render={props => <PostList {...props} />} />
       </div>
     );
   }
 }
 
-export default connect(
-  state => ({
-    loggedIn: state.loginReducer.loggedIn
-  }),
-  { login, register }
-)(withRouter(App));
+export default withRouter(
+  connect(
+    state => ({
+      loggedIn: state.loginReducer.loggedIn
+    }),
+    { login, register }
+  )(App)
+);

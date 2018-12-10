@@ -1,10 +1,14 @@
 import React from "react";
-// import QuizList from "../components/quizz/QuizzList";
+import QuizList from "../components/Quiz/QuizList";
 
-// export const QuizView = props => {
-//   return (
-//     <div>
-//       <QuizList quizzes={props.quizzes} />
-//     </div>
-//   );
-// };
+class QuizView extends React.Component {
+  render() {
+    return (
+      <div>
+        <QuizList quizzes={this.props.quizzes} />
+      </div>
+    );
+  }
+}
+
+export default QuizView;
