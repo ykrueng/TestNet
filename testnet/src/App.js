@@ -1,11 +1,11 @@
 import React from "react";
 import { withRouter, Route, NavLink } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 import dummydata from "./dummydata";
 import QuizList from "./components/Quiz/QuizList";
 import PostList from "./components/post/PostList";
-import { login, register } from './store/actions';
+import { login, register } from "./store/actions";
 
 class App extends React.Component {
   state = {
@@ -15,10 +15,10 @@ class App extends React.Component {
     if (localStorage.getItem("token")) {
       this.setState({ isAuthed: true });
     }
-    this.props.login({
-      email: "boom@cooltable.io",
-      password: "password",
-    })
+    // this.props.login({
+    //   email: "boom@cooltable.io",
+    //   password: "password",
+    // })
   }
   render() {
     const { isAuthed } = this.state;
@@ -52,7 +52,7 @@ class App extends React.Component {
 
 export default connect(
   state => ({
-    loggedIn: state.loginReducer.loggedIn,
+    loggedIn: state.loginReducer.loggedIn
   }),
-  {login, register}
+  { login, register }
 )(withRouter(App));
