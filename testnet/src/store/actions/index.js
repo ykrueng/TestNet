@@ -12,6 +12,10 @@ export const QUIZZES_REQUEST = "QUIZZES_REQUEST";
 export const QUIZZES_SUCCESS = "QUIZZES_SUCCESS";
 export const QUIZZES_FAILURE = "QUIZZES_FAILURE";
 
+export const POST_QUIZZ_REQUEST = "POST_QUIZZ_REQUEST";
+export const POST_QUIZZ_SUCCESS = "POST_QUIZZ_SUCCESS";
+export const POST_QUIZZ_FAILURE = "POST_QUIZZ_FAILURE";
+
 export const QUESTIONS_REQUEST = "QUESTIONS_REQUEST";
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
 export const QUESTIONS_FAILURE = "QUESTIONS_FAILURE";
@@ -47,7 +51,7 @@ export const login = (user) =>
       .then( res => {
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: { token: res.token }
+          payload: { token: res.data.token }
         })
       })
       .catch( err => {
@@ -73,6 +77,27 @@ export const getQuizzes = () =>
       .catch( err => {
         dispatch({
           type: QUIZZES_FAILURE,
+          payload: { err }
+        })
+      })
+  }
+
+  export const postQuizz = (quizz, token) =>
+  dispatch => {
+    dispatch({ type: POST_QUIZZ_REQUEST });
+
+    study
+      .post('/quizzes', quizz, { authorization: token } )
+      .then( res => {
+        console.log(res);
+        dispatch({
+          type: POST_QUIZZ_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch( err => {
+        dispatch({
+          type: POST_QUIZZ_FAILURE,
           payload: { err }
         })
       })
