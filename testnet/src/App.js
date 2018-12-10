@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter, Route, NavLink } from "react-router-dom";
 import dummydata from "./dummydata";
+import QuizList from "./components/Quiz/QuizList";
+import PostList from "./components/Post/PostList";
 
 class App extends React.Component {
   state = {
@@ -28,9 +30,14 @@ class App extends React.Component {
         )}
         <Route
           exact
-          path="/"
-          render={props => <QuizView {...props} quizzes={dummydata} />}
+          path="/quizzes"
+          render={props => <QuizList {...props} quizzes={dummydata} />}
         />
+        {/* <Route
+          path="/quizzes/:id"
+          render={props => <QuizView {...props} quizzes={dummydata} />}
+        /> */}
+        <Route exact path="/posts" render={props => <PostList {...props} />} />
       </div>
     );
   }
