@@ -17,17 +17,11 @@ class App extends React.Component {
     if (localStorage.getItem("token")) {
       this.setState({ isAuthed: true });
     }
-    // this.props.login({
-    //   email: "boom@cooltable.io",
-    //   password: "password",
-    // })
-    console.log(dummydata);
   }
   render() {
-    console.log(dummydata);
+    return (
+      <div>
         <NavBar />
-
-
         {isAuthed && (
           <input
             type="text"
@@ -35,7 +29,9 @@ class App extends React.Component {
             placeholder="logged in comment area"
           />
         )}
+
         <Route
+          exact
           path="/"
           render={() => (
             <h1>Welcome to our Fancy Special Exciting Homepage!</h1>
@@ -43,28 +39,20 @@ class App extends React.Component {
         />
         <Route
           exact
-          exact
+          path="/quizzes"
           render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
-          render={() => (
+        />
+
         <Route
           path="/quizzes/:title"
           render={props => <Quiz {...props} quizzes={dummydata.quizzes} />}
         />
-          exact
+
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
-          path="/quizzes"
-          render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
-        />
-        <Route
-          path="/quizzes/:title"
-export default withRouter(
-  connect(
-    state => ({
-      loggedIn: state.loginReducer.loggedIn
-    }),
-    { login, register }
-  )(App)
-);
+        <Route exact path="/posts" render={props => <PostList {...props} />} />
+      </div>
+    );
+  }
 }
 
 export default withRouter(
