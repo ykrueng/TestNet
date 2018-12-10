@@ -10,9 +10,7 @@ const dummydata = {
       questions: [
         {
           question: "Is this a test question?",
-          answer1: "true",
-          answer2: "false",
-          answer3: "Idk stop yelling at me"
+          answers: ["true", "false", "Idk stop yelling at me"]
         }
       ]
     }

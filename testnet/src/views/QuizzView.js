@@ -1,15 +1,10 @@
 import React from "react";
+import QuizList from "../components/quizz/QuizzList";
 
 export const QuizView = props => {
   return (
     <div>
-      {props.quizzes.map(quiz => (
-        <div>
-          <h1>{quiz.title}</h1>
-          <p>{quiz.author}</p>
-        </div>
-      ))}
-      <h1>Quiz Name Here</h1>
+      <QuizList quizzes={props.quizzes} />
     </div>
   );
 };
