@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import QuizView from "./views/QuizView";
 import Quiz from "./components/Quiz/Quiz";
 import PostList from "./components/Post/PostList";
+import DummyView from "./views/DummyView";
 import { login, register } from "./store/actions";
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
     }
   }
   render() {
+    const { isAuthed } = this.state;
     return (
       <div>
         <NavBar />
