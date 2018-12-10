@@ -3,6 +3,7 @@ import { withRouter, Route, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 import dummydata from "./dummydata";
+import NavBar from "./components/NavBar";
 import QuizList from "./components/Quiz/QuizList";
 import PostList from "./components/post/PostList";
 import { login, register } from "./store/actions";
@@ -24,10 +25,8 @@ class App extends React.Component {
     const { isAuthed } = this.state;
     return (
       <div>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-        </nav>
-        Welcome to TestNet
+        <NavBar />
+
         {isAuthed && (
           <input
             type="text"
