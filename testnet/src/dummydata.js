@@ -3,10 +3,9 @@ const dummydata = {
     {
       id: 0,
       title: "Is this a test?",
-      author: "Holden",
-      time_limit_seconds: 100,
       votes: 0,
-      // topic_id: "test",
+      author: "Holden",
+      topic: "test",
       questions: [
         {
           question: "Is this a test question?",
@@ -19,7 +18,26 @@ const dummydata = {
       title: "ES6",
       votes: 0,
       author: "lauren",
-      topic: "JavaScript"
+      topic: "JavaScript",
+      questions: [
+        {
+          question: "How about this second quiz?",
+          answers: [
+            "This works",
+            "This is broken",
+            "You messed this up bigtime",
+            "What was the question?"
+          ]
+        },
+        {
+          question: "This is another question?",
+          answers: ["Yes", "No", "Maybe"]
+        },
+        {
+          question: "Is even this question showing?",
+          answers: ["Yay!", "Yes but it's ugly", "Nope, you messed up bigtime!"]
+        }
+      ]
     }
   ]
 };
