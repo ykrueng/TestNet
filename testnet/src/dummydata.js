@@ -8,6 +8,7 @@ const dummydata = {
       topic: "test",
       questions: [
         {
+          id: 1,
           question: "Is this a test question?",
           answers: ["true", "false", "Idk stop yelling at me"]
         }
@@ -21,6 +22,7 @@ const dummydata = {
       topic: "JavaScript",
       questions: [
         {
+          id: 1,
           question: "How about this second quiz?",
           answers: [
             "This works",
@@ -30,10 +32,12 @@ const dummydata = {
           ]
         },
         {
+          id: 2,
           question: "This is another question?",
           answers: ["Yes", "No", "Maybe"]
         },
         {
+          id: 3,
           question: "Is even this question showing?",
           answers: ["Yay!", "Yes but it's ugly", "Nope, you messed up bigtime!"]
         }
