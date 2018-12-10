@@ -21,13 +21,12 @@ class App extends React.Component {
     //   email: "boom@cooltable.io",
     //   password: "password",
     // })
+    console.log(dummydata);
   }
   render() {
     console.log(dummydata);
-    const { isAuthed } = this.state;
-    return (
-      <div>
         <NavBar />
+
 
         {isAuthed && (
           <input
@@ -37,7 +36,6 @@ class App extends React.Component {
           />
         )}
         <Route
-          exact
           path="/"
           render={() => (
             <h1>Welcome to our Fancy Special Exciting Homepage!</h1>
@@ -45,17 +43,28 @@ class App extends React.Component {
         />
         <Route
           exact
+          exact
+          render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
+          render={() => (
+        <Route
+          path="/quizzes/:title"
+          render={props => <Quiz {...props} quizzes={dummydata.quizzes} />}
+        />
+          exact
+        <Route exact path="/dummy" render={props => <DummyView {...props} />} />
           path="/quizzes"
           render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
         />
         <Route
           path="/quizzes/:title"
-          render={props => <Quiz {...props} quizzes={dummydata.quizzes} />}
-        />
-        <Route exact path="/posts" render={props => <PostList {...props} />} />
-      </div>
-    );
-  }
+export default withRouter(
+  connect(
+    state => ({
+      loggedIn: state.loginReducer.loggedIn
+    }),
+    { login, register }
+  )(App)
+);
 }
 
 export default withRouter(

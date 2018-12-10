@@ -5,7 +5,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-} from '../actions'
+} from '../actions';
 
 const initialState = {
   loggedIn: false,
