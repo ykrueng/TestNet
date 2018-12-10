@@ -2,7 +2,7 @@ const dummydata = {
   quizzes: [
     {
       id: 0,
-      title: "Is this a test?",
+      title: "Test",
       votes: 0,
       author: "Holden",
       topic: "test",
