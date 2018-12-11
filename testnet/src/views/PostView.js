@@ -11,4 +11,4 @@ class PostView extends React.Component {
   }
 }
 
-export default Postview;
+export default PostView;
