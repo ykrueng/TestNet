@@ -16,7 +16,7 @@ class QuestionPage extends React.Component {
   render() {
     const id = this.props.match.params.questionId;
     const question = this.props.questions[id - 1];
-    if (!question) {
+    if (!question || id > this.props.questions.length) {
       return <h1>There aren't any questions!</h1>;
     }
     return (
