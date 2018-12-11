@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { getQuestions } from "../../store/actions/quizzActions";
 
 class QuestionPage extends React.Component {
   state = {};
@@ -37,4 +39,14 @@ class QuestionPage extends React.Component {
   }
 }
 
-export default QuestionPage;
+const mapStateToProps = state => {
+  const { quizzReducer } = state;
+  return {
+    questions: quizzReducer.questions
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getQuestions }
+)(QuestionPage);
