@@ -2,6 +2,9 @@ import React from "react";
 import QuizList from "../components/Quiz/QuizList";
 import { getQuizzes } from "../store/actions/quizzActions";
 import { connect } from "react-redux";
+import Quiz from "../components/Quiz/Quiz";
+import { Route } from "react-router-dom";
+
 class QuizView extends React.Component {
   componentDidMount() {
     this.props.getQuizzes();
@@ -17,7 +20,6 @@ class QuizView extends React.Component {
 
 const mapStateToProps = state => {
   const { quizzReducer } = state;
-  console.log(state);
   return {
     quizzes: quizzReducer.quizzes
   };
