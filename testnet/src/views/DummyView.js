@@ -8,6 +8,7 @@ import {
   getTopics,
   getQuestions,
   postQuizz,
+  postQuestion,
   getPosts,
   getPost,
 } from '../store/actions';
@@ -23,6 +24,12 @@ class DummyView extends React.Component {
     // this.props.postQuizz({ title: 'Flexbox', topic: 'CSS' }, token);
     // this.props.getQuizz(1);
     // this.props.getTopics();
+    // this.props.postQuestion(82, {
+    //   question: 'More Test Question?',
+    //   option1: 'maybe',
+    //   option2: 'nope',
+    //   answer: 2,
+    // },token);
     this.props.getPosts();
   }
 
@@ -47,6 +54,7 @@ export default connect(mapStateToProps, {
   getTopics,
   getQuestions,
   postQuizz,
+  postQuestion,
   getPosts,
   getPost,
 })(DummyView);

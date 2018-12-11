@@ -1,5 +1,8 @@
 import study from "../../apis/react-study";
 
+/*
+  Authentication Action Types
+*/
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
@@ -8,6 +11,9 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
+/*
+  Quizz Action Types
+*/
 export const QUIZZES_REQUEST = "QUIZZES_REQUEST";
 export const QUIZZES_SUCCESS = "QUIZZES_SUCCESS";
 export const QUIZZES_FAILURE = "QUIZZES_FAILURE";
@@ -28,8 +34,12 @@ export const QUESTIONS_REQUEST = "QUESTIONS_REQUEST";
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
 export const QUESTIONS_FAILURE = "QUESTIONS_FAILURE";
 
+export const POST_QUESTION_REQUEST = "POST_QUESTION_REQUEST";
+export const POST_QUESTION_SUCCESS = "POST_QUESTION_SUCCESS";
+export const POST_QUESTION_FAILURE = "POST_QUESTION_FAILURE";
+
 /*
-  actions type for POST
+  Post Action Types
 */
 export const POSTS_REQUEST = "POSTS_REQUEST";
 export const POSTS_SUCCESS = "POSTS_SUCCESS";
@@ -47,6 +57,9 @@ export const COMMENT_REQUEST = "COMMENT_REQUEST";
 export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
 export const COMMENT_FAILURE = "COMMENT_FAILURE";
 
+/*
+  Authentication Action Creators
+*/
 export const register = user => dispatch => {
   dispatch({ type: REGISTER_REQUEST });
 
@@ -87,6 +100,9 @@ export const login = user => dispatch => {
     });
 };
 
+/*
+  Quizz Action Creators
+*/
 export const getQuizzes = () => dispatch => {
   dispatch({ type: QUIZZES_REQUEST });
 
@@ -187,9 +203,33 @@ export const getQuestions = id => dispatch => {
     });
 };
 
+export const postQuestion = (quizzId, question, token) => dispatch => {
+  dispatch({ type: POST_QUIZZ_REQUEST });
+
+  study({
+      method: 'post',
+      url: `/quizzes/${quizzId}/questions`,
+      data: question,
+      headers: { authorization:token }
+    })
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: POST_QUIZZ_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: POST_QUIZZ_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
 /*
-    Post action creators
-  */
+  Post Action Creators
+*/
 export const getPosts = () => dispatch => {
   dispatch({ type: POSTS_REQUEST });
 

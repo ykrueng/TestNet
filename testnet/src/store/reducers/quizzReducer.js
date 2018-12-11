@@ -14,6 +14,9 @@ import {
   QUESTIONS_REQUEST,
   QUESTIONS_SUCCESS,
   QUESTIONS_FAILURE,
+  POST_QUESTION_REQUEST,
+  POST_QUESTION_SUCCESS,
+  POST_QUESTION_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -26,6 +29,7 @@ const initialState = {
   fetchingQuizz: false,
   fetchingTopics: false,
   fetchingQuestions: false,
+  postingQuestion: false,
   error: null,
 }
 
@@ -114,6 +118,23 @@ export const quizzReducer = (state=initialState, action) => {
       return {
         ...state,
         postingQuizz: false,
+        error: action.payload,
+      }
+    case POST_QUESTION_REQUEST:
+      return {
+        ...state,
+        postingQuestion: true,
+      }
+    case POST_QUESTION_SUCCESS:
+      return {
+        ...state,
+        postingQuestion: false,
+        // TODO: add res to the state if needed
+      }
+    case POST_QUESTION_FAILURE:
+      return {
+        ...state,
+        postingQuestion: false,
         error: action.payload,
       }
     default:
