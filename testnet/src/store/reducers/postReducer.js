@@ -8,6 +8,9 @@ import {
   POST_POST_REQUEST,
   POST_POST_SUCCESS,
   POST_POST_FAILURE,
+  PATCH_POST_SUCCESS,
+  PATCH_POST_FAILURE,
+  PATCH_POST_REQUEST,
   COMMENTS_REQUEST,
   COMMENTS_SUCCESS,
   COMMENTS_FAILURE,
@@ -23,6 +26,7 @@ const initialState = {
   comment: null,
   fetchingPosts: false,
   fetchingPost: false,
+  addingPost: false,
   updatingPost: false,
   fetchingComments: false,
   fetchingComment: false,
@@ -68,15 +72,32 @@ export const postReducer = (state=initialState, action) => {
     case POST_POST_REQUEST:
       return {
         ...state,
-        updatingPost: true,
+        addingPost: true,
       }
     case POST_POST_SUCCESS:
+      return {
+        ...state,
+        addingPost: false,
+        // TODO: add res to the state if needed
+      }
+    case POST_POST_FAILURE:
+      return {
+        ...state,
+        addingPost: false,
+        error: action.payload,
+      }
+    case PATCH_POST_REQUEST:
+      return {
+        ...state,
+        updatingPost: true,
+      }
+    case PATCH_POST_SUCCESS:
       return {
         ...state,
         updatingPost: false,
         // TODO: add res to the state if needed
       }
-    case POST_POST_FAILURE:
+    case PATCH_POST_FAILURE:
       return {
         ...state,
         updatingPost: false,

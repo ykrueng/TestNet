@@ -138,7 +138,7 @@ export const deleteQuizz = (quizzId, token) => dispatch => {
   study({
       method: 'delete',
       url: `/quizzes/${quizzId}`,
-      headers: { authorization:token }
+      headers: { authorization: token }
     })
     .then(res => {
       console.log(res);

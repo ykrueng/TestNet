@@ -15,6 +15,10 @@ export const POST_POST_REQUEST = "POST_POST_REQUEST";
 export const POST_POST_SUCCESS = "POST_POST_SUCCESS";
 export const POST_POST_FAILURE = "POST_POST_FAILURE";
 
+export const PATCH_POST_REQUEST = "PATCH_POST_REQUEST";
+export const PATCH_POST_SUCCESS = "PATCH_POST_SUCCESS";
+export const PATCH_POST_FAILURE = "PATCH_POST_FAILURE";
+
 export const COMMENTS_REQUEST = "COMMENTS_REQUEST";
 export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS";
 export const COMMENTS_FAILURE = "COMMENTS_FAILURE";
@@ -84,6 +88,29 @@ export const postPost = (post, token) => dispatch => {
     .catch(err => {
       dispatch({
         type: POST_POST_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const updatePost = (postId, post, token) => dispatch => {
+  dispatch({ type: PATCH_POST_REQUEST });
+
+  study({
+    method: 'patch',
+    url: `/posts/${postId}`,
+    data: post,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: PATCH_POST_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PATCH_POST_FAILURE,
         payload: { err }
       });
     });

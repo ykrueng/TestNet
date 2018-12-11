@@ -16,6 +16,7 @@ import {
   getPosts,
   getPost,
   postPost,
+  updatePost,
 } from '../store/actions';
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTM1NDk0LCJleHAiOjE1NzYwOTMwOTR9.qcXR5sKpM_F36kbkT3Zd1_S6BtxR0NSXkLOIrGbNrvo";
@@ -37,13 +38,15 @@ class DummyView extends React.Component {
     //   option2: 'nope',
     //   answer: 2,
     // },token);
-    // this.props.deleteQuizz(82, );
+    // this.props.deleteQuizz(76, token);
     // this.props.getPosts();
     // this.props.getPosts();
     // this.props.postPost({
     //   title: 'Boom Boom Post',
     //   body: 'In an ideal design world, we should be able to choose the placeholder text we want quickly and easily. To be able to select industry-specific placeholder text suitable for a wide range of design projects would be an absolute boon. For example, say you have a client in the healthcare industry – wouldn’t it be great to be able to quickly drop in some text even vaguely related to their industry? Although it’s possible to replace the default placeholder text in InDesign by creating your own .txt file (name it placeholder.txt and drop it into the InDesign application folder) it’s a shame you can’t select from a few custom options. (Interestingly, if you hold down Ctrl/Cmd whilst selecting ‘Fill with Placeholder Text’ a range of languages are available Hebrew, Japanese, Chinese etc.). It would be nice if Adobe considered expanding on this simple but frustratingly undervalued tool – when they’re asking for $49.99 a month, this is exactly the helpful tool they could be providing via their cloud.'
     // }, token);
+
+    // this.props.updatePost(3,{title: 'Boom Boom - Updated'}, token);
   }
 
   render() {
@@ -75,4 +78,5 @@ export default connect(mapStateToProps, {
   deleteQuizz,
   deleteQuestion,
   postPost,
+  updatePost,
 })(DummyView);
