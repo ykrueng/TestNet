@@ -12,8 +12,7 @@ class QuestionPage extends React.Component {
   };
 
   render() {
-    const id = this.props.match.params.id;
-    console.log(this.props);
+    const id = this.props.match.params.questionId;
     const question = this.props.questions[id - 1];
     return (
       <Form>
