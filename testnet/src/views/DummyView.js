@@ -8,6 +8,7 @@ import {
   getTopics,
   getQuestions,
   postQuizz,
+  updateQuizz,
   postQuestion,
   deleteQuizz,
   deleteQuestion,
@@ -23,7 +24,8 @@ class DummyView extends React.Component {
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
     // this.props.getQuestions(1);
-    this.props.postQuizz({ title: 'TestNet - Quizz I', topic: 'JavaScript' }, token);
+    // this.props.postQuizz({ title: 'TestNet - Quizz I', topic: 'JavaScript' }, token);
+    this.props.updateQuizz(82, {title: 'Updated - Quizz'}, token);
     // this.props.getQuizz(1);
     // this.props.getTopics();
     // this.props.postQuestion(82, {
@@ -57,6 +59,7 @@ export default connect(mapStateToProps, {
   getTopics,
   getQuestions,
   postQuizz,
+  updateQuizz,
   postQuestion,
   getPosts,
   getPost,

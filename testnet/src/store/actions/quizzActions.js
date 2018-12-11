@@ -15,6 +15,10 @@ export const POST_QUIZZ_REQUEST = "POST_QUIZZ_REQUEST";
 export const POST_QUIZZ_SUCCESS = "POST_QUIZZ_SUCCESS";
 export const POST_QUIZZ_FAILURE = "POST_QUIZZ_FAILURE";
 
+export const PATCH_QUIZZ_REQUEST = "PATCH_QUIZZ_REQUEST";
+export const PATCH_QUIZZ_SUCCESS = "PATCH_QUIZZ_SUCCESS";
+export const PATCH_QUIZZ_FAILURE = "PATCH_QUIZZ_FAILURE";
+
 export const DELETE_QUIZZ_REQUEST = "DELETE_QUIZZ_REQUEST";
 export const DELETE_QUIZZ_SUCCESS = "DELETE_QUIZZ_SUCCESS";
 export const DELETE_QUIZZ_FAILURE = "DELETE_QUIZZ_FAILURE";
@@ -76,25 +80,6 @@ export const getQuizz = quizzId => dispatch => {
     });
 };
 
-export const getTopics = () => dispatch => {
-  dispatch({ type: TOPICS_REQUEST });
-
-  study
-    .get(`/quizzes/topics`)
-    .then(res => {
-      dispatch({
-        type: TOPICS_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: TOPICS_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
 export const postQuizz = (quizz, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
@@ -119,6 +104,30 @@ export const postQuizz = (quizz, token) => dispatch => {
     });
 };
 
+export const updateQuizz = (quizzId, quizz, token) => dispatch => {
+  dispatch({ type: PATCH_QUIZZ_REQUEST });
+
+  study({
+      method: 'patch',
+      url: `/quizzes/${quizzId}/edit`,
+      data: quizz,
+      headers: { authorization:token }
+    })
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: PATCH_QUIZZ_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PATCH_QUIZZ_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
 export const deleteQuizz = (quizzId, token) => dispatch => {
   dispatch({ type: DELETE_QUIZZ_REQUEST });
 
@@ -137,6 +146,25 @@ export const deleteQuizz = (quizzId, token) => dispatch => {
     .catch(err => {
       dispatch({
         type: DELETE_QUIZZ_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const getTopics = () => dispatch => {
+  dispatch({ type: TOPICS_REQUEST });
+
+  study
+    .get(`/quizzes/topics`)
+    .then(res => {
+      dispatch({
+        type: TOPICS_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: TOPICS_FAILURE,
         payload: { err }
       });
     });

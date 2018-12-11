@@ -5,6 +5,9 @@ import {
   QUIZZ_REQUEST,
   QUIZZ_SUCCESS,
   QUIZZ_FAILURE,
+  PATCH_QUIZZ_REQUEST,
+  PATCH_QUIZZ_SUCCESS,
+  PATCH_QUIZZ_FAILURE,
   TOPICS_REQUEST,
   TOPICS_SUCCESS,
   TOPICS_FAILURE,
@@ -33,6 +36,7 @@ const initialState = {
   questionPosted: false,
   fetchingQuizzes: false,
   fetchingQuizz: false,
+  updatingQuizz: false,
   fetchingTopics: false,
   fetchingQuestions: false,
   postingQuestion: false,
@@ -126,6 +130,23 @@ export const quizzReducer = (state=initialState, action) => {
       return {
         ...state,
         postingQuizz: false,
+        error: action.payload,
+      }
+    case PATCH_QUIZZ_REQUEST:
+      return {
+        ...state,
+        updatingQuizz: true,
+      }
+    case PATCH_QUIZZ_SUCCESS:
+      return {
+        ...state,
+        updatingQuizz: false,
+        // TODO: add res to the state if needed
+      }
+    case PATCH_QUIZZ_FAILURE:
+      return {
+        ...state,
+        updatingQuizz: false,
         error: action.payload,
       }
     case DELETE_QUIZZ_REQUEST:
