@@ -6,23 +6,35 @@ import { getQuestions } from "../../store/actions/quizzActions";
 class QuestionPage extends React.Component {
   state = {};
 
+  componentDidMount() {
+    const id = this.props.match.params.questionId;
+    this.props.getQuestions(id);
+  }
+
   handleChange = (e, { value }) => this.setState({ value });
 
   nextQuestion = id => {
+    id = parseInt(id, 10);
+    if (id > this.props.questions.length) {
+      this.props.history.push(`/${this.props.match.url}/review`);
+    }
+    let quiz = this.props.match.params.id;
     this.setState({ value: "" });
-    this.props.history.push(`/${this.props.match.url}/${id + 1}`);
+    this.props.history.push(`/quizzes/${quiz}/${id + 1}`);
   };
 
   render() {
+    // console.log(this.props.match.url);
     const id = this.props.match.params.questionId;
+    // console.log(id);
     const question = this.props.questions[id - 1];
     if (!question || id > this.props.questions.length) {
       return <h1>There aren't any questions!</h1>;
     }
     return (
       <Form>
-        <p>{`${question.id}.  ${question.question}`}</p>
-        {question.answers.map((ans, index) => (
+        <p>{`${id}.  ${question.question}`}</p>
+        {question.options.map((ans, index) => (
           <Form.Radio
             key={index}
             label={ans}

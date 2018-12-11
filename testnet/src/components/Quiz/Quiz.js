@@ -6,10 +6,12 @@ import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 class Quiz extends React.Component {
   componentDidMount() {
     this.props.getQuizz(this.props.match.params.id);
+    this.props.getQuestions(this.props.match.params.id);
   }
   render() {
     const id = this.props.match.params.id;
-    const { quizz } = this.props;
+    const { quizz, questions } = this.props;
+    console.log(this.props.questions);
 
     return (
       <div className="quiz">
@@ -26,7 +28,9 @@ class Quiz extends React.Component {
           content="Begin Quiz"
           basic
           color="black"
-          onClick={() => this.props.history.push(`/quizzes/${id}/1`)}
+          onClick={() =>
+            this.props.history.push(`/quizzes/${id}/${questions[0].id}`)
+          }
         />
       </div>
     );

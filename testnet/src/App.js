@@ -43,12 +43,14 @@ class App extends React.Component {
           path="/quizzes"
           render={props => <QuizView {...props} />}
         />
+
         <Route
           exact
           path="/quizzes/:id"
           render={props => <Quiz {...props} />}
         />
         <Route
+          exact
           path="/quizzes/:id/:questionId"
           render={props => <QuestionPage {...props} />}
         />
