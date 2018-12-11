@@ -6,6 +6,7 @@ import dummydata from "./dummydata";
 import NavBar from "./components/NavBar";
 import QuizView from "./views/QuizView";
 import Quiz from "./components/Quiz/Quiz";
+import QuestionPage from "./components/Quiz/QuestionPage";
 import PostList from "./components/Post/PostList";
 import DummyView from "./views/DummyView";
 import { login, register } from "./store/actions";
@@ -46,11 +47,19 @@ class App extends React.Component {
         />
 
         <Route
+          exact
           path="/quizzes/:title"
           render={props => <Quiz {...props} quizzes={dummydata.quizzes} />}
         />
+        <Route
+          path="/quizzes/:title/:questionId"
+          render={props => (
+            <QuestionPage {...props} quizzes={dummydata.quizzes} />
+          )}
+        />
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
+
         <Route exact path="/posts" render={props => <PostList {...props} />} />
       </div>
     );
