@@ -11,6 +11,10 @@ export const POST_REQUEST = "POST_REQUEST";
 export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAILURE = "POST_FAILURE";
 
+export const POST_POST_REQUEST = "POST_POST_REQUEST";
+export const POST_POST_SUCCESS = "POST_POST_SUCCESS";
+export const POST_POST_FAILURE = "POST_POST_FAILURE";
+
 export const COMMENTS_REQUEST = "COMMENTS_REQUEST";
 export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS";
 export const COMMENTS_FAILURE = "COMMENTS_FAILURE";
@@ -57,6 +61,29 @@ export const getPost = postId => dispatch => {
     .catch(err => {
       dispatch({
         type: POST_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const postPost = (post, token) => dispatch => {
+  dispatch({ type: POST_POST_REQUEST });
+
+  study({
+    method: 'post',
+    url: '/posts',
+    data: post,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: POST_POST_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: POST_POST_FAILURE,
         payload: { err }
       });
     });
