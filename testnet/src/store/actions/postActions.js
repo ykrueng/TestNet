@@ -31,6 +31,18 @@ export const COMMENT_REQUEST = "COMMENT_REQUEST";
 export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
 export const COMMENT_FAILURE = "COMMENT_FAILURE";
 
+export const POST_COMMENT_REQUEST = "POST_COMMENT_REQUEST";
+export const POST_COMMENT_SUCCESS = "POST_COMMENT_SUCCESS";
+export const POST_COMMENT_FAILURE = "POST_COMMENT_FAILURE";
+
+export const PATCH_COMMENT_REQUEST = "PATCH_POCOMMENTEQUEST";
+export const PATCH_COMMENT_SUCCESS = "PATCH_POCOMMENTUCCESS";
+export const PATCH_COMMENT_FAILURE = "PATCH_POCOMMENTAILURE";
+
+export const DELETE_COMMENT_REQUEST = "DELETE_COMMENT_REQUEST";
+export const DELETE_COMMENT_SUCCESS = "DELETE_COMMENT_SUCCESS";
+export const DELETE_COMMENT_FAILURE = "DELETE_COMMENT_FAILURE";
+
 
 
 /*
@@ -175,6 +187,74 @@ export const getComment = (postId, commentId) => dispatch => {
     .catch(err => {
       dispatch({
         type: COMMENT_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const postComment = (postId, comment, token) => dispatch => {
+  dispatch({ type: POST_COMMENT_REQUEST });
+
+  study({
+    method: 'post',
+    url: `/posts/${postId}/comments`,
+    data: comment,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: POST_COMMENT_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: POST_COMMENT_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const updateComment = (postId, commentId, comment, token) => dispatch => {
+  dispatch({ type: PATCH_COMMENT_REQUEST });
+
+  study({
+    method: 'patch',
+    url: `/posts/${postId}/comments/${commentId}`,
+    data: comment,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: PATCH_COMMENT_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PATCH_COMMENT_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const deleteComment = (postId, commentId, token) => dispatch => {
+  dispatch({ type: DELETE_COMMENT_REQUEST });
+
+  study({
+    method: 'delete',
+    url: `/posts/${postId}/comments/${commentId}`,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: DELETE_COMMENT_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: DELETE_COMMENT_FAILURE,
         payload: { err }
       });
     });

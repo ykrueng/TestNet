@@ -20,6 +20,15 @@ import {
   COMMENT_REQUEST,
   COMMENT_FAILURE,
   COMMENT_SUCCESS,
+  POST_COMMENT_REQUEST,
+  POST_COMMENT_SUCCESS,
+  POST_COMMENT_FAILURE,
+  PATCH_COMMENT_SUCCESS,
+  PATCH_COMMENT_FAILURE,
+  PATCH_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
 } from '../actions';
 
 const initialState = {
@@ -34,6 +43,9 @@ const initialState = {
   deletingPost: false,
   fetchingComments: false,
   fetchingComment: false,
+  addingComment: false,
+  updatingComment: false,
+  deletingComment: false,
   error: null,
 }
 
@@ -156,6 +168,57 @@ export const postReducer = (state=initialState, action) => {
       return {
         ...state,
         fetchingComment: false,
+        error: action.payload,
+      }
+      case POST_COMMENT_REQUEST:
+      return {
+        ...state,
+        addingComment: true,
+      }
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        addingComment: false,
+        // TODO: add res to the state if needed
+      }
+    case POST_COMMENT_FAILURE:
+      return {
+        ...state,
+        addingComment: false,
+        error: action.payload,
+      }
+    case PATCH_COMMENT_REQUEST:
+      return {
+        ...state,
+        updatingComment: true,
+      }
+    case PATCH_COMMENT_SUCCESS:
+      return {
+        ...state,
+        updatingComment: false,
+        // TODO: add res to the state if needed
+      }
+    case PATCH_COMMENT_FAILURE:
+      return {
+        ...state,
+        updatingComment: false,
+        error: action.payload,
+      }
+    case DELETE_COMMENT_REQUEST:
+      return {
+        ...state,
+        deletingComment: true,
+      }
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        deletingComment: false,
+        // TODO: add res to the state if needed
+      }
+    case DELETE_COMMENT_FAILURE:
+      return {
+        ...state,
+        deletingComment: false,
         error: action.payload,
       }
     default:

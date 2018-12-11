@@ -18,6 +18,9 @@ import {
   postPost,
   updatePost,
   deletePost,
+  postComment,
+  updateComment,
+  deleteComment,
 } from '../store/actions';
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTM1NDk0LCJleHAiOjE1NzYwOTMwOTR9.qcXR5sKpM_F36kbkT3Zd1_S6BtxR0NSXkLOIrGbNrvo";
@@ -31,7 +34,7 @@ class DummyView extends React.Component {
     // this.props.postQuizz({ title: 'TestNet - Quizz I', topic: 'JavaScript' }, token);
     // this.props.updateQuestion(82,2,{question: 'This is the question?'},token);
     // this.props.updateQuizz(82, {title: 'Updated - Quizz'}, token);
-    this.props.getQuizz(111);
+    // this.props.getQuizz(111);
     // this.props.getTopics();
     // this.props.postQuestion(82, {
     //   question: 'More Test Question?',
@@ -50,16 +53,16 @@ class DummyView extends React.Component {
     // this.props.deletePost(4, token);
 
     // this.props.updatePost(3,{title: 'Boom Boom - Updated'}, token);
+    // this.props.postComment(3, {text: 'This is my second comment'}, token);
+    // this.props.updateComment(3, 1, {text: 'This is my updated comment'}, token)
+    // this.props.deleteComment(3,1, token)
   }
 
   render() {
     return (
       <div>
         Dummy View
-        {
-          this.props.quizz && <div>{this.props.quizz.author.username}</div>
-        }
-      </div>
+       </div>
     );
   }
 }
@@ -87,4 +90,7 @@ export default connect(mapStateToProps, {
   postPost,
   updatePost,
   deletePost,
+  postComment,
+  updateComment,
+  deleteComment,
 })(DummyView);
