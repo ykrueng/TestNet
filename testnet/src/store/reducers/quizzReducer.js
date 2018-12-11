@@ -25,12 +25,12 @@ import {
   POST_QUESTION_FAILURE,
   DELETE_QUESTION_REQUEST,
   DELETE_QUESTION_SUCCESS,
-  DELETE_QUESTION_FAILURE,
-} from '../actions';
+  DELETE_QUESTION_FAILURE
+} from "../actions";
 
 const initialState = {
   quizzes: [],
-  quizz: null,
+  quizz: {},
   topics: [],
   questions: [],
   questionPosted: false,
@@ -42,165 +42,165 @@ const initialState = {
   postingQuestion: false,
   deletingQuizz: false,
   deletingQuestion: false,
-  error: null,
-}
+  error: null
+};
 
-export const quizzReducer = (state=initialState, action) => {
-  switch(action.type) {
+export const quizzReducer = (state = initialState, action) => {
+  switch (action.type) {
     case QUIZZES_REQUEST:
       return {
         ...state,
-        fetchingQuizzes: true,
-      }
+        fetchingQuizzes: true
+      };
     case QUIZZES_SUCCESS:
       return {
         ...state,
         fetchingQuizzes: false,
-        quizzes: action.payload,
-      }
+        quizzes: action.payload
+      };
     case QUIZZES_FAILURE:
       return {
         ...state,
         fetchingQuizzes: false,
-        error: action.payload,
-      }
-      case QUIZZ_REQUEST:
-        return {
-          ...state,
-          fetchingQuizz: true,
-        }
-      case QUIZZ_SUCCESS:
-        return {
-          ...state,
-          fetchingQuizz: false,
-          quizz: action.payload,
-        }
-      case QUIZZ_FAILURE:
-        return {
-          ...state,
-          fetchingQuizz: false,
-          error: action.payload,
-        }
-      case TOPICS_REQUEST:
-        return {
-          ...state,
-          fetchingTopics: true,
-        }
-      case TOPICS_SUCCESS:
-        return {
-          ...state,
-          fetchingTopics: false,
-          topics: action.payload,
-        }
-      case TOPICS_FAILURE:
-        return {
-          ...state,
-          fetchingTopics: false,
-          error: action.payload,
-        }
-      case QUESTIONS_REQUEST:
+        error: action.payload
+      };
+    case QUIZZ_REQUEST:
       return {
         ...state,
-        fetchingQuestions: true,
-      }
+        fetchingQuizz: true
+      };
+    case QUIZZ_SUCCESS:
+      return {
+        ...state,
+        fetchingQuizz: false,
+        quizz: action.payload
+      };
+    case QUIZZ_FAILURE:
+      return {
+        ...state,
+        fetchingQuizz: false,
+        error: action.payload
+      };
+    case TOPICS_REQUEST:
+      return {
+        ...state,
+        fetchingTopics: true
+      };
+    case TOPICS_SUCCESS:
+      return {
+        ...state,
+        fetchingTopics: false,
+        topics: action.payload
+      };
+    case TOPICS_FAILURE:
+      return {
+        ...state,
+        fetchingTopics: false,
+        error: action.payload
+      };
+    case QUESTIONS_REQUEST:
+      return {
+        ...state,
+        fetchingQuestions: true
+      };
     case QUESTIONS_SUCCESS:
       return {
         ...state,
         fetchingQuestions: false,
-        questions: action.payload,
-      }
+        questions: action.payload
+      };
     case QUESTIONS_FAILURE:
       return {
         ...state,
         fetchingQuestions: false,
-        error: action.payload,
-      }
-      case POST_QUIZZ_REQUEST:
+        error: action.payload
+      };
+    case POST_QUIZZ_REQUEST:
       return {
         ...state,
-        postingQuizz: true,
-      }
+        postingQuizz: true
+      };
     case POST_QUIZZ_SUCCESS:
       return {
         ...state,
         postingQuizz: false,
-        questionPosted: action.payload,
-      }
+        questionPosted: action.payload
+      };
     case POST_QUIZZ_FAILURE:
       return {
         ...state,
         postingQuizz: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case PATCH_QUIZZ_REQUEST:
       return {
         ...state,
-        updatingQuizz: true,
-      }
+        updatingQuizz: true
+      };
     case PATCH_QUIZZ_SUCCESS:
       return {
         ...state,
-        updatingQuizz: false,
+        updatingQuizz: false
         // TODO: add res to the state if needed
-      }
+      };
     case PATCH_QUIZZ_FAILURE:
       return {
         ...state,
         updatingQuizz: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case DELETE_QUIZZ_REQUEST:
       return {
         ...state,
-        deletingQuizz: true,
-      }
+        deletingQuizz: true
+      };
     case DELETE_QUIZZ_SUCCESS:
       return {
         ...state,
-        deletingQuizz: false,
+        deletingQuizz: false
         // TODO: add res to the state if needed
-      }
+      };
     case DELETE_QUIZZ_FAILURE:
       return {
         ...state,
         deletingQuizz: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case POST_QUESTION_REQUEST:
       return {
         ...state,
-        postingQuestion: true,
-      }
+        postingQuestion: true
+      };
     case POST_QUESTION_SUCCESS:
       return {
         ...state,
-        postingQuestion: false,
+        postingQuestion: false
         // TODO: add res to the state if needed
-      }
+      };
     case POST_QUESTION_FAILURE:
       return {
         ...state,
         postingQuestion: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case DELETE_QUESTION_REQUEST:
       return {
         ...state,
-        deletingQuestion: true,
-      }
+        deletingQuestion: true
+      };
     case DELETE_QUESTION_SUCCESS:
       return {
         ...state,
-        deletingQuestion: false,
+        deletingQuestion: false
         // TODO: add res to the state if needed
-      }
+      };
     case DELETE_QUESTION_FAILURE:
       return {
         ...state,
         deletingQuestion: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     default:
       return state;
   }
-}
+};
