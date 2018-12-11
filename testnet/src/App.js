@@ -42,7 +42,7 @@ class App extends React.Component {
         <Route
           exact
           path="/quizzes"
-          render={props => <QuizView {...props} quizzes={dummydata.quizzes} />}
+          render={props => <QuizView {...props} />}
         />
 
         <Route
