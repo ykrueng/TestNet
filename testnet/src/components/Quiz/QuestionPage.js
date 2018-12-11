@@ -2,12 +2,13 @@ import React from "react";
 import { Button, Form } from "semantic-ui-react";
 
 class QuestionPage extends React.Component {
-  state = {
-    selected: ""
-  };
+  state = {};
 
-  handleChange = e => {
-    this.setState({ selected: e.target.value });
+  handleChange = (e, { value }) => this.setState({ value });
+
+  nextQuestion = (title, id) => {
+    this.setState({ value: "" });
+    this.props.history.push(`/quizzes/${title}/${id + 1}`);
   };
 
   render() {
@@ -16,25 +17,23 @@ class QuestionPage extends React.Component {
 
     const quiz = this.props.quizzes.find(quiz => quiz.title === title);
     const question = quiz.questions[id - 1];
-
     return (
       <Form>
         <p>{`${question.id}.  ${question.question}`}</p>
         {question.answers.map((ans, index) => (
-          <Form.Group inline key={ans + index}>
-            <Form.Radio
-              label={ans}
-              value={`option${index}`}
-              onChange={this.handleChange}
-              checked={this.state.selected === `option${index}`}
-            />
-          </Form.Group>
+          <Form.Radio
+            key={index}
+            label={ans}
+            value={index}
+            onChange={this.handleChange}
+            checked={this.state.value === index}
+          />
         ))}
         <Button
           basic
           color="black"
           content={`Submit & Continue`}
-          onClick={() => this.props.history.push(`/quizzes/${title}/${id + 1}`)}
+          onClick={() => this.nextQuestion(title, id)}
         />
       </Form>
     );
