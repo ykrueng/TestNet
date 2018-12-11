@@ -9,6 +9,8 @@ import {
   getQuestions,
   postQuizz,
   postQuestion,
+  deleteQuizz,
+  deleteQuestion,
   getPosts,
   getPost,
 } from '../store/actions';
@@ -21,7 +23,7 @@ class DummyView extends React.Component {
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
     // this.props.getQuestions(1);
-    // this.props.postQuizz({ title: 'Flexbox', topic: 'CSS' }, token);
+    this.props.postQuizz({ title: 'TestNet - Quizz I', topic: 'JavaScript' }, token);
     // this.props.getQuizz(1);
     // this.props.getTopics();
     // this.props.postQuestion(82, {
@@ -30,6 +32,7 @@ class DummyView extends React.Component {
     //   option2: 'nope',
     //   answer: 2,
     // },token);
+    // this.props.deleteQuizz(82, );
     this.props.getPosts();
   }
 
@@ -57,4 +60,6 @@ export default connect(mapStateToProps, {
   postQuestion,
   getPosts,
   getPost,
+  deleteQuizz,
+  deleteQuestion,
 })(DummyView);

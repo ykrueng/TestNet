@@ -1,307 +1,64 @@
-import study from "../../apis/react-study";
+export {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  register,
+  login,
+} from './loginActions';
 
-/*
-  Authentication Action Types
-*/
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "REGISTER_FAILURE";
+export {
+  QUIZZES_REQUEST,
+  QUIZZES_SUCCESS,
+  QUIZZES_FAILURE,
+  QUIZZ_REQUEST,
+  QUIZZ_SUCCESS,
+  QUIZZ_FAILURE,
+  POST_QUIZZ_REQUEST,
+  POST_QUIZZ_SUCCESS,
+  POST_QUIZZ_FAILURE,
+  DELETE_QUIZZ_REQUEST,
+  DELETE_QUIZZ_SUCCESS,
+  DELETE_QUIZZ_FAILURE,
+  TOPICS_REQUEST,
+  TOPICS_SUCCESS,
+  TOPICS_FAILURE,
+  QUESTIONS_REQUEST,
+  QUESTIONS_SUCCESS,
+  QUESTIONS_FAILURE,
+  POST_QUESTION_REQUEST,
+  POST_QUESTION_SUCCESS,
+  POST_QUESTION_FAILURE,
+  DELETE_QUESTION_REQUEST,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_QUESTION_FAILURE,
+  getQuizzes,
+  getQuizz,
+  getTopics,
+  postQuizz,
+  deleteQuizz,
+  getQuestions,
+  postQuestion,
+  deleteQuestion,
+} from './quizzActions';
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
-
-/*
-  Quizz Action Types
-*/
-export const QUIZZES_REQUEST = "QUIZZES_REQUEST";
-export const QUIZZES_SUCCESS = "QUIZZES_SUCCESS";
-export const QUIZZES_FAILURE = "QUIZZES_FAILURE";
-
-export const QUIZZ_REQUEST = "QUIZZ_REQUEST";
-export const QUIZZ_SUCCESS = "QUIZZ_SUCCESS";
-export const QUIZZ_FAILURE = "QUIZZ_FAILURE";
-
-export const POST_QUIZZ_REQUEST = "POST_QUIZZ_REQUEST";
-export const POST_QUIZZ_SUCCESS = "POST_QUIZZ_SUCCESS";
-export const POST_QUIZZ_FAILURE = "POST_QUIZZ_FAILURE";
-
-export const TOPICS_REQUEST = "TOPICS_REQUEST";
-export const TOPICS_SUCCESS = "TOPICS_SUCCESS";
-export const TOPICS_FAILURE = "TOPICS_FAILURE";
-
-export const QUESTIONS_REQUEST = "QUESTIONS_REQUEST";
-export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
-export const QUESTIONS_FAILURE = "QUESTIONS_FAILURE";
-
-export const POST_QUESTION_REQUEST = "POST_QUESTION_REQUEST";
-export const POST_QUESTION_SUCCESS = "POST_QUESTION_SUCCESS";
-export const POST_QUESTION_FAILURE = "POST_QUESTION_FAILURE";
-
-/*
-  Post Action Types
-*/
-export const POSTS_REQUEST = "POSTS_REQUEST";
-export const POSTS_SUCCESS = "POSTS_SUCCESS";
-export const POSTS_FAILURE = "POSTS_FAILURE";
-
-export const POST_REQUEST = "POST_REQUEST";
-export const POST_SUCCESS = "POST_SUCCESS";
-export const POST_FAILURE = "POST_FAILURE";
-
-export const COMMENTS_REQUEST = "COMMENTS_REQUEST";
-export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS";
-export const COMMENTS_FAILURE = "COMMENTS_FAILURE";
-
-export const COMMENT_REQUEST = "COMMENT_REQUEST";
-export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
-export const COMMENT_FAILURE = "COMMENT_FAILURE";
-
-/*
-  Authentication Action Creators
-*/
-export const register = user => dispatch => {
-  dispatch({ type: REGISTER_REQUEST });
-
-  study
-    .post("/auth/register", user)
-    .then(res => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: {
-          token: res.token
-        }
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: REGISTER_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const login = user => dispatch => {
-  dispatch({ type: LOGIN_REQUEST });
-
-  study
-    .post("/auth/login", user)
-    .then(res => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { token: res.data.token }
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: LOGIN_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-/*
-  Quizz Action Creators
-*/
-export const getQuizzes = () => dispatch => {
-  dispatch({ type: QUIZZES_REQUEST });
-
-  study
-    .get("/quizzes")
-    .then(res => {
-      dispatch({
-        type: QUIZZES_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: QUIZZES_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getQuizz = quizzId => dispatch => {
-  dispatch({ type: QUIZZ_REQUEST });
-
-  study
-    .get(`/quizzes/${quizzId}`)
-    .then(res => {
-      dispatch({
-        type: QUIZZ_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: QUIZZ_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getTopics = () => dispatch => {
-  dispatch({ type: TOPICS_REQUEST });
-
-  study
-    .get(`/quizzes/topics`)
-    .then(res => {
-      dispatch({
-        type: TOPICS_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: TOPICS_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const postQuizz = (quizz, token) => dispatch => {
-  dispatch({ type: POST_QUIZZ_REQUEST });
-
-  study({
-      method: 'post',
-      url: '/quizzes',
-      data: quizz,
-      headers: { authorization:token }
-    })
-    .then(res => {
-      console.log(res);
-      dispatch({
-        type: POST_QUIZZ_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: POST_QUIZZ_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getQuestions = id => dispatch => {
-  dispatch({ type: QUESTIONS_REQUEST });
-
-  study
-    .get(`/quizzes/${id}/questions`)
-    .then(res => {
-      dispatch({
-        type: QUESTIONS_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: QUESTIONS_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const postQuestion = (quizzId, question, token) => dispatch => {
-  dispatch({ type: POST_QUIZZ_REQUEST });
-
-  study({
-      method: 'post',
-      url: `/quizzes/${quizzId}/questions`,
-      data: question,
-      headers: { authorization:token }
-    })
-    .then(res => {
-      console.log(res);
-      dispatch({
-        type: POST_QUIZZ_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: POST_QUIZZ_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-/*
-  Post Action Creators
-*/
-export const getPosts = () => dispatch => {
-  dispatch({ type: POSTS_REQUEST });
-
-  study
-    .get(`/posts`)
-    .then(res => {
-      dispatch({
-        type: POSTS_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: POSTS_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getPost = postId => dispatch => {
-  dispatch({ type: POST_REQUEST });
-
-  study
-    .get(`/posts/${postId}`)
-    .then(res => {
-      dispatch({
-        type: POST_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: POST_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getComments = postId => dispatch => {
-  dispatch({ type: COMMENTS_REQUEST });
-
-  study
-    .get(`/posts/${postId}/comments`)
-    .then(res => {
-      dispatch({
-        type: COMMENTS_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: COMMENTS_FAILURE,
-        payload: { err }
-      });
-    });
-};
-
-export const getComment = (postId, commentId) => dispatch => {
-  dispatch({ type: COMMENT_REQUEST });
-
-  study
-    .get(`/posts/${postId}/comments/${commentId}`)
-    .then(res => {
-      dispatch({
-        type: COMMENT_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: COMMENT_FAILURE,
-        payload: { err }
-      });
-    });
-};
+export {
+POSTS_SUCCESS,
+POSTS_FAILURE,
+POSTS_REQUEST,
+POST_REQUEST,
+POST_SUCCESS,
+POST_FAILURE,
+COMMENTS_REQUEST,
+COMMENTS_SUCCESS,
+COMMENTS_FAILURE,
+COMMENT_REQUEST,
+COMMENT_SUCCESS,
+COMMENT_FAILURE,
+getPosts,
+getPost,
+getComments,
+getComment,
+} from './postActions';

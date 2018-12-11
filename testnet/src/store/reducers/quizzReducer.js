@@ -11,12 +11,18 @@ import {
   POST_QUIZZ_REQUEST,
   POST_QUIZZ_SUCCESS,
   POST_QUIZZ_FAILURE,
+  DELETE_QUIZZ_REQUEST,
+  DELETE_QUIZZ_SUCCESS,
+  DELETE_QUIZZ_FAILURE,
   QUESTIONS_REQUEST,
   QUESTIONS_SUCCESS,
   QUESTIONS_FAILURE,
   POST_QUESTION_REQUEST,
   POST_QUESTION_SUCCESS,
   POST_QUESTION_FAILURE,
+  DELETE_QUESTION_REQUEST,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_QUESTION_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -30,6 +36,8 @@ const initialState = {
   fetchingTopics: false,
   fetchingQuestions: false,
   postingQuestion: false,
+  deletingQuizz: false,
+  deletingQuestion: false,
   error: null,
 }
 
@@ -120,6 +128,23 @@ export const quizzReducer = (state=initialState, action) => {
         postingQuizz: false,
         error: action.payload,
       }
+    case DELETE_QUIZZ_REQUEST:
+      return {
+        ...state,
+        deletingQuizz: true,
+      }
+    case DELETE_QUIZZ_SUCCESS:
+      return {
+        ...state,
+        deletingQuizz: false,
+        // TODO: add res to the state if needed
+      }
+    case DELETE_QUIZZ_FAILURE:
+      return {
+        ...state,
+        deletingQuizz: false,
+        error: action.payload,
+      }
     case POST_QUESTION_REQUEST:
       return {
         ...state,
@@ -135,6 +160,23 @@ export const quizzReducer = (state=initialState, action) => {
       return {
         ...state,
         postingQuestion: false,
+        error: action.payload,
+      }
+    case DELETE_QUESTION_REQUEST:
+      return {
+        ...state,
+        deletingQuestion: true,
+      }
+    case DELETE_QUESTION_SUCCESS:
+      return {
+        ...state,
+        deletingQuestion: false,
+        // TODO: add res to the state if needed
+      }
+    case DELETE_QUESTION_FAILURE:
+      return {
+        ...state,
+        deletingQuestion: false,
         error: action.payload,
       }
     default:
