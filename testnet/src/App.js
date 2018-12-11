@@ -48,7 +48,7 @@ class App extends React.Component {
         <Route
           exact
           path="/quizzes/:title"
-          render={props => <Quiz {...props} quizzes={dummydata.quizzes} />}
+          render={props => <Quiz {...props} />}
         />
         <Route
           path="/quizzes/:title/:questionId"
