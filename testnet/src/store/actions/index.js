@@ -147,8 +147,12 @@ export const getTopics = () => dispatch => {
 export const postQuizz = (quizz, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
-  study
-    .post("/quizzes", quizz, { authorization: token })
+  study({
+      method: 'post',
+      url: '/quizzes',
+      data: quizz,
+      headers: { authorization:token }
+    })
     .then(res => {
       console.log(res);
       dispatch({

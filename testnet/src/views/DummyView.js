@@ -12,7 +12,7 @@ import {
   getPost,
 } from '../store/actions';
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTMzNTgxLCJleHAiOjE1NzYwOTExODF9.7SkGPoCIhG0nKSi1-J0wAOD15k27qLp_tm8wwubYr84";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTM1NDk0LCJleHAiOjE1NzYwOTMwOTR9.qcXR5sKpM_F36kbkT3Zd1_S6BtxR0NSXkLOIrGbNrvo";
 
 class DummyView extends React.Component {
   componentDidMount() {
