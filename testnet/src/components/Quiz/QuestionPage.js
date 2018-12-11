@@ -1,15 +1,12 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { getQuestions } from "../../store/actions/quizzActions";
 
 class QuestionPage extends React.Component {
-  state = {};
-
-  componentDidMount() {
-    const id = this.props.match.params.questionId;
-    this.props.getQuestions(id);
-  }
+  state = {
+    answers: [],
+    value: ""
+  };
 
   handleChange = (e, { value }) => this.setState({ value });
 
@@ -29,6 +26,7 @@ class QuestionPage extends React.Component {
     if (!question || id > this.props.questions.length) {
       return <h1>There aren't any questions!</h1>;
     }
+    console.log(this.state);
     return (
       <Form>
         <p>{`${id + 1}.  ${question.question}`}</p>
@@ -59,7 +57,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { getQuestions }
-)(QuestionPage);
+export default connect(mapStateToProps)(QuestionPage);

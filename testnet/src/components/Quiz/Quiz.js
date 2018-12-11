@@ -5,12 +5,13 @@ import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
 class Quiz extends React.Component {
   componentDidMount() {
-    this.props.getQuizz(this.props.match.params.id);
-    this.props.getQuestions(this.props.match.params.id);
+    const id = this.props.match.params.id;
+    this.props.getQuizz(id);
+    this.props.getQuestions(id);
   }
   render() {
     const id = this.props.match.params.id;
-    const { quizz, questions } = this.props;
+    const { quizz } = this.props;
     console.log(this.props.questions);
 
     return (
