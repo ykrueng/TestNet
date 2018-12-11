@@ -28,9 +28,7 @@ class Quiz extends React.Component {
           content="Begin Quiz"
           basic
           color="black"
-          onClick={() =>
-            this.props.history.push(`/quizzes/${id}/${questions[0].id}`)
-          }
+          onClick={() => this.props.history.push(`/quizzes/${id}/${0}`)}
         />
       </div>
     );
