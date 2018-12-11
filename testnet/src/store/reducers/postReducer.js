@@ -11,6 +11,9 @@ import {
   PATCH_POST_SUCCESS,
   PATCH_POST_FAILURE,
   PATCH_POST_REQUEST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  DELETE_POST_REQUEST,
   COMMENTS_REQUEST,
   COMMENTS_SUCCESS,
   COMMENTS_FAILURE,
@@ -28,6 +31,7 @@ const initialState = {
   fetchingPost: false,
   addingPost: false,
   updatingPost: false,
+  deletingPost: false,
   fetchingComments: false,
   fetchingComment: false,
   error: null,
@@ -101,6 +105,23 @@ export const postReducer = (state=initialState, action) => {
       return {
         ...state,
         updatingPost: false,
+        error: action.payload,
+      }
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        deletingPost: true,
+      }
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        deletingPost: false,
+        // TODO: add res to the state if needed
+      }
+    case DELETE_POST_FAILURE:
+      return {
+        ...state,
+        deletingPost: false,
         error: action.payload,
       }
     case COMMENTS_REQUEST:

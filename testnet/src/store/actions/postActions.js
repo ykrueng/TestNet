@@ -19,6 +19,10 @@ export const PATCH_POST_REQUEST = "PATCH_POST_REQUEST";
 export const PATCH_POST_SUCCESS = "PATCH_POST_SUCCESS";
 export const PATCH_POST_FAILURE = "PATCH_POST_FAILURE";
 
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE";
+
 export const COMMENTS_REQUEST = "COMMENTS_REQUEST";
 export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS";
 export const COMMENTS_FAILURE = "COMMENTS_FAILURE";
@@ -111,6 +115,28 @@ export const updatePost = (postId, post, token) => dispatch => {
     .catch(err => {
       dispatch({
         type: PATCH_POST_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const deletePost = (postId, token) => dispatch => {
+  dispatch({ type: DELETE_POST_REQUEST });
+
+  study({
+    method: 'delete',
+    url: `/posts/${postId}`,
+    headers: {authorization: token}
+  })
+    .then(res => {
+      dispatch({
+        type: DELETE_POST_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: DELETE_POST_FAILURE,
         payload: { err }
       });
     });
