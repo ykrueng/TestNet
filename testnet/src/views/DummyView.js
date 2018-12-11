@@ -9,6 +9,7 @@ import {
   getQuestions,
   postQuizz,
   updateQuizz,
+  updateQuestion,
   postQuestion,
   deleteQuizz,
   deleteQuestion,
@@ -23,9 +24,10 @@ class DummyView extends React.Component {
     console.log('mounted');
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
-    // this.props.getQuestions(1);
+    // this.props.getQuestions(82);
     // this.props.postQuizz({ title: 'TestNet - Quizz I', topic: 'JavaScript' }, token);
-    this.props.updateQuizz(82, {title: 'Updated - Quizz'}, token);
+    // this.props.updateQuestion(82,2,{question: 'This is the question?'},token);
+    // this.props.updateQuizz(82, {title: 'Updated - Quizz'}, token);
     // this.props.getQuizz(1);
     // this.props.getTopics();
     // this.props.postQuestion(82, {
@@ -60,6 +62,7 @@ export default connect(mapStateToProps, {
   getQuestions,
   postQuizz,
   updateQuizz,
+  updateQuestion,
   postQuestion,
   getPosts,
   getPost,

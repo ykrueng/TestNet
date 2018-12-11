@@ -34,6 +34,9 @@ export {
   POST_QUESTION_REQUEST,
   POST_QUESTION_SUCCESS,
   POST_QUESTION_FAILURE,
+  PATCH_QUESTION_FAILURE,
+  PATCH_QUESTION_REQUEST,
+  PATCH_QUESTION_SUCCESS,
   DELETE_QUESTION_REQUEST,
   DELETE_QUESTION_SUCCESS,
   DELETE_QUESTION_FAILURE,
@@ -45,6 +48,7 @@ export {
   deleteQuizz,
   getQuestions,
   postQuestion,
+  updateQuestion,
   deleteQuestion,
 } from './quizzActions';
 

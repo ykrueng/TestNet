@@ -35,6 +35,10 @@ export const POST_QUESTION_REQUEST = "POST_QUESTION_REQUEST";
 export const POST_QUESTION_SUCCESS = "POST_QUESTION_SUCCESS";
 export const POST_QUESTION_FAILURE = "POST_QUESTION_FAILURE";
 
+export const PATCH_QUESTION_REQUEST = "PATCH_QUESTION_REQUEST";
+export const PATCH_QUESTION_SUCCESS = "PATCH_QUESTION_SUCCESS";
+export const PATCH_QUESTION_FAILURE = "PATCH_QUESTION_FAILURE";
+
 export const DELETE_QUESTION_REQUEST = "DELETE_QUESTION_REQUEST";
 export const DELETE_QUESTION_SUCCESS = "DELETE_QUESTION_SUCCESS";
 export const DELETE_QUESTION_FAILURE = "DELETE_QUESTION_FAILURE";
@@ -208,6 +212,30 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
     .catch(err => {
       dispatch({
         type: POST_QUIZZ_FAILURE,
+        payload: { err }
+      });
+    });
+};
+
+export const updateQuestion = (quizzId, questionId, question, token) => dispatch => {
+  dispatch({ type: PATCH_QUIZZ_REQUEST });
+
+  study({
+      method: 'patch',
+      url: `/quizzes/${quizzId}/questions/${questionId}`,
+      data: question,
+      headers: { authorization:token }
+    })
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: PATCH_QUIZZ_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PATCH_QUIZZ_FAILURE,
         payload: { err }
       });
     });
