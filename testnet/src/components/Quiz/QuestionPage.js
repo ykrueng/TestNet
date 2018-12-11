@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Form } from "semantic-ui-react";
 
 class QuestionPage extends React.Component {
   state = {
@@ -15,26 +16,27 @@ class QuestionPage extends React.Component {
 
     const quiz = this.props.quizzes.find(quiz => quiz.title === title);
     const question = quiz.questions[id - 1];
+
     return (
-      <div>
+      <Form>
         <p>{`${question.id}.  ${question.question}`}</p>
         {question.answers.map((ans, index) => (
-          <label key={ans + index}>
-            <input
-              type="radio"
+          <Form.Group inline key={ans + index}>
+            <Form.Radio
+              label={ans}
               value={`option${index}`}
               onChange={this.handleChange}
               checked={this.state.selected === `option${index}`}
             />
-            {ans}
-          </label>
+          </Form.Group>
         ))}
-        <button
+        <Button
+          basic
+          color="black"
+          content={`Submit & Continue`}
           onClick={() => this.props.history.push(`/quizzes/${title}/${id + 1}`)}
-        >
-          Submit and Continue
-        </button>
-      </div>
+        />
+      </Form>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Header, Button } from "semantic-ui-react";
 
 class Quiz extends React.Component {
   render() {
@@ -6,10 +7,13 @@ class Quiz extends React.Component {
     const quiz = this.props.quizzes.find(quiz => quiz.title === title);
     return (
       <div className="quiz">
-        <h2>{quiz.title}</h2>
-        <button onClick={() => this.props.history.push(`/quizzes/${title}/1`)}>
-          Begin Quiz
-        </button>
+        <Header as="h2">{quiz.title}</Header>
+        <Button
+          content="Begin Quiz"
+          basic
+          color="black"
+          onClick={() => this.props.history.push(`/quizzes/${title}/1`)}
+        />
       </div>
     );
   }
