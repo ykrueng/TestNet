@@ -7,7 +7,11 @@ class Quiz extends React.Component {
     const quiz = this.props.quizzes.find(quiz => quiz.title === title);
     return (
       <div className="quiz">
-        <Header as="h2">{quiz.title}</Header>
+        <Header as="h3">
+          {quiz.title}
+          <Header.Subheader content={quiz.author} />
+        </Header>
+
         <Button
           content="Begin Quiz"
           basic

@@ -1,18 +1,21 @@
 import React from "react";
+import { Header, Container } from "semantic-ui-react";
 
 const QuizList = props => {
   const { quizzes, history } = props;
   return (
     <div className="quiz-list">
       {quizzes.map(quiz => (
-        <div
+        <Container
           className="quiz-card"
           key={quiz.id}
           onClick={() => history.push(`/quizzes/${quiz.title}`)}
         >
-          <h1>{quiz.title}</h1>
-          <p>{quiz.author}</p>
-        </div>
+          <Header as="h1">
+            {quiz.title}
+            <Header.Subheader content={quiz.author} />
+          </Header>
+        </Container>
       ))}
     </div>
   );

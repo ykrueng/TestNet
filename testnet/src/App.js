@@ -32,7 +32,6 @@ class App extends React.Component {
             placeholder="logged in comment area"
           />
         )}
-
         <Route
           exact
           path="/"
@@ -59,7 +58,6 @@ class App extends React.Component {
         />
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
-
         <Route exact path="/posts" render={props => <PostList {...props} />} />
       </div>
     );
