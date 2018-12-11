@@ -12,6 +12,7 @@ class QuestionPage extends React.Component {
   render() {
     const id = parseInt(this.props.match.params.questionId, 10);
     const title = this.props.match.params.title;
+
     const quiz = this.props.quizzes.find(quiz => quiz.title === title);
     const question = quiz.questions[id - 1];
     return (
