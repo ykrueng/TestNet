@@ -148,7 +148,7 @@ export const postQuizz = (quizz, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
   study
-    .post("/quizzes", quizz, { Authorization: token })
+    .post("/quizzes", quizz, { authorization: token })
     .then(res => {
       console.log(res);
       dispatch({
