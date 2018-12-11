@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import dummydata from "./dummydata";
 import NavBar from "./components/NavBar";
 import QuizView from "./views/QuizView";
 import Quiz from "./components/Quiz/Quiz";

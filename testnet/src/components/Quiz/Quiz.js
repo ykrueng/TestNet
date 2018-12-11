@@ -2,8 +2,6 @@ import React from "react";
 import { Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
-// import QuestionPage from "./QuestionPage";
-// import { Route } from "react-router-dom";
 
 class Quiz extends React.Component {
   componentDidMount() {
@@ -36,7 +34,6 @@ class Quiz extends React.Component {
 }
 const mapStateToProps = state => {
   const { quizzReducer } = state;
-  console.log(quizzReducer);
   return {
     quizz: quizzReducer.quizz,
     questions: quizzReducer.questions
