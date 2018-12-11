@@ -49,12 +49,9 @@ class App extends React.Component {
           path="/quizzes/:id"
           render={props => <Quiz {...props} />}
         />
-
         <Route
           path="/quizzes/:id/:questionId"
-          render={props => (
-            <QuestionPage {...props} quizzes={dummydata.quizzes} />
-          )}
+          render={props => <QuestionPage {...props} />}
         />
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />

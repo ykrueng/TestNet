@@ -6,17 +6,15 @@ class QuestionPage extends React.Component {
 
   handleChange = (e, { value }) => this.setState({ value });
 
-  nextQuestion = (title, id) => {
+  nextQuestion = id => {
     this.setState({ value: "" });
-    this.props.history.push(`/quizzes/${title}/${id + 1}`);
+    this.props.history.push(`/${this.props.match.url}/${id + 1}`);
   };
 
   render() {
-    const id = parseInt(this.props.match.params.questionId, 10);
-    const title = this.props.match.params.title;
-
-    const quiz = this.props.quizzes.find(quiz => quiz.title === title);
-    const question = quiz.questions[id - 1];
+    const id = this.props.match.params.id;
+    console.log(this.props);
+    const question = this.props.questions[id - 1];
     return (
       <Form>
         <p>{`${question.id}.  ${question.question}`}</p>
@@ -33,7 +31,7 @@ class QuestionPage extends React.Component {
           basic
           color="black"
           content={`Submit & Continue`}
-          onClick={() => this.nextQuestion(title, id)}
+          onClick={() => this.nextQuestion(id)}
         />
       </Form>
     );

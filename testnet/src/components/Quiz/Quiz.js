@@ -1,7 +1,9 @@
 import React from "react";
 import { Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { getQuizz } from "../../store/actions/quizzActions";
+import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
+// import QuestionPage from "./QuestionPage";
+// import { Route } from "react-router-dom";
 
 class Quiz extends React.Component {
   componentDidMount() {
@@ -10,11 +12,16 @@ class Quiz extends React.Component {
   render() {
     const id = this.props.match.params.id;
     const { quizz } = this.props;
+
     return (
       <div className="quiz">
         <Header as="h3">
           {quizz.title}
-          <Header.Subheader>{quizz.author.username}</Header.Subheader>
+          <Header.Subheader content={quizz.topic} />
+          <Header.Subheader
+            content={quizz.author ? quizz.author.username : "Loading"}
+          />
+          <Header.Subheader content={quizz.votes} />
         </Header>
 
         <Button
@@ -29,12 +36,14 @@ class Quiz extends React.Component {
 }
 const mapStateToProps = state => {
   const { quizzReducer } = state;
+  console.log(quizzReducer);
   return {
-    quizz: quizzReducer.quizz
+    quizz: quizzReducer.quizz,
+    questions: quizzReducer.questions
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getQuizz }
+  { getQuizz, getQuestions }
 )(Quiz);

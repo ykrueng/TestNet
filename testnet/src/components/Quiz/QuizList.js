@@ -3,7 +3,6 @@ import { Header, Container } from "semantic-ui-react";
 
 const QuizList = props => {
   const { quizzes, history } = props;
-  console.log(quizzes);
   return (
     <div className="quiz-list">
       {quizzes.map(quiz => (
