@@ -37,7 +37,7 @@ const initialState = {
   questionPosted: false,
   fetchingQuizzes: false,
   fetchingQuizz: false,
-  updatingQuizz: false,
+  checkingAnswer: false,
   fetchingTopics: false,
   fetchingQuestions: false,
   postingQuestion: false,
@@ -136,19 +136,19 @@ export const quizzReducer = (state = initialState, action) => {
     case PATCH_QUIZZ_REQUEST:
       return {
         ...state,
-        updatingQuizz: true
+        checkingAnswer: true
       };
     case PATCH_QUIZZ_SUCCESS:
       return {
         ...state,
-        updatingQuizz: false,
+        checkingAnswer: false,
         answer: action.payload
         // TODO: add res to the state if needed
       };
     case PATCH_QUIZZ_FAILURE:
       return {
         ...state,
-        updatingQuizz: false,
+        checkingAnswer: false,
         error: action.payload
       };
     case DELETE_QUIZZ_REQUEST:
