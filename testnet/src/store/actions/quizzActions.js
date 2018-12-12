@@ -88,11 +88,11 @@ export const postQuizz = (quizz, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
   study({
-      method: 'post',
-      url: '/quizzes',
-      data: quizz,
-      headers: { authorization:token }
-    })
+    method: "post",
+    url: "/quizzes",
+    data: quizz,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({
@@ -112,11 +112,11 @@ export const updateQuizz = (quizzId, quizz, token) => dispatch => {
   dispatch({ type: PATCH_QUIZZ_REQUEST });
 
   study({
-      method: 'patch',
-      url: `/quizzes/${quizzId}/edit`,
-      data: quizz,
-      headers: { authorization:token }
-    })
+    method: "patch",
+    url: `/quizzes/${quizzId}/edit`,
+    data: quizz,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({
@@ -136,10 +136,10 @@ export const deleteQuizz = (quizzId, token) => dispatch => {
   dispatch({ type: DELETE_QUIZZ_REQUEST });
 
   study({
-      method: 'delete',
-      url: `/quizzes/${quizzId}`,
-      headers: { authorization: token }
-    })
+    method: "delete",
+    url: `/quizzes/${quizzId}`,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({
@@ -197,11 +197,11 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
   study({
-      method: 'post',
-      url: `/quizzes/${quizzId}/questions`,
-      data: question,
-      headers: { authorization:token }
-    })
+    method: "post",
+    url: `/quizzes/${quizzId}/questions`,
+    data: question,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({
@@ -217,15 +217,15 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
     });
 };
 
-export const updateQuestion = (quizzId, questionId, question, token) => dispatch => {
+export const checkAnswer = (quizzId, questionId, answer, token) => dispatch => {
   dispatch({ type: PATCH_QUIZZ_REQUEST });
 
   study({
-      method: 'patch',
-      url: `/quizzes/${quizzId}/questions/${questionId}`,
-      data: question,
-      headers: { authorization:token }
-    })
+    method: "patch",
+    url: `/quizzes/${quizzId}/questions/${questionId}`,
+    data: answer,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({
@@ -245,10 +245,10 @@ export const deleteQuestion = (quizzId, questionId, token) => dispatch => {
   dispatch({ type: DELETE_QUIZZ_REQUEST });
 
   study({
-      method: 'delete',
-      url: `/quizzes/${quizzId}/questions/${questionId}`,
-      headers: { authorization:token }
-    })
+    method: "delete",
+    url: `/quizzes/${quizzId}/questions/${questionId}`,
+    headers: { authorization: token }
+  })
     .then(res => {
       console.log(res);
       dispatch({

@@ -2,23 +2,36 @@ import React from "react";
 import Review from "./Review";
 import { Button, Form, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { checkAnswer } from "../../store/actions/quizzActions";
+import { token } from "../../views/DummyView";
 
 class QuestionPage extends React.Component {
   state = {
     answers: [],
-    value: "",
-    current: ""
+    current: "",
+    question: {},
+    rubric: []
   };
 
-  handleChange = answer => {
+  handleChange = (index, answer) => {
     this.setState({
-      current: answer
+      current: answer,
+      question: {
+        option: index + 1
+      }
     });
+    const quizId = this.props.match.params.id;
+    const id = parseInt(this.props.match.params.questionId);
+    const question = this.props.questions[id];
+    const questionId = question.id;
+    this.props.checkAnswer(quizId, questionId, { option: index + 1 }, token);
   };
+  componentDidUpdate() {}
 
   nextQuestion = id => {
     const quiz = this.props.match.params.id;
     const question = this.props.questions[id - 1].question;
+
     if (id + 1 > this.props.questions.length) {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
@@ -27,7 +40,8 @@ class QuestionPage extends React.Component {
       answers: [
         ...this.state.answers,
         { question: question, answer: this.state.current }
-      ]
+      ],
+      rubric: [...this.state.rubric, this.props.answer]
     });
     this.props.history.push(`/quizzes/${quiz}/${id}`);
   };
@@ -37,11 +51,15 @@ class QuestionPage extends React.Component {
     const question = this.props.questions[id];
 
     if (!question || id > this.props.questions.length) {
+      const { rubric, answers } = this.state;
       return (
-        <Review answers={this.state.answers} questions={this.props.questions} />
+        <Review
+          answers={answers}
+          rubric={rubric}
+          questions={this.props.questions}
+        />
       );
     }
-    console.log(this.state);
     return (
       <Grid centered columns={5}>
         <Grid.Column>
@@ -50,10 +68,10 @@ class QuestionPage extends React.Component {
             {question.options.map((ans, index) => (
               <Form.Radio
                 key={index}
-                name={`${question.id}`}
+                name={`option${id + 1}`}
                 label={ans}
                 value={ans}
-                onChange={() => this.handleChange(ans)}
+                onChange={() => this.handleChange(index, ans)}
                 checked={this.state.current === ans}
               />
             ))}
@@ -73,8 +91,12 @@ class QuestionPage extends React.Component {
 const mapStateToProps = state => {
   const { quizzReducer } = state;
   return {
-    questions: quizzReducer.questions
+    questions: quizzReducer.questions,
+    answer: quizzReducer.answer
   };
 };
 
-export default connect(mapStateToProps)(QuestionPage);
+export default connect(
+  mapStateToProps,
+  { checkAnswer }
+)(QuestionPage);

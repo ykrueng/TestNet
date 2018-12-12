@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
 import {
   login,
@@ -9,7 +9,7 @@ import {
   getQuestions,
   postQuizz,
   updateQuizz,
-  updateQuestion,
+  checkAnswer,
   postQuestion,
   deleteQuizz,
   deleteQuestion,
@@ -20,14 +20,15 @@ import {
   deletePost,
   postComment,
   updateComment,
-  deleteComment,
-} from '../store/actions';
+  deleteComment
+} from "../store/actions";
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTM1NDk0LCJleHAiOjE1NzYwOTMwOTR9.qcXR5sKpM_F36kbkT3Zd1_S6BtxR0NSXkLOIrGbNrvo";
+export const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTQ0NTM1NDk0LCJleHAiOjE1NzYwOTMwOTR9.qcXR5sKpM_F36kbkT3Zd1_S6BtxR0NSXkLOIrGbNrvo";
 
 class DummyView extends React.Component {
   componentDidMount() {
-    console.log('mounted');
+    console.log("mounted");
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
     // this.props.getQuestions(82);
@@ -59,38 +60,37 @@ class DummyView extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        Dummy View
-       </div>
-    );
+    return <div>Dummy View</div>;
   }
 }
 
 const mapStateToProps = state => ({
   quizzes: state.quizzReducer.quizzes,
   quizz: state.quizzReducer.quizz,
-  fetchingQuizzes: state.quizzReducer.fetchingQuizzes,
-})
+  fetchingQuizzes: state.quizzReducer.fetchingQuizzes
+});
 
-export default connect(mapStateToProps, {
-  login,
-  getQuizzes,
-  getQuizz,
-  getTopics,
-  getQuestions,
-  postQuizz,
-  updateQuizz,
-  updateQuestion,
-  postQuestion,
-  getPosts,
-  getPost,
-  deleteQuizz,
-  deleteQuestion,
-  postPost,
-  updatePost,
-  deletePost,
-  postComment,
-  updateComment,
-  deleteComment,
-})(DummyView);
+export default connect(
+  mapStateToProps,
+  {
+    login,
+    getQuizzes,
+    getQuizz,
+    getTopics,
+    getQuestions,
+    postQuizz,
+    updateQuizz,
+    checkAnswer,
+    postQuestion,
+    getPosts,
+    getPost,
+    deleteQuizz,
+    deleteQuestion,
+    postPost,
+    updatePost,
+    deletePost,
+    postComment,
+    updateComment,
+    deleteComment
+  }
+)(DummyView);
