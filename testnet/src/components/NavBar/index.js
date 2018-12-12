@@ -1,13 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  Menu,
-  Input,
-  Container,
-  Header,
-  Segment,
-  Button
-} from "semantic-ui-react";
+import { Menu, Segment, Button } from "semantic-ui-react";
 
 class NavBar extends React.Component {
   state = {
@@ -21,9 +14,6 @@ class NavBar extends React.Component {
     const { active } = this.state;
     return (
       <Segment style={{ padding: "1.5rem 0" }}>
-        {/* <Container position="center">
-          <Header content="TestNet" textAlign="center" size="huge" />
-        </Container> */}
         <Menu pointing={true} size="large" fixed="top" inverted>
           <Menu.Menu position="left">
             <Menu.Item
@@ -60,8 +50,6 @@ class NavBar extends React.Component {
               <Button inverted primary style={{ marginLeft: ".75rem" }}>
                 Sign Up!
               </Button>
-
-              {/* <Input icon="search" placeholder="Search..." /> */}
             </Menu.Item>
           </Menu.Menu>
         </Menu>
