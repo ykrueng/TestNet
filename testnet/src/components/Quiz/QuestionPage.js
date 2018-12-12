@@ -15,10 +15,7 @@ class QuestionPage extends React.Component {
 
   handleChange = (index, answer) => {
     this.setState({
-      current: answer,
-      question: {
-        option: index + 1
-      }
+      current: answer
     });
     const quizId = this.props.match.params.id;
     const id = parseInt(this.props.match.params.questionId);
@@ -26,8 +23,6 @@ class QuestionPage extends React.Component {
     const questionId = question.id;
     this.props.checkAnswer(quizId, questionId, { option: index + 1 }, token);
   };
-  componentDidUpdate() {}
-
   nextQuestion = id => {
     const quiz = this.props.match.params.id;
     const question = this.props.questions[id - 1].question;
@@ -36,7 +31,7 @@ class QuestionPage extends React.Component {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
     this.setState({
-      value: "",
+      current: "",
       answers: [
         ...this.state.answers,
         { question: question, answer: this.state.current }
