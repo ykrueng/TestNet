@@ -22,7 +22,7 @@ class QuizView extends React.Component {
     const { isAuthed } = this.state;
     return (
       <div>
-        <NavBar />
+        <NavBar click={this.props.click} />
         {isAuthed && (
           <input
             type="text"
