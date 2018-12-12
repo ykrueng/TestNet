@@ -52,7 +52,11 @@ class NavBar extends React.Component {
 
           <Menu.Menu position="right">
             <Menu.Item>
-              <Button primary content="Login" />
+              <Button
+                primary
+                content="Login"
+                onClick={e => this.props.click(e)}
+              />
               <Button inverted primary style={{ marginLeft: ".75rem" }}>
                 Sign Up!
               </Button>
