@@ -53,12 +53,14 @@ class QuestionPage extends React.Component {
         <Review
           answers={answers}
           rubric={rubric}
+          match={this.props.match}
+          history={this.props.history}
           questions={this.props.questions}
         />
       );
     }
     return (
-      <Grid centered columns={5}>
+      <Grid centered columns={3} style={{ margin: "0 auto" }}>
         <Grid.Column style={{ marginTop: "5rem" }}>
           <Form style={{ padding: "1rem 0" }}>
             <Header as="h3" style={{ margin: "2.5rem 0" }}>{`${id + 1}.  ${

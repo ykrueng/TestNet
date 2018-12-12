@@ -4,7 +4,6 @@ import {
   Form,
   Grid,
   Header,
-  Image,
   Message,
   Segment
 } from "semantic-ui-react";
@@ -40,7 +39,7 @@ class LoginForm extends React.Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="teal" textAlign="center">
-              <Image src="/logo.png" /> Log-in to TestNet
+              Log-in to TestNet
             </Header>
             <Form size="large">
               <Segment stacked>
@@ -63,7 +62,6 @@ class LoginForm extends React.Component {
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
-
                 <Button
                   color="teal"
                   fluid
@@ -75,7 +73,7 @@ class LoginForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              New to us? <a href="#">Sign Up</a>
+              New to us? <Button>Sign Up</Button>
             </Message>
           </Grid.Column>
         </Grid>

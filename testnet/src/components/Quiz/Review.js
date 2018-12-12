@@ -8,6 +8,8 @@ const Review = props => {
   // console.log(answers);
   // console.log(rubric);
   // console.groupEnd();
+  console.log(props);
+  const { id } = props.match.params;
   return (
     <Grid centered columns={5}>
       <Grid.Column width={4}>
@@ -21,8 +23,15 @@ const Review = props => {
             );
           })}
           <Button.Group />
-          <Button color="green" content="Submit" floated="left" />
-          <Button color="red" content="Restart" floated="right" />
+          <Button inverted color="green" content="Submit" attached="bottom" />
+          <Button
+            inverted
+            attached="bottom"
+            color="red"
+            content="Restart"
+            onClick={() => props.history.push(`/quizzes/${id}`)}
+            style={{ marginTop: "1rem" }}
+          />
         </Form>
       </Grid.Column>
     </Grid>
