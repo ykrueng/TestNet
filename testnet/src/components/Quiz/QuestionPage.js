@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 class QuestionPage extends React.Component {
@@ -28,24 +28,28 @@ class QuestionPage extends React.Component {
     }
     console.log(this.state);
     return (
-      <Form>
-        <p>{`${id + 1}.  ${question.question}`}</p>
-        {question.options.map((ans, index) => (
-          <Form.Radio
-            key={index}
-            label={ans}
-            value={index}
-            onChange={this.handleChange}
-            checked={this.state.value === index}
-          />
-        ))}
-        <Button
-          basic
-          color="black"
-          content={`Submit & Continue`}
-          onClick={() => this.nextQuestion(id + 1)}
-        />
-      </Form>
+      <Grid centered columns={5}>
+        <Grid.Column>
+          <Form>
+            <p>{`${id + 1}.  ${question.question}`}</p>
+            {question.options.map((ans, index) => (
+              <Form.Radio
+                key={index}
+                label={ans}
+                value={index}
+                onChange={this.handleChange}
+                checked={this.state.value === index}
+              />
+            ))}
+            <Button
+              basic
+              color="black"
+              content={`Submit & Continue`}
+              onClick={() => this.nextQuestion(id + 1)}
+            />
+          </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
