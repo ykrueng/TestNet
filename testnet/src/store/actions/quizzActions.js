@@ -217,14 +217,15 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
     });
 };
 
-export const checkAnswer = (quizzId, questionId, answer, token) => dispatch => {
+// don't need token to checkAnswer
+
+export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
   dispatch({ type: PATCH_QUIZZ_REQUEST });
 
   study({
     method: "patch",
     url: `/quizzes/${quizzId}/questions/${questionId}`,
-    data: answer,
-    headers: { authorization: token }
+    data: answer
   })
     .then(res => {
       console.log(res);
