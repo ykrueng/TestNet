@@ -26,17 +26,14 @@ class QuestionPage extends React.Component {
   };
   nextQuestion = id => {
     const quiz = this.props.match.params.id;
-    const question = this.props.questions[id - 1].question;
+    // const question = this.props.questions[id - 1].question;
 
     if (id + 1 > this.props.questions.length) {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
     this.setState({
       current: "",
-      answers: [
-        ...this.state.answers,
-        { question: question, answer: this.state.current }
-      ],
+      answers: [...this.state.answers, this.state.current],
       rubric: [...this.state.rubric, this.props.answer],
       progress: (id / this.props.questions.length) * 100
     });
