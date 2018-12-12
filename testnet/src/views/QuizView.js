@@ -14,9 +14,6 @@ class QuizView extends React.Component {
   };
   componentDidMount() {
     this.props.getQuizzes();
-    // if (localStorage.getItem("token")) {
-    //   this.setState({ isAuthed: true });
-    // }
   }
   render() {
     const { isAuthed } = this.state;
