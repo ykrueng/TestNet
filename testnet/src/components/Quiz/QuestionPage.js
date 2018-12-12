@@ -65,7 +65,6 @@ class QuestionPage extends React.Component {
             {question.options.map((ans, index) => (
               <Form.Radio
                 key={index}
-                // name={`option${id + 1}`}
                 label={ans}
                 value={ans}
                 onChange={() => this.handleChange(index, ans)}
