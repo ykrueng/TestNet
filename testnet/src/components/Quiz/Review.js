@@ -3,11 +3,11 @@ import { Button, Form, Grid, Header } from "semantic-ui-react";
 
 const Review = props => {
   const { questions, answers, rubric } = props;
-  console.group("q&a");
-  console.log(questions);
-  console.log(answers);
-  console.log(rubric);
-  console.groupEnd();
+  // console.group("q&a");
+  // console.log(questions);
+  // console.log(answers);
+  // console.log(rubric);
+  // console.groupEnd();
   return (
     <Grid centered columns={5}>
       <Grid.Column width={4}>
