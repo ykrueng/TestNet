@@ -1,6 +1,6 @@
 import React from "react";
 import Review from "./Review";
-import { Button, Form, Grid } from "semantic-ui-react";
+import { Button, Form, Grid, Progress } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { checkAnswer } from "../../store/actions/quizzActions";
 import { token } from "../../views/DummyView";
@@ -10,7 +10,8 @@ class QuestionPage extends React.Component {
     answers: [],
     current: "",
     question: {},
-    rubric: []
+    rubric: [],
+    progress: 0
   };
 
   handleChange = (index, answer) => {
@@ -36,7 +37,8 @@ class QuestionPage extends React.Component {
         ...this.state.answers,
         { question: question, answer: this.state.current }
       ],
-      rubric: [...this.state.rubric, this.props.answer]
+      rubric: [...this.state.rubric, this.props.answer],
+      progress: (id / this.props.questions.length) * 100
     });
     this.props.history.push(`/quizzes/${quiz}/${id}`);
   };
@@ -73,10 +75,16 @@ class QuestionPage extends React.Component {
             <Button
               basic
               color="black"
+              disabled={this.props.checkingAnswer ? true : false}
               content={`Submit & Continue`}
               onClick={() => this.nextQuestion(id + 1)}
             />
           </Form>
+          <Progress
+            percent={this.state.progress}
+            label="Percent Completed"
+            size="small"
+          />
         </Grid.Column>
       </Grid>
     );
@@ -87,7 +95,8 @@ const mapStateToProps = state => {
   const { quizzReducer } = state;
   return {
     questions: quizzReducer.questions,
-    answer: quizzReducer.answer
+    answer: quizzReducer.answer,
+    checkingAnswer: quizzReducer.checkingAnswer
   };
 };
 
