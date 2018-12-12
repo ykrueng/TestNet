@@ -5,28 +5,35 @@ import { connect } from "react-redux";
 class QuestionPage extends React.Component {
   state = {
     answers: [],
-    value: ""
+    value: "",
+    current: ""
   };
 
-  handleChange = (e, { value }) => this.setState({ value });
-
+  handleChange = answer => {
+    this.setState({
+      current: answer
+    });
+  };
   nextQuestion = id => {
     id = parseInt(id, 10);
     let quiz = this.props.match.params.id;
     if (id + 1 > this.props.questions.length) {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
-    this.setState({ value: "" });
+    this.setState({
+      value: "",
+      answers: [...this.state.answers, this.state.current]
+    });
     this.props.history.push(`/quizzes/${quiz}/${id}`);
   };
 
   render() {
     const id = parseInt(this.props.match.params.questionId, 10);
     const question = this.props.questions[id];
+
     if (!question || id > this.props.questions.length) {
       return <h1>There aren't any questions!</h1>;
     }
-    console.log(this.state);
     return (
       <Grid centered columns={5}>
         <Grid.Column>
@@ -35,10 +42,11 @@ class QuestionPage extends React.Component {
             {question.options.map((ans, index) => (
               <Form.Radio
                 key={index}
+                name={`${question.id}`}
                 label={ans}
-                value={index}
-                onChange={this.handleChange}
-                checked={this.state.value === index}
+                value={ans}
+                onChange={() => this.handleChange(ans)}
+                checked={this.state.current === ans}
               />
             ))}
             <Button
