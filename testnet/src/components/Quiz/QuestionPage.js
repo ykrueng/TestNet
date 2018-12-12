@@ -1,6 +1,6 @@
 import React from "react";
 import Review from "./Review";
-import { Button, Form, Grid, Progress } from "semantic-ui-react";
+import { Button, Form, Grid, Progress, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { checkAnswer } from "../../store/actions/quizzActions";
 import { token } from "../../views/DummyView";
@@ -59,9 +59,11 @@ class QuestionPage extends React.Component {
     }
     return (
       <Grid centered columns={5}>
-        <Grid.Column>
-          <Form>
-            <p>{`${id + 1}.  ${question.question}`}</p>
+        <Grid.Column style={{ marginTop: "5rem" }}>
+          <Form style={{ padding: "1rem 0" }}>
+            <Header as="h3" style={{ margin: "2.5rem 0" }}>{`${id + 1}.  ${
+              question.question
+            }`}</Header>
             {question.options.map((ans, index) => (
               <Form.Radio
                 key={index}
@@ -73,16 +75,19 @@ class QuestionPage extends React.Component {
             ))}
             <Button
               basic
-              color="black"
+              color="blue"
+              attached="bottom"
               disabled={this.props.checkingAnswer ? true : false}
               content={`Submit & Continue`}
               onClick={() => this.nextQuestion(id + 1)}
+              style={{ marginTop: "1.5rem" }}
             />
           </Form>
           <Progress
             percent={this.state.progress}
+            color="green"
             label="Percent Completed"
-            size="small"
+            size="tiny"
           />
         </Grid.Column>
       </Grid>
