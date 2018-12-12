@@ -5,10 +5,6 @@ import QuizView from "./views/QuizView";
 import PostList from "./components/Post/PostList";
 import DummyView from "./views/DummyView";
 import { login, register } from "./store/actions";
-// import { Header, Image, Segment } from "semantic-ui-react";
-// import NavBar from "./components/NavBar";
-// import Quiz from "./components/Quiz/Quiz";
-// import QuestionPage from "./components/Quiz/QuestionPage";
 
 class App extends React.Component {
   render() {
