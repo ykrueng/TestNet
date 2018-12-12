@@ -9,7 +9,7 @@ import {
   Segment
 } from "semantic-ui-react";
 
-const LoginForm = () => (
+const LoginForm = props => (
   <div className="login-form">
     {/*
       Heads up! The styles below are necessary for the correct render of this example.
@@ -44,7 +44,12 @@ const LoginForm = () => (
               type="password"
             />
 
-            <Button color="teal" fluid size="large">
+            <Button
+              color="teal"
+              fluid
+              size="large"
+              onClick={e => props.click(e)}
+            >
               Login
             </Button>
           </Segment>

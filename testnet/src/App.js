@@ -12,15 +12,19 @@ class App extends React.Component {
     modal: false
   };
 
-  handleClick = () => {
+  handleClick = e => {
+    e.preventDefault();
     this.setState({ modal: !this.state.modal });
   };
 
   render() {
+    if (this.state.modal) {
+      return <LoginForm click={this.handleClick} />;
+    }
     return (
       <div>
         <QuizView {...this.props} click={this.handleClick} />
-        {this.state.modal && <LoginForm click={this.handleClick} />}
+        {/* {this.state.modal && <LoginForm click={this.handleClick} />} */}
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
         <Route exact path="/posts" render={props => <PostList {...props} />} />
