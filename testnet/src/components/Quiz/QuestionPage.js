@@ -14,12 +14,15 @@ class QuestionPage extends React.Component {
       current: answer
     });
   };
+
   nextQuestion = id => {
     id = parseInt(id, 10);
     let quiz = this.props.match.params.id;
+
     if (id + 1 > this.props.questions.length) {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
+
     this.setState({
       value: "",
       answers: [...this.state.answers, this.state.current]
