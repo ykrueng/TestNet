@@ -5,7 +5,8 @@ const Welcome = () => {
   return (
     <Segment>
       <Header as="h1" textAlign="center">
-        Welcome to our Fancy Special Exciting Homepage!
+        Welcome to TestNet
+        <Header.Subheader content="the best tests on the net" />
       </Header>
       <Image src="https://i.imgur.com/DnK3GYI.jpg" alt="pretty mountains" />
     </Segment>
