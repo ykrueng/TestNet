@@ -1,70 +1,20 @@
 import React from "react";
 import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { Header, Image, Segment } from "semantic-ui-react";
-
-import NavBar from "./components/NavBar";
 import QuizView from "./views/QuizView";
-import Quiz from "./components/Quiz/Quiz";
-import QuestionPage from "./components/Quiz/QuestionPage";
 import PostList from "./components/Post/PostList";
 import DummyView from "./views/DummyView";
 import { login, register } from "./store/actions";
+// import { Header, Image, Segment } from "semantic-ui-react";
+// import NavBar from "./components/NavBar";
+// import Quiz from "./components/Quiz/Quiz";
+// import QuestionPage from "./components/Quiz/QuestionPage";
 
 class App extends React.Component {
-  state = {
-    isAuthed: false
-  };
-  componentDidMount() {
-    if (localStorage.getItem("token")) {
-      this.setState({ isAuthed: true });
-    }
-  }
   render() {
-    const { isAuthed } = this.state;
     return (
       <div>
-        <NavBar />
-        {isAuthed && (
-          <input
-            type="text"
-            name="comment"
-            placeholder="logged in comment area"
-          />
-        )}
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Segment>
-              <Header as="h1" textAlign="center">
-                Welcome to our Fancy Special Exciting Homepage!
-              </Header>
-              <Image
-                src="https://i.imgur.com/DnK3GYI.jpg"
-                alt="pretty mountains"
-                fluid
-                centered
-              />
-            </Segment>
-          )}
-        />
-        <Route
-          exact
-          path="/quizzes"
-          render={props => <QuizView {...props} />}
-        />
-
-        <Route
-          exact
-          path="/quizzes/:id"
-          render={props => <Quiz {...props} />}
-        />
-        <Route
-          exact
-          path="/quizzes/:id/:questionId"
-          render={props => <QuestionPage {...props} />}
-        />
+        <QuizView {...this.props} />
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
         <Route exact path="/posts" render={props => <PostList {...props} />} />

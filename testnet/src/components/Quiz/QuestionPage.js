@@ -1,4 +1,5 @@
 import React from "react";
+import Review from "./Review";
 import { Button, Form, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
 
@@ -16,16 +17,17 @@ class QuestionPage extends React.Component {
   };
 
   nextQuestion = id => {
-    id = parseInt(id, 10);
-    let quiz = this.props.match.params.id;
-
+    const quiz = this.props.match.params.id;
+    const question = this.props.questions[id - 1].question;
     if (id + 1 > this.props.questions.length) {
       this.props.history.push(`/quizzes/${quiz}/review`);
     }
-
     this.setState({
       value: "",
-      answers: [...this.state.answers, this.state.current]
+      answers: [
+        ...this.state.answers,
+        { question: question, answer: this.state.current }
+      ]
     });
     this.props.history.push(`/quizzes/${quiz}/${id}`);
   };
@@ -35,8 +37,11 @@ class QuestionPage extends React.Component {
     const question = this.props.questions[id];
 
     if (!question || id > this.props.questions.length) {
-      return <h1>There aren't any questions!</h1>;
+      return (
+        <Review answers={this.state.answers} questions={this.props.questions} />
+      );
     }
+    console.log(this.state);
     return (
       <Grid centered columns={5}>
         <Grid.Column>

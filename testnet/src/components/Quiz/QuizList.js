@@ -9,6 +9,7 @@ const QuizList = props => {
         <Segment
           className="quiz-card"
           key={quiz.id}
+          exact="true"
           onClick={() => history.push(`/quizzes/${quiz.id}`)}
         >
           <Header as="h1" textAlign="center" color="teal">

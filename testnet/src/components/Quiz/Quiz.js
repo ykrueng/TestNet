@@ -9,11 +9,10 @@ class Quiz extends React.Component {
     this.props.getQuizz(id);
     this.props.getQuestions(id);
   }
+
   render() {
     const id = this.props.match.params.id;
     const { quizz } = this.props;
-    console.log(this.props.questions);
-    console.log(quizz.author);
 
     return (
       <div className="quiz">
@@ -45,6 +44,7 @@ class Quiz extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   const { quizzReducer } = state;
   return {
