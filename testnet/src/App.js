@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { Header, Image, Segment } from "semantic-ui-react";
 
 import NavBar from "./components/NavBar";
 import QuizView from "./views/QuizView";
@@ -35,7 +36,17 @@ class App extends React.Component {
           exact
           path="/"
           render={() => (
-            <h1>Welcome to our Fancy Special Exciting Homepage!</h1>
+            <Segment>
+              <Header as="h1" textAlign="center">
+                Welcome to our Fancy Special Exciting Homepage!
+              </Header>
+              <Image
+                src="https://i.imgur.com/DnK3GYI.jpg"
+                alt="pretty mountains"
+                fluid
+                centered
+              />
+            </Segment>
           )}
         />
         <Route

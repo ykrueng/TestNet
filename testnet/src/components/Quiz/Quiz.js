@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Button } from "semantic-ui-react";
+import { Header, Button, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
@@ -13,24 +13,34 @@ class Quiz extends React.Component {
     const id = this.props.match.params.id;
     const { quizz } = this.props;
     console.log(this.props.questions);
+    console.log(quizz.author);
 
     return (
       <div className="quiz">
-        <Header as="h3">
-          {quizz.title}
-          <Header.Subheader content={quizz.topic} />
-          <Header.Subheader
-            content={quizz.author ? quizz.author.username : "Loading"}
-          />
-          <Header.Subheader content={quizz.votes} />
-        </Header>
+        <Segment clearing>
+          <Header as="h2">{quizz.title}</Header>
 
-        <Button
-          content="Begin Quiz"
-          basic
-          color="black"
-          onClick={() => this.props.history.push(`/quizzes/${id}/${0}`)}
-        />
+          <Button
+            basic
+            content="Begin Quiz"
+            floated="right"
+            color="green"
+            onClick={() => this.props.history.push(`/quizzes/${id}/${0}`)}
+          />
+
+          <Header as="h5">
+            {quizz.topic}
+            <Header.Subheader>
+              submitted by:
+              {quizz.author ? (
+                <Image circular src={quizz.author.img_url} avatar />
+              ) : null}
+              {quizz.author ? quizz.author.username : "Loading"}
+            </Header.Subheader>
+
+            <Header.Subheader content={`${quizz.votes} Votes`} />
+          </Header>
+        </Segment>
       </div>
     );
   }
