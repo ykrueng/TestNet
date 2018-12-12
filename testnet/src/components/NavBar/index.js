@@ -17,7 +17,7 @@ class NavBar extends React.Component {
         <Container position="center">
           <Header content="TestNet" textAlign="center" size="huge" />
         </Container>
-        <Menu pointing="true" size="small" secondary>
+        <Menu pointing={true} size="small" secondary>
           <Menu.Menu position="left">
             <Menu.Item
               name="home"

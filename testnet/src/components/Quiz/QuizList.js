@@ -11,7 +11,7 @@ const QuizList = props => {
           key={quiz.id}
           onClick={() => history.push(`/quizzes/${quiz.id}`)}
         >
-          <Header as="h1" textAlign="center">
+          <Header as="h1" textAlign="center" color="teal">
             {quiz.title}
             <Header.Subheader content={quiz.author} />
           </Header>
