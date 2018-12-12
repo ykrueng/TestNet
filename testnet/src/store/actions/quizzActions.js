@@ -228,7 +228,7 @@ export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
     data: answer
   })
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: PATCH_QUIZZ_SUCCESS,
         payload: res.data
