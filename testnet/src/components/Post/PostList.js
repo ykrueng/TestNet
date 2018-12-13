@@ -1,10 +1,23 @@
 import React from "react";
+import { Header, Comment, Segment } from "semantic-ui-react";
 
-const PostList = props => {
+const PostList = ({ posts }) => {
+  // console.log(props.posts);
   return (
-    <div className="posts-container">
-      <p>Test PostList Page</p>
-    </div>
+    <Segment>
+      {posts.map((post, index) => (
+        <Segment key={index}>
+          <Header as="h3" key={index} dividing>
+            {post.title}
+            <Header.Subheader content={post.author} />
+          </Header>
+          <Comment>
+            {post.body}
+            <Comment.Metadata>{post.created_at}</Comment.Metadata>
+          </Comment>
+        </Segment>
+      ))}
+    </Segment>
   );
 };
 
