@@ -69,23 +69,34 @@ export const getQuizzes = () => dispatch => {
     });
 };
 
-export const getQuizz = quizzId => dispatch => {
+export const getQuizz = (quizzId, token) => dispatch => {
   dispatch({ type: QUIZZ_REQUEST });
-
-  study
-    .get(`/quizzes/${quizzId}`)
-    .then(res => {
-      dispatch({
-        type: QUIZZ_SUCCESS,
-        payload: res.data
-      });
+  if (token) {
+    study({
+      metod: "get",
+      url: `/quizzes/${quizzId}`,
+      headers: { Authorization: token }
     })
-    .catch(err => {
-      dispatch({
-        type: QUIZZ_FAILURE,
-        payload: { err }
+      .then(res => {
+        dispatch({
+          type: QUIZZ_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: QUIZZ_FAILURE,
+          payload: { err }
+        });
       });
-    });
+  } else {
+    study
+      .get(`/quizzes/${quizzId}`)
+      .then(res => {
+        dispatch({ type: QUIZZ_SUCCESS, payload: res.data });
+      })
+      .catch(err => dispatch({ type: QUIZZ_FAILURE, payload: err }));
+  }
 };
 
 export const postQuizz = (quizz, token) => dispatch => {
