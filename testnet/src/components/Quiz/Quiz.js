@@ -6,7 +6,11 @@ import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 class Quiz extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getQuizz(id);
+    if (localStorage.getItem("testnet-login")) {
+      this.props.getQuizz(id, localStorage.getItem("testnet-login"));
+    } else {
+      this.props.getQuizz(id);
+    }
     this.props.getQuestions(id);
   }
 
@@ -49,10 +53,11 @@ class Quiz extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { quizzReducer } = state;
+  const { quizzReducer, loginReducer } = state;
   return {
     quizz: quizzReducer.quizz,
-    questions: quizzReducer.questions
+    questions: quizzReducer.questions,
+    token: loginReducer.token
   };
 };
 
