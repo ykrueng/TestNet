@@ -27,7 +27,7 @@ class QuizView extends React.Component {
             placeholder="logged in comment area"
           />
         )}
-        <QuizRoutes quizzes={quizzes} />
+        <QuizRoutes quizzes={quizzes} loggedIn={loggedIn} />
       </div>
     );
   }
@@ -37,7 +37,7 @@ const mapStateToProps = state => {
   const { loginReducer, quizzReducer } = state;
   return {
     quizzes: quizzReducer.quizzes,
-    loggedIn: loginReducer.loggedIn,
+    loggedIn: loginReducer.loggedIn
   };
 };
 export default connect(
