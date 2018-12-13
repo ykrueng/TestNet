@@ -19,7 +19,12 @@ class QuizView extends React.Component {
     const { loggedIn, click, quizzes, logout } = this.props;
     return (
       <div>
-        <NavBar logout={logout} loggedIn={loggedIn} click={click} />
+        <NavBar
+          logout={logout}
+          loggedIn={loggedIn}
+          click={click}
+          getRegistrationFrom={this.props.getRegistrationFrom}
+        />
         {isAuthed && (
           <input
             type="text"

@@ -17,10 +17,10 @@ class LoginForm extends React.Component {
     loginForm: true,
   };
 
-  handleFormSwitch = () => {
-    console.log('clicked')
-    this.setState( state => ({ loginForm: !state.loginForm }))
-  }
+  // handleFormSwitch = () => {
+  //   console.log('clicked')
+  //   this.setState( state => ({ loginForm: !state.loginForm }))
+  // }
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -28,25 +28,28 @@ class LoginForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { email, username, password, img_url } = this.state;
+    const { login, register, signin } = this.props;
+    
     const user = {
-      email: this.state.email,
-      password: this.state.password,
+      email,
+      password,
     }
-    if (this.state.loginForm) {
-      this.props.login(user);
+    if (signin) {
+      login(user);
     } else {
-      user.username = this.state.username;
-      if (this.state.img_url) {
-        user.img_url = this.state.img_url;
+      user.username = username;
+      if (img_url) {
+        user.img_url = img_url;
       }
-      this.props.register(user);
+      register(user);
     }
 
   }
 
   render() {
-    const { email, username, password, img_url, loginForm } = this.state;
-    const { loginError, registrationError } = this.props;
+    const { email, username, password, img_url } = this.state;
+    const { signin, loginError, registrationError, handleFormSwitch } = this.props;
     return (
       <div className="login-form">
         {/*
@@ -68,7 +71,7 @@ class LoginForm extends React.Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="teal" textAlign="center">
-              {loginForm ? "Sign In to TestNet" : "Sign Up to TestNet"}
+              {signin ? "Sign In to TestNet" : "Sign Up to TestNet"}
             </Header>
             <Form action="submit" onSubmit={this.handleSubmit} size="large">
               <Segment stacked>
@@ -82,7 +85,7 @@ class LoginForm extends React.Component {
                   onChange={this.handleChange}
                 />
                 {
-                  !loginForm &&
+                  !signin &&
                   <Form.Input
                     fluid
                     icon="user"
@@ -104,7 +107,7 @@ class LoginForm extends React.Component {
                     onChange={this.handleChange}
                   />
                 {
-                  !loginForm &&
+                  !signin &&
                   <Form.Input
                     fluid
                     icon="user secret"
@@ -121,7 +124,7 @@ class LoginForm extends React.Component {
                   size="large"
                   type="submit"
                 >
-                  { loginForm ? "Sign In" : "Sign Up"}
+                  { signin ? "Sign In" : "Sign Up"}
                 </Button>
               </Segment>
             </Form>
@@ -132,15 +135,15 @@ class LoginForm extends React.Component {
               </Message>
             }
             {
-              this.props.registrationError &&
+              registrationError &&
               <Message>
                 ** Registration failed, please try again
               </Message>
             }
             <Message>
-              { loginForm ? "New to us? " : "Already have an account? "} 
-              <Button onClick={this.handleFormSwitch}>
-                { loginForm ? "Sign Up" : "Sign In"}
+              { signin ? "New to us? " : "Already have an account? "} 
+              <Button onClick={handleFormSwitch}>
+                { signin ? "Sign Up" : "Sign In"}
               </Button>
             </Message>
           </Grid.Column>

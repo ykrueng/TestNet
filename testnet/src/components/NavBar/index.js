@@ -6,13 +6,25 @@ class NavBar extends React.Component {
   state = {
     active: "home"
   };
+
   handleChange = e => {
     this.setState({ active: e.target.name });
   };
 
+  handleClick = e => {
+    const { loggedIn, click, logout } = this.props;
+
+    if (loggedIn) {
+      logout();
+    } else {
+      click();
+    }
+    
+  }
+
   render() {
     const { active } = this.state;
-    const { loggedIn, click, logout } = this.props;
+    const { loggedIn, getRegistrationFrom } = this.props;
     return (
       <Segment style={{ padding: "1.5rem 0" }}>
         <Menu pointing={true} size="large" fixed="top" inverted>
@@ -46,12 +58,16 @@ class NavBar extends React.Component {
               <Button
                 primary
                 content={loggedIn ? "Logout" : "Login"}
-                // onClick={e => click(e)}
-                onClick={logout}
+                onClick={this.handleClick}
               />
-              <Button inverted primary style={{ marginLeft: ".75rem" }}>
-                Sign Up!
-              </Button>
+              {
+                !loggedIn && 
+                <Button inverted primary style={{ marginLeft: ".75rem" }}
+                  onClick={getRegistrationFrom}
+                >
+                  Sign Up!
+                </Button>
+              }
             </Menu.Item>
           </Menu.Menu>
         </Menu>
