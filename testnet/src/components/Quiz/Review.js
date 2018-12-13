@@ -2,6 +2,7 @@ import React from "react";
 import Summary from "./Summary";
 import { Button, Form, Grid } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Review extends React.Component {
   state = {
@@ -14,14 +15,19 @@ class Review extends React.Component {
   };
 
   render() {
-    const { questions, answers, rubric, history, match } = this.props;
+    const { questions, answers, rubric, history, match, token } = this.props;
     if (answers.length < 1) {
       return <Redirect to="/quizzes" />;
     }
     if (this.state.reveal) {
       return (
         <Grid centered columns={3} style={{ marginTop: "5rem" }}>
-          <Summary questions={questions} answer={answers} rubric={rubric} />
+          <Summary
+            auth={token}
+            questions={questions}
+            answer={answers}
+            rubric={rubric}
+          />
         </Grid>
       );
     }
@@ -52,4 +58,11 @@ class Review extends React.Component {
     );
   }
 }
-export default Review;
+
+const mapStateToProps = state => {
+  const { loginReducer } = state;
+  return {
+    token: loginReducer.token
+  };
+};
+export default connect(mapStateToProps)(Review);
