@@ -14,6 +14,8 @@ class Quiz extends React.Component {
     const id = this.props.match.params.id;
     const { quizz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
+    const empty = questions.length > 0 ? false : true;
+    console.log(this.props);
 
     return (
       <div className="quiz">
@@ -22,6 +24,7 @@ class Quiz extends React.Component {
 
           <Button
             basic
+            disabled={empty}
             content="Begin Quiz"
             floated="right"
             color="green"
