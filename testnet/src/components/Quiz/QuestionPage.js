@@ -1,10 +1,10 @@
 import React from "react";
 import Review from "./Review";
 import NextButton from "./NextButton";
-import { Grid, Header } from "semantic-ui-react";
-import { connect } from "react-redux";
 import { checkAnswer, getQuestion } from "../../store/actions/quizzActions";
 import QuestionDisplay from "./QuestionDisplay";
+import { Grid, Header } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 class QuestionPage extends React.Component {
   state = {
