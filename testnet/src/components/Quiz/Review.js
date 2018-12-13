@@ -12,14 +12,12 @@ class Review extends React.Component {
     e.preventDefault();
     this.setState({ reveal: !this.state.reveal });
   };
+
   render() {
     const { questions, answers, rubric, history } = this.props;
-    // const { id } = props.match.params;
-
     if (answers.length < 1) {
       return <Redirect to="/quizzes" />;
     }
-
     if (this.state.reveal) {
       return (
         <Grid cenetered columns={3} style={{ marginTop: "5rem" }}>
@@ -27,6 +25,7 @@ class Review extends React.Component {
         </Grid>
       );
     }
+
     return (
       <Grid centered columns={3} style={{ marginTop: "5rem" }}>
         <Grid.Column>
