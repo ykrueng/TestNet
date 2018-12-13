@@ -19,17 +19,17 @@ class App extends React.Component {
 
   render() {
     if (!this.props.loggedIn) {
-      return <LoginForm
-        login={this.props.login}
-        register={this.props.register}
-        loginError={this.props.loginError}
-        registrationError={this.props.registrationError}
-      />;
+      return (
+        <LoginForm
+          login={this.props.login}
+          register={this.props.register}
+          loginError={this.props.loginError}
+        />
+      );
     }
     return (
       <div>
         <QuizView {...this.props} click={this.handleClick} />
-        {/* {this.state.modal && <LoginForm click={this.handleClick} />} */}
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
         <Route exact path="/posts" render={props => <PostView {...props} />} />
@@ -43,7 +43,7 @@ export default withRouter(
     state => ({
       loggedIn: state.loginReducer.loggedIn,
       loginError: state.loginReducer.loginError,
-      registrationError: state.loginReducer.registrationError,
+      registrationError: state.loginReducer.registrationError
     }),
     { login, register, checkStatus }
   )(App)
