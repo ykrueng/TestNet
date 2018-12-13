@@ -9,7 +9,8 @@ const Summary = ({ questions, answers, rubric }) => {
         {questions.map((q, index) => (
           <Header key={index}>
             {q.question}
-            <Header.Subheader
+            <Header
+              color={rubric[index].correct === true ? "green" : "red"}
               content={rubric[index].correct === true ? "Correct" : "Incorrect"}
             />
           </Header>

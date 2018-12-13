@@ -58,6 +58,7 @@ class QuestionPage extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { question, questions, checkingAnswer } = this.props;
     const { rubric, answers, current, progress } = this.state;
     const id = parseInt(this.props.match.params.questionId, 10);
@@ -73,6 +74,9 @@ class QuestionPage extends React.Component {
           questions={this.props.questions}
         />
       );
+    }
+    if (!question) {
+      return <Header as="h1" content="Loading.." />;
     }
     return (
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
