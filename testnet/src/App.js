@@ -40,6 +40,7 @@ class App extends React.Component {
         register={this.props.register}
         signin={this.state.signin}
         handleFormSwitch={this.handleFormSwitch}
+        handleCancel={this.handleClick}
         loginError={this.props.loginError}
         registrationError={this.props.registrationError}
       />;

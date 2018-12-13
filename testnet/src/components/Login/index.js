@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { email, username, password, img_url } = this.state;
-    const { signin, loginError, registrationError, handleFormSwitch } = this.props;
+    const { signin, loginError, registrationError, handleCancel, handleFormSwitch } = this.props;
     return (
       <div className="login-form">
         {/*
@@ -118,6 +118,14 @@ class LoginForm extends React.Component {
                     onChange={this.handleChange}
                   />
                 }
+                <Button
+                  color="gray"
+                  fluid
+                  size="large"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
                 <Button
                   color="teal"
                   fluid
