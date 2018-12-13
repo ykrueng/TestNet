@@ -21,7 +21,11 @@ class Review extends React.Component {
     }
 
     if (this.state.reveal) {
-      return <Summary questions={questions} answer={answers} rubric={rubric} />;
+      return (
+        <Grid cenetered columns={3} style={{ marginTop: "5rem" }}>
+          <Summary questions={questions} answer={answers} rubric={rubric} />
+        </Grid>
+      );
     }
     return (
       <Grid centered columns={3} style={{ marginTop: "5rem" }}>
