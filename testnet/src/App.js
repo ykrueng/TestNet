@@ -21,6 +21,7 @@ class App extends React.Component {
     if (!this.props.loggedIn) {
       return <LoginForm
         login={this.props.login}
+        register={this.props.register}
         loginError={this.props.loginError}
       />;
     }

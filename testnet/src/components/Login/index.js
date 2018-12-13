@@ -11,8 +11,16 @@ import {
 class LoginForm extends React.Component {
   state = {
     username: "",
-    password: ""
+    email: "",
+    password: "",
+    img_url: "",
+    loginForm: true,
   };
+
+  handleFormSwitch = () => {
+    console.log('clicked')
+    this.setState( state => ({ loginForm: !state.loginForm }))
+  }
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -21,14 +29,23 @@ class LoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const user = {
-      email: this.state.username,
+      email: this.state.email,
       password: this.state.password,
     }
+    if (this.state.loginForm) {
+      this.props.login(user);
+    } else {
+      user.username = this.state.username;
+      if (this.state.img_url) {
+        user.img_url = this.state.img_url;
+      }
+      this.props.register(user);
+    }
 
-    this.props.login(user);
   }
 
   render() {
+    const { email, username, password, img_url, loginForm } = this.state;
     return (
       <div className="login-form">
         {/*
@@ -50,36 +67,60 @@ class LoginForm extends React.Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="teal" textAlign="center">
-              Log-in to TestNet
+              {loginForm ? "Sign In to TestNet" : "Sign Up to TestNet"}
             </Header>
             <Form action="submit" onSubmit={this.handleSubmit} size="large">
               <Segment stacked>
                 <Form.Input
                   fluid
                   icon="user"
-                  name="username"
+                  name="email"
                   iconPosition="left"
                   placeholder="E-mail address"
-                  value={this.state.username}
+                  value={email}
                   onChange={this.handleChange}
                 />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
+                {
+                  !loginForm &&
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    name="username"
+                    iconPosition="left"
+                    placeholder="Username"
+                    value={username}
+                    onChange={this.handleChange}
+                  />
+                }
+                  <Form.Input
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={this.handleChange}
+                  />
+                {
+                  !loginForm &&
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    name="img_url"
+                    iconPosition="left"
+                    placeholder="Optional image url"
+                    value={img_url}
+                    onChange={this.handleChange}
+                  />
+                }
                 <Button
                   color="teal"
                   fluid
                   size="large"
                   type="submit"
                 >
-                  Login
+                  { loginForm ? "Sign In" : "Sign Up"}
                 </Button>
               </Segment>
             </Form>
@@ -90,7 +131,10 @@ class LoginForm extends React.Component {
               </Message>
             }
             <Message>
-              New to us? <Button>Sign Up</Button>
+              { loginForm ? "New to us? " : "Already have an account? "} 
+              <Button onClick={this.handleFormSwitch}>
+                { loginForm ? "Sign Up" : "Sign In"}
+              </Button>
             </Message>
           </Grid.Column>
         </Grid>
