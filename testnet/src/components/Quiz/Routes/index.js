@@ -5,7 +5,7 @@ import QuizList from "../QuizList";
 import Quiz from "../Quiz";
 import QuestionPage from "../QuestionPage";
 
-const QuizRoutes = ({ quizzes }) => {
+const QuizRoutes = ({ quizzes, loggedIn }) => {
   return (
     <Fragment>
       <Route exact path="/" component={Welcome} />
@@ -17,7 +17,7 @@ const QuizRoutes = ({ quizzes }) => {
       <Route
         exact
         path={`/quizzes/:id`}
-        render={props => <Quiz {...props} />}
+        render={props => <Quiz {...props} loggedIn={loggedIn} />}
       />
       <Route
         exact
