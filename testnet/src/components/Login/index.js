@@ -46,6 +46,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { email, username, password, img_url, loginForm } = this.state;
+    const { loginError, registrationError } = this.props;
     return (
       <div className="login-form">
         {/*
@@ -125,9 +126,15 @@ class LoginForm extends React.Component {
               </Segment>
             </Form>
             {
-              this.props.loginError &&
+              loginError &&
               <Message>
-                ** Failed to Login, please check your username and password
+                ** Login failed, please check your username and password
+              </Message>
+            }
+            {
+              this.props.registrationError &&
+              <Message>
+                ** Registration failed, please try again
               </Message>
             }
             <Message>

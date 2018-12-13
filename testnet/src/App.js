@@ -23,6 +23,7 @@ class App extends React.Component {
         login={this.props.login}
         register={this.props.register}
         loginError={this.props.loginError}
+        registrationError={this.props.registrationError}
       />;
     }
     return (
@@ -41,7 +42,8 @@ export default withRouter(
   connect(
     state => ({
       loggedIn: state.loginReducer.loggedIn,
-      loginError: state.loginReducer.loginError
+      loginError: state.loginReducer.loginError,
+      registrationError: state.loginReducer.registrationError,
     }),
     { login, register, checkStatus }
   )(App)
