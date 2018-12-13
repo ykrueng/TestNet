@@ -12,7 +12,7 @@ export {
   register,
   login,
   checkStatus,
-  logout,
+  logout
 } from "./loginActions";
 
 export {
@@ -49,6 +49,9 @@ export {
   SINGLE_Q_REQUEST,
   SINGLE_Q_SUCCESS,
   SINGLE_Q_FAILURE,
+  RESULT_REQUEST,
+  RESULT_SUCCESS,
+  RESULT_FAILURE,
   getQuizzes,
   getQuizz,
   getTopics,
@@ -58,7 +61,8 @@ export {
   getQuestions,
   postQuestion,
   checkAnswer,
-  deleteQuestion
+  deleteQuestion,
+  userResults
 } from "./quizzActions";
 
 export {
