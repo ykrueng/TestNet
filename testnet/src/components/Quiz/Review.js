@@ -27,6 +27,7 @@ class Review extends React.Component {
             questions={questions}
             answer={answers}
             rubric={rubric}
+            match={match}
           />
         </Grid>
       );
