@@ -77,7 +77,7 @@ export const getQuizz = (quizzId, token) => dispatch => {
   dispatch({ type: QUIZZ_REQUEST });
   if (token) {
     study({
-      metod: "get",
+      method: "get",
       url: `/quizzes/${quizzId}`,
       headers: { Authorization: token }
     })
@@ -298,7 +298,7 @@ export const userResults = (quizId, info, token) => dispatch => {
   study({
     method: "patch",
     url: `/quizzes/${quizId}`,
-    headers: { Authentication: token },
+    headers: { Authorization: token },
     data: info
   })
     .then(res => {
