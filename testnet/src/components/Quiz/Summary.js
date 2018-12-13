@@ -1,11 +1,11 @@
 import React from "react";
-import { Header, Form } from "semantic-ui-react";
+import { Header, Form, Grid } from "semantic-ui-react";
 
 const Summary = ({ questions, answers, rubric }) => {
   console.log(rubric, questions, answers);
   if (rubric) {
     return (
-      <div>
+      <Grid.Column style={{ margin: "0 auto" }}>
         {questions.map((q, index) => (
           <Header key={index}>
             {q.question}
@@ -14,7 +14,7 @@ const Summary = ({ questions, answers, rubric }) => {
             />
           </Header>
         ))}
-      </div>
+      </Grid.Column>
     );
   }
 
