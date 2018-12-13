@@ -37,7 +37,8 @@ class QuestionPage extends React.Component {
     this.setState({
       current: "",
       answers: [...this.state.answers, this.state.current],
-      rubric: [...this.state.rubric, this.props.answer]
+      rubric: [...this.state.rubric, this.props.answer],
+      progress: this.state.progress + 100 / this.props.questions.length
     });
   };
 
