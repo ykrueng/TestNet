@@ -47,6 +47,10 @@ export const SINGLE_Q_REQUEST = "SINGLE_Q_REQUEST";
 export const SINGLE_Q_SUCCESS = "SINGLE_Q_SUCCESS";
 export const SINGLE_Q_FAILURE = "SINGLE_Q_FAILURE";
 
+export const RESULT_REQUEST = "RESULT_REQUEST";
+export const RESULT_SUCCESS = "RESULT_SUCCESS";
+export const RESULT_FAILURE = "RESULT_FAILURE";
+
 /*
   Quizz Action Creators
 */
@@ -287,4 +291,19 @@ export const getQuestion = (quizId, questionId) => dispatch => {
       dispatch({ type: SINGLE_Q_SUCCESS, payload: res.data });
     })
     .catch(err => dispatch({ type: SINGLE_Q_FAILURE, payload: err }));
+};
+
+export const userResults = (quizId, info, token) => dispatch => {
+  dispatch({ type: RESULT_REQUEST });
+  study({
+    method: "patch",
+    url: `/quizzes/${quizId}`,
+    headers: { Authentication: token },
+    data: info
+  })
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: RESULT_SUCCESS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: RESULT_FAILURE, payload: err }));
 };

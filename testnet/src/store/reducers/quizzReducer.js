@@ -28,7 +28,10 @@ import {
   DELETE_QUESTION_FAILURE,
   SINGLE_Q_REQUEST,
   SINGLE_Q_SUCCESS,
-  SINGLE_Q_FAILURE
+  SINGLE_Q_FAILURE,
+  RESULT_REQUEST,
+  RESULT_SUCCESS,
+  RESULT_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -46,6 +49,7 @@ const initialState = {
   fetchingQuestions: false,
   fetchingQuestion: false,
   postingQuestion: false,
+  postingResults: false,
   deletingQuizz: false,
   deletingQuestion: false,
   error: null
@@ -222,6 +226,22 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchingQuestion: false,
+        error: action.payload
+      };
+    case RESULT_REQUEST:
+      return {
+        ...state,
+        postingResults: true
+      };
+    case RESULT_SUCCESS:
+      return {
+        ...state,
+        postingResults: false
+      };
+    case RESULT_FAILURE:
+      return {
+        ...state,
+        postingResult: false,
         error: action.payload
       };
     default:
