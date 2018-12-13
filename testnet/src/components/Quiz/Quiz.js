@@ -15,7 +15,6 @@ class Quiz extends React.Component {
     const { quizz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
     const empty = questions.length > 0 ? false : true;
-    console.log(this.props);
 
     return (
       <div className="quiz">
