@@ -1,8 +1,11 @@
 import React from "react";
-import { Header, Form, Grid } from "semantic-ui-react";
+import { Header, Form, Grid, Button } from "semantic-ui-react";
+import ResultForm from "./ResultForm";
 
-const Summary = ({ questions, answers, rubric }) => {
+const Summary = ({ questions, answers, rubric, auth }) => {
   if (rubric) {
+    const score = rubric.filter(item => item.correct === true).length;
+    console.log(score);
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
         {questions.map((q, index) => (
@@ -16,9 +19,13 @@ const Summary = ({ questions, answers, rubric }) => {
         ))}
         <Header>
           Total Score:
-          {rubric.filter(item => item.correct === true).length} /{" "}
-          {rubric.length}
+          {rubric.filter(item => item.correct === true).length} /{rubric.length}
         </Header>
+        {auth && (
+          <Header block>
+            <ResultForm score={score} />
+          </Header>
+        )}
       </Grid.Column>
     );
   }
