@@ -43,6 +43,10 @@ export const DELETE_QUESTION_REQUEST = "DELETE_QUESTION_REQUEST";
 export const DELETE_QUESTION_SUCCESS = "DELETE_QUESTION_SUCCESS";
 export const DELETE_QUESTION_FAILURE = "DELETE_QUESTION_FAILURE";
 
+export const SINGLE_Q_REQUEST = "SINGLE_Q_REQUEST";
+export const SINGLE_Q_SUCCESS = "SINGLE_Q_SUCCESS";
+export const SINGLE_Q_FAILURE = "SINGLE_Q_FAILURE";
+
 /*
   Quizz Action Creators
 */
@@ -263,4 +267,14 @@ export const deleteQuestion = (quizzId, questionId, token) => dispatch => {
         payload: { err }
       });
     });
+};
+
+export const getQuestion = (quizId, questionId) => dispatch => {
+  dispatch({ type: SINGLE_Q_REQUEST });
+  study
+    .get(`/quizzes/${quizId}/questions/${questionId}`)
+    .then(res => {
+      dispatch({ type: SINGLE_Q_SUCCESS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: SINGLE_Q_FAILURE, payload: err }));
 };
