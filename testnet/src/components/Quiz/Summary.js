@@ -15,6 +15,11 @@ const Summary = ({ questions, answers, rubric }) => {
             />
           </Header>
         ))}
+        <Header>
+          Total Score:
+          {rubric.filter(item => item.correct === true).length} /{" "}
+          {rubric.length}
+        </Header>
       </Grid.Column>
     );
   }
