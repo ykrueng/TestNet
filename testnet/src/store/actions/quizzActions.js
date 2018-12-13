@@ -227,12 +227,11 @@ export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
   dispatch({ type: PATCH_QUIZZ_REQUEST });
 
   study({
-    method: "patch",
-    url: `/quizzes/${quizzId}/questions/${questionId}`,
-    data: answer
+    method: "get",
+    url: `/quizzes/${quizzId}/questions/${questionId}/response`,
+    params: answer
   })
     .then(res => {
-      // console.log(res);
       dispatch({
         type: PATCH_QUIZZ_SUCCESS,
         payload: res.data
