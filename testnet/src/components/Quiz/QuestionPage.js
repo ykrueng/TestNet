@@ -1,7 +1,7 @@
 import React from "react";
 import Review from "./Review";
 import NextButton from "./NextButton";
-import { Button, Form, Grid, Progress, Header } from "semantic-ui-react";
+import { Grid, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { checkAnswer, getQuestion } from "../../store/actions/quizzActions";
 import QuestionDisplay from "./QuestionDisplay";
