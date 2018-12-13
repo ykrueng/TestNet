@@ -12,7 +12,8 @@ class Quiz extends React.Component {
 
   render() {
     const id = this.props.match.params.id;
-    const { quizz } = this.props;
+    const { quizz, questions } = this.props;
+    const firstQuestion = questions ? questions[0] : null;
 
     return (
       <div className="quiz">
@@ -24,7 +25,9 @@ class Quiz extends React.Component {
             content="Begin Quiz"
             floated="right"
             color="green"
-            onClick={() => this.props.history.push(`/quizzes/${id}/${0}`)}
+            onClick={() =>
+              this.props.history.push(`/quizzes/${id}/${firstQuestion.id}`)
+            }
           />
 
           <Header as="h5">
