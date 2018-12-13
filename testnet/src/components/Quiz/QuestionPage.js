@@ -14,6 +14,7 @@ class QuestionPage extends React.Component {
     rubric: [],
     progress: 0
   };
+
   componentDidMount() {
     const quizId = this.props.match.params.id;
     const questionId = this.props.match.params.questionId;
@@ -31,6 +32,7 @@ class QuestionPage extends React.Component {
     const questionId = this.props.match.params.questionId;
     this.props.checkAnswer(quizId, questionId, { option: index + 1 });
   };
+
   updateState = () => {
     this.setState({
       current: "",
@@ -38,6 +40,7 @@ class QuestionPage extends React.Component {
       rubric: [...this.state.rubric, this.props.answer]
     });
   };
+
   nextQuestion = () => {
     const quizId = this.props.match.params.id;
     const questionId = parseInt(this.props.match.params.questionId);
@@ -70,9 +73,6 @@ class QuestionPage extends React.Component {
           questions={this.props.questions}
         />
       );
-    }
-    if (!question) {
-      return <h1>Duh</h1>;
     }
     return (
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
