@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Button, Image, Segment } from "semantic-ui-react";
+import { Header, Button, Image, Segment, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
@@ -19,10 +19,14 @@ class Quiz extends React.Component {
     const { quizz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
     const empty = questions.length > 0 ? false : true;
+    console.log(this.props);
 
     return (
       <Segment clearing>
-        <Header as="h2">{quizz.title}</Header>
+        <Header as="h2" color={quizz.favorite ? "yellow" : null}>
+          {quizz.title}
+          {quizz.favorite && <Icon name="star outline" color="yellow" />}
+        </Header>
 
         <Button
           basic
