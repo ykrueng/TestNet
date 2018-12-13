@@ -2,7 +2,6 @@ import React from "react";
 import { Header, Comment, Segment } from "semantic-ui-react";
 
 const PostList = ({ posts }) => {
-  // console.log(props.posts);
   return (
     <Segment>
       {posts.map((post, index) => (
