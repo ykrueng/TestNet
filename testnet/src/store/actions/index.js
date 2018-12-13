@@ -3,10 +3,14 @@ export {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   LOGIN_REQUEST,
-  LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  STATUS_REQUEST,
+  STATUS_FAILURE,
+  STATUS_SUCCESS,
   register,
-  login
+  login,
+  checkStatus,
 } from "./loginActions";
 
 export {

@@ -17,6 +17,17 @@ class LoginForm extends React.Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const user = {
+      email: this.state.username,
+      password: this.state.password,
+    }
+
+    this.props.login(user);
+  }
+
   render() {
     return (
       <div className="login-form">
@@ -41,7 +52,7 @@ class LoginForm extends React.Component {
             <Header as="h2" color="teal" textAlign="center">
               Log-in to TestNet
             </Header>
-            <Form size="large">
+            <Form action="submit" onSubmit={this.handleSubmit} size="large">
               <Segment stacked>
                 <Form.Input
                   fluid
@@ -66,12 +77,18 @@ class LoginForm extends React.Component {
                   color="teal"
                   fluid
                   size="large"
-                  onClick={e => this.props.click(e)}
+                  type="submit"
                 >
                   Login
                 </Button>
               </Segment>
             </Form>
+            {
+              this.props.loginError &&
+              <Message>
+                ** Failed to Login, please check your username and password
+              </Message>
+            }
             <Message>
               New to us? <Button>Sign Up</Button>
             </Message>

@@ -5,12 +5,12 @@ import QuizView from "./views/QuizView";
 import PostView from "./views/PostView";
 import DummyView from "./views/DummyView";
 import LoginForm from "./components/Login";
-import { login, register } from "./store/actions";
+import { login, register, checkStatus } from "./store/actions";
 
 class App extends React.Component {
-  state = {
-    modal: false
-  };
+  componentDidMount() {
+    this.props.checkStatus();
+  }
 
   handleClick = e => {
     e.preventDefault();
@@ -18,8 +18,11 @@ class App extends React.Component {
   };
 
   render() {
-    if (this.state.modal) {
-      return <LoginForm click={this.handleClick} />;
+    if (!this.props.loggedIn) {
+      return <LoginForm
+        login={this.props.login}
+        loginError={this.props.loginError}
+      />;
     }
     return (
       <div>
@@ -36,8 +39,9 @@ class App extends React.Component {
 export default withRouter(
   connect(
     state => ({
-      loggedIn: state.loginReducer.loggedIn
+      loggedIn: state.loginReducer.loggedIn,
+      loginError: state.loginReducer.loginError
     }),
-    { login, register }
+    { login, register, checkStatus }
   )(App)
 );

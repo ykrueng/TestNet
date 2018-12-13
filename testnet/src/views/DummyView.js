@@ -28,7 +28,7 @@ export const token =
 
 class DummyView extends React.Component {
   componentDidMount() {
-    console.log("mounted");
+    // console.log("mounted");
     // this.props.login({email: 'boom@cooltable.io', password: 'password'});
     // this.props.getQuizzes();
     // this.props.getQuestions(82);
