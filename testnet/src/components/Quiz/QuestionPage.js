@@ -82,9 +82,9 @@ class QuestionPage extends React.Component {
     return (
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
         <Grid.Column style={{ marginTop: "5rem" }}>
-          {this.props.fetchingQuestion && (
+          {/* {this.props.fetchingQuestion && (
             <Header as="h1" content="Loading..." />
-          )}
+          )} */}
           <QuestionDisplay
             question={question}
             change={this.handleChange}
