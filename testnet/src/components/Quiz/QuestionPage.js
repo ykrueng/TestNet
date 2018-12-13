@@ -1,9 +1,10 @@
 import React from "react";
 import Review from "./Review";
+import NextButton from "./NextButton";
 import { Button, Form, Grid, Progress, Header } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { checkAnswer } from "../../store/actions/quizzActions";
-import { token } from "../../views/DummyView";
+import { checkAnswer, getQuestion } from "../../store/actions/quizzActions";
+import QuestionDisplay from "./QuestionDisplay";
 
 class QuestionPage extends React.Component {
   state = {
@@ -13,39 +14,53 @@ class QuestionPage extends React.Component {
     rubric: [],
     progress: 0
   };
+  componentDidMount() {
+    const quizId = this.props.match.params.id;
+    const questionId = this.props.match.params.questionId;
+    if (this.props.history.location === `/quizzes/${quizId}/review`) {
+      return;
+    }
+    this.props.getQuestion(quizId, questionId);
+  }
 
   handleChange = (index, answer) => {
     this.setState({
       current: answer
     });
     const quizId = this.props.match.params.id;
-    const id = parseInt(this.props.match.params.questionId);
-    const question = this.props.questions[id];
-    const questionId = question.id;
-    this.props.checkAnswer(quizId, questionId, { option: index + 1 }, token);
+    const questionId = this.props.match.params.questionId;
+    this.props.checkAnswer(quizId, questionId, { option: index + 1 });
   };
-  nextQuestion = id => {
-    const quiz = this.props.match.params.id;
-    // const question = this.props.questions[id - 1].question;
-
-    if (id + 1 > this.props.questions.length) {
-      this.props.history.push(`/quizzes/${quiz}/review`);
-    }
+  updateState = () => {
     this.setState({
       current: "",
       answers: [...this.state.answers, this.state.current],
-      rubric: [...this.state.rubric, this.props.answer],
-      progress: (id / this.props.questions.length) * 100
+      rubric: [...this.state.rubric, this.props.answer]
     });
-    this.props.history.push(`/quizzes/${quiz}/${id}`);
+  };
+  nextQuestion = () => {
+    const quizId = this.props.match.params.id;
+    const questionId = parseInt(this.props.match.params.questionId);
+    const next = this.props.questions.find(
+      question => question.id === questionId + 1
+    );
+    if (!next) {
+      this.updateState();
+      this.props.history.push(`/quizzes/${quizId}/review`);
+    } else {
+      this.updateState();
+      this.props.getQuestion(quizId, next.id);
+      this.props.history.push(`/quizzes/${quizId}/${next.id}`);
+    }
   };
 
   render() {
+    const { question, questions, checkingAnswer } = this.props;
+    const { rubric, answers, current, progress } = this.state;
     const id = parseInt(this.props.match.params.questionId, 10);
-    const question = this.props.questions[id];
+    const nextId = questions.find(question => question.id === id);
 
-    if (!question || id > this.props.questions.length) {
-      const { rubric, answers } = this.state;
+    if (!nextId) {
       return (
         <Review
           answers={answers}
@@ -56,37 +71,24 @@ class QuestionPage extends React.Component {
         />
       );
     }
+    if (!question) {
+      return <h1>Duh</h1>;
+    }
     return (
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
         <Grid.Column style={{ marginTop: "5rem" }}>
-          <Form style={{ padding: "1rem 0" }}>
-            <Header as="h3" style={{ margin: "2.5rem 0" }}>{`${id + 1}.  ${
-              question.question
-            }`}</Header>
-            {question.options.map((ans, index) => (
-              <Form.Radio
-                key={index}
-                label={ans}
-                value={ans}
-                onChange={() => this.handleChange(index, ans)}
-                checked={this.state.current === ans}
-              />
-            ))}
-            <Button
-              basic
-              color="blue"
-              attached="bottom"
-              disabled={this.props.checkingAnswer ? true : false}
-              content={`Submit & Continue`}
-              onClick={() => this.nextQuestion(id + 1)}
-              style={{ marginTop: "1.5rem" }}
-            />
-          </Form>
-          <Progress
-            percent={this.state.progress}
-            color="green"
-            label="Percent Completed"
-            size="tiny"
+          {this.props.fetchingQuestion && (
+            <Header as="h1" content="Loading..." />
+          )}
+          <QuestionDisplay
+            question={question}
+            change={this.handleChange}
+            current={current}
+          />
+          <NextButton
+            next={this.nextQuestion}
+            progress={progress}
+            checking={checkingAnswer}
           />
         </Grid.Column>
       </Grid>
@@ -98,12 +100,15 @@ const mapStateToProps = state => {
   const { quizzReducer } = state;
   return {
     questions: quizzReducer.questions,
+    question: quizzReducer.question,
     answer: quizzReducer.answer,
-    checkingAnswer: quizzReducer.checkingAnswer
+    checkingAnswer: quizzReducer.checkingAnswer,
+    fetching: quizzReducer.fetchingQuestion,
+    error: quizzReducer.error
   };
 };
 
 export default connect(
   mapStateToProps,
-  { checkAnswer }
+  { checkAnswer, getQuestion }
 )(QuestionPage);
