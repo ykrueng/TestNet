@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import QuizView from "./views/QuizView";
-import PostList from "./components/Post/PostList";
+import PostView from "./views/PostView";
 import DummyView from "./views/DummyView";
 import LoginForm from "./components/Login";
 import { login, register } from "./store/actions";
@@ -27,7 +27,7 @@ class App extends React.Component {
         {/* {this.state.modal && <LoginForm click={this.handleClick} />} */}
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
-        <Route exact path="/posts" render={props => <PostList {...props} />} />
+        <Route exact path="/posts" render={props => <PostView {...props} />} />
       </div>
     );
   }
