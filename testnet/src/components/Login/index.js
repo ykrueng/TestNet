@@ -73,7 +73,7 @@ class LoginForm extends React.Component {
               <Segment stacked>
                 <Form.Input
                   fluid
-                  icon="user"
+                  icon="mail"
                   name="email"
                   iconPosition="left"
                   placeholder="E-mail address"
@@ -106,7 +106,7 @@ class LoginForm extends React.Component {
                   !loginForm &&
                   <Form.Input
                     fluid
-                    icon="user"
+                    icon="user secret"
                     name="img_url"
                     iconPosition="left"
                     placeholder="Optional image url"
