@@ -8,6 +8,7 @@ import {
   STATUS_REQUEST,
   STATUS_SUCCESS,
   STATUS_FAILURE,
+  LOGOUT,
 } from '../actions';
 
 const initialState = {
@@ -78,6 +79,11 @@ export const loginReducer = (state=initialState, action) => {
         loggingIn: false,
         registering: false,
         error: action.payload,
+      }
+    case LOGOUT:
+      return {
+        loggedIn: false,
+        token: null,
       }
     default:
       return state

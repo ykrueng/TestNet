@@ -15,6 +15,8 @@ export const STATUS_REQUEST = "STATUS_REQUEST";
 export const STATUS_SUCCESS = "STATUS_SUCCESS";
 export const STATUS_FAILURE = "STATUS_FAILURE";
 
+export const LOGOUT = 'LOGOUT';
+
 /*
   Authentication Action Creators
 */
@@ -66,4 +68,9 @@ export const checkStatus = () => dispatch => {
   dispatch(token ?
   { type: STATUS_SUCCESS, payload: token } :
   { type: STATUS_FAILURE })
+}
+
+export const logout = () => {
+  localStorage.removeItem('testnet-login');
+  return ({type: LOGOUT});
 }

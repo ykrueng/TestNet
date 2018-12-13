@@ -12,6 +12,7 @@ class NavBar extends React.Component {
 
   render() {
     const { active } = this.state;
+    const { loggedIn, click, logout } = this.props;
     return (
       <Segment style={{ padding: "1.5rem 0" }}>
         <Menu pointing={true} size="large" fixed="top" inverted>
@@ -44,8 +45,9 @@ class NavBar extends React.Component {
             <Menu.Item>
               <Button
                 primary
-                content="Login"
-                onClick={e => this.props.click(e)}
+                content={loggedIn ? "Logout" : "Login"}
+                // onClick={e => click(e)}
+                onClick={logout}
               />
               <Button inverted primary style={{ marginLeft: ".75rem" }}>
                 Sign Up!

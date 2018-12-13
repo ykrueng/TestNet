@@ -8,9 +8,11 @@ export {
   STATUS_REQUEST,
   STATUS_FAILURE,
   STATUS_SUCCESS,
+  LOGOUT,
   register,
   login,
   checkStatus,
+  logout,
 } from "./loginActions";
 
 export {

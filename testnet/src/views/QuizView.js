@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import QuizRoutes from "../components/Quiz/Routes";
 import { getQuizzes } from "../store/actions/quizzActions";
+import { logout } from "../store/actions";
 import { connect } from "react-redux";
 
 class QuizView extends React.Component {
@@ -15,9 +16,10 @@ class QuizView extends React.Component {
 
   render() {
     const { isAuthed } = this.state;
+    const { loggedIn, click, quizzes, logout } = this.props;
     return (
       <div>
-        <NavBar click={this.props.click} />
+        <NavBar logout={logout} loggedIn={loggedIn} click={click} />
         {isAuthed && (
           <input
             type="text"
@@ -25,19 +27,20 @@ class QuizView extends React.Component {
             placeholder="logged in comment area"
           />
         )}
-        <QuizRoutes quizzes={this.props.quizzes} />
+        <QuizRoutes quizzes={quizzes} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { quizzReducer } = state;
+  const { loginReducer, quizzReducer } = state;
   return {
-    quizzes: quizzReducer.quizzes
+    quizzes: quizzReducer.quizzes,
+    loggedIn: loginReducer.loggedIn,
   };
 };
 export default connect(
   mapStateToProps,
-  { getQuizzes }
+  { getQuizzes, logout }
 )(QuizView);
