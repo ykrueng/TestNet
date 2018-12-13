@@ -17,35 +17,33 @@ class Quiz extends React.Component {
     const empty = questions.length > 0 ? false : true;
 
     return (
-      <div className="quiz">
-        <Segment clearing>
-          <Header as="h2">{quizz.title}</Header>
+      <Segment clearing>
+        <Header as="h2">{quizz.title}</Header>
 
-          <Button
-            basic
-            disabled={empty}
-            content="Begin Quiz"
-            floated="right"
-            color="green"
-            onClick={() =>
-              this.props.history.push(`/quizzes/${id}/${firstQuestion.id}`)
-            }
-          />
+        <Button
+          basic
+          disabled={empty}
+          content="Begin Quiz"
+          floated="right"
+          color="green"
+          onClick={() =>
+            this.props.history.push(`/quizzes/${id}/${firstQuestion.id}`)
+          }
+        />
 
-          <Header as="h5">
-            {quizz.topic}
-            <Header.Subheader>
-              submitted by:
-              {quizz.author ? (
-                <Image circular src={quizz.author.img_url} avatar />
-              ) : null}
-              {quizz.author ? quizz.author.username : "Loading"}
-            </Header.Subheader>
+        <Header as="h5">
+          {quizz.topic}
+          <Header.Subheader>
+            submitted by:
+            {quizz.author ? (
+              <Image circular src={quizz.author.img_url} avatar />
+            ) : null}
+            {quizz.author ? quizz.author.username : "Loading"}
+          </Header.Subheader>
 
-            <Header.Subheader content={`${quizz.votes} Votes`} />
-          </Header>
-        </Segment>
-      </div>
+          <Header.Subheader content={`${quizz.votes} Votes`} />
+        </Header>
+      </Segment>
     );
   }
 }
