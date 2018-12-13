@@ -1,7 +1,23 @@
 import React from "react";
 import { Header, Form } from "semantic-ui-react";
 
-const Summary = ({ questions, answers }) => {
+const Summary = ({ questions, answers, rubric }) => {
+  console.log(rubric, questions, answers);
+  if (rubric) {
+    return (
+      <div>
+        {questions.map((q, index) => (
+          <Header key={index}>
+            {q.question}
+            <Header.Subheader
+              content={rubric[index].correct === true ? "Correct" : "Incorrect"}
+            />
+          </Header>
+        ))}
+      </div>
+    );
+  }
+
   return questions.map((q, index) => {
     return (
       <Header key={index} style={{ marginBottom: "3rem" }}>
