@@ -6,7 +6,7 @@ const PostList = ({ posts }) => {
     <Segment>
       {posts.map((post, index) => (
         <Segment key={index}>
-          <Header as="h3" key={index} dividing block>
+          <Header as="h3" key={index} dividing block color="blue">
             {post.title}
             <Header.Subheader content={post.author} />
           </Header>
