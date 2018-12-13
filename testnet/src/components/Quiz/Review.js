@@ -14,7 +14,7 @@ class Review extends React.Component {
   };
 
   render() {
-    const { questions, answers, rubric, history } = this.props;
+    const { questions, answers, rubric, history, match } = this.props;
     if (answers.length < 1) {
       return <Redirect to="/quizzes" />;
     }
@@ -43,7 +43,7 @@ class Review extends React.Component {
               attached="bottom"
               color="red"
               content="Restart"
-              onClick={() => history.push(`/quizzes/${1}`)}
+              onClick={() => history.push(`/quizzes/${match.params.id}`)}
               style={{ marginTop: "1rem" }}
             />
           </Form>
