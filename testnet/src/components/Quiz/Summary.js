@@ -2,7 +2,6 @@ import React from "react";
 import { Header, Form, Grid } from "semantic-ui-react";
 
 const Summary = ({ questions, answers, rubric }) => {
-  console.log(rubric, questions, answers);
   if (rubric) {
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
