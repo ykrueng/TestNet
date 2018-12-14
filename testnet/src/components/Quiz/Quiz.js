@@ -6,8 +6,8 @@ import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 class Quiz extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    if (localStorage.getItem("testnet-login")) {
-      this.props.getQuizz(id, localStorage.getItem("testnet-login"));
+    if (this.props.token) {
+      this.props.getQuizz(id, this.props.token);
     } else {
       this.props.getQuizz(id);
     }
@@ -16,16 +16,16 @@ class Quiz extends React.Component {
 
   render() {
     const id = this.props.match.params.id;
-    const { quizz, questions } = this.props;
+    const { quiz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
     const empty = questions.length > 0 ? false : true;
-    console.log(this.props);
+    // console.log(this.props);
 
     return (
       <Segment clearing>
-        <Header as="h2" color={quizz.favorite ? "yellow" : null}>
-          {quizz.title}
-          {quizz.favorite && <Icon name="star outline" color="yellow" />}
+        <Header as="h2" color={quiz.favorite ? "yellow" : null}>
+          {quiz.title}
+          {quiz.favorite && <Icon name="star outline" color="yellow" />}
         </Header>
 
         <Button
@@ -40,16 +40,16 @@ class Quiz extends React.Component {
         />
 
         <Header as="h5">
-          {quizz.topic}
+          {quiz.topic}
           <Header.Subheader>
             submitted by:
-            {quizz.author ? (
-              <Image circular src={quizz.author.img_url} avatar />
+            {quiz.author ? (
+              <Image circular src={quiz.author.img_url} avatar />
             ) : null}
-            {quizz.author ? quizz.author.username : "Loading"}
+            {quiz.author ? quiz.author.username : "Loading"}
           </Header.Subheader>
 
-          <Header.Subheader content={`${quizz.votes} Votes`} />
+          <Header.Subheader content={`${quiz.votes} Votes`} />
         </Header>
       </Segment>
     );
@@ -59,7 +59,7 @@ class Quiz extends React.Component {
 const mapStateToProps = state => {
   const { quizzReducer, loginReducer } = state;
   return {
-    quizz: quizzReducer.quizz,
+    quiz: quizzReducer.quizz,
     questions: quizzReducer.questions,
     token: loginReducer.token
   };
