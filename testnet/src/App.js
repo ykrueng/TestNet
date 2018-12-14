@@ -54,7 +54,6 @@ class App extends React.Component {
           click={this.handleClick}
           getRegistrationFrom={this.getRegistrationFrom}
         />
-        {/* {this.state.modal && <LoginForm click={this.handleClick} />} */}
 
         <Route exact path="/dummy" render={props => <DummyView {...props} />} />
         <Route exact path="/forum" render={props => <Forum {...props} />} />
