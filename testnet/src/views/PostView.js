@@ -11,7 +11,7 @@ class Forum extends React.Component {
   }
 
   render() {
-    console.log(this.props.posts);
+    // console.log(this.props.posts);
     return (
       <div className="posts-container">
         <PostList posts={this.props.posts} />
