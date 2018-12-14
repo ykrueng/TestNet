@@ -18,8 +18,6 @@ class Quiz extends React.Component {
     const id = this.props.match.params.id;
     const { quiz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
-    const empty = questions.length > 0 ? false : true;
-    // console.log(this.props);
 
     return (
       <Segment clearing>
@@ -30,7 +28,7 @@ class Quiz extends React.Component {
 
         <Button
           basic
-          disabled={empty}
+          disabled={questions.length > 0 ? false : true}
           content="Begin Quiz"
           floated="right"
           color="green"
