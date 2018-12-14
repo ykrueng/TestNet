@@ -19,8 +19,7 @@ class NavBar extends React.Component {
     } else {
       click();
     }
-    
-  }
+  };
 
   render() {
     const { active } = this.state;
@@ -47,7 +46,7 @@ class NavBar extends React.Component {
             <Menu.Item
               name="posts"
               as={NavLink}
-              to="/posts"
+              to="/forum"
               active={active === "posts"}
               onClick={this.handleChange}
             />
@@ -60,14 +59,16 @@ class NavBar extends React.Component {
                 content={loggedIn ? "Logout" : "Login"}
                 onClick={this.handleClick}
               />
-              {
-                !loggedIn && 
-                <Button inverted primary style={{ marginLeft: ".75rem" }}
+              {!loggedIn && (
+                <Button
+                  inverted
+                  primary
+                  style={{ marginLeft: ".75rem" }}
                   onClick={getRegistrationFrom}
                 >
                   Sign Up!
                 </Button>
-              }
+              )}
             </Menu.Item>
           </Menu.Menu>
         </Menu>

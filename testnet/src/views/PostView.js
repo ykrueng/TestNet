@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import CommentSection from "../components/Post/Comments";
 import { getPosts } from "../store/actions/postActions";
 
-class PostView extends React.Component {
+class Forum extends React.Component {
   componentDidMount() {
     this.props.getPosts();
   }
@@ -35,4 +35,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { getPosts }
-)(PostView);
+)(Forum);
