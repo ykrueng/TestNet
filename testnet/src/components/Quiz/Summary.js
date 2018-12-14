@@ -6,7 +6,6 @@ const Summary = ({ questions, answers, rubric, auth, match }) => {
   if (rubric) {
     const score = rubric.filter(item => item.correct === true).length;
     const id = match.params.id;
-    console.log(score);
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
         {questions.map((q, index) => (

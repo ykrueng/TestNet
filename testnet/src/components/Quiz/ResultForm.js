@@ -12,7 +12,6 @@ class ResultForm extends React.Component {
   };
 
   handleChange = e => {
-    // console.log(e.target.textContent);
     if (-1 <= this.state.vote <= 1) {
       if (e.target.name === "up") {
         this.setState({ vote: 1 });
@@ -29,9 +28,7 @@ class ResultForm extends React.Component {
     this.props.userResults(id, obj, token);
   };
   render() {
-    // console.log(this.props, this.state);
     const { token, id } = this.props;
-    // console.log(token);
     return (
       <Form>
         <Button content="Favorite" onClick={() => this.handleToggle()} />
