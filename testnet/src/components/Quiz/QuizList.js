@@ -1,24 +1,29 @@
 import React from "react";
-import { Header, Segment } from "semantic-ui-react";
+import { Header, Grid } from "semantic-ui-react";
 
 const QuizList = props => {
   const { quizzes, history } = props;
   return (
-    <div className="quiz-list">
+    <Grid centered container fluid columns={2} relaxed padded="vertically">
       {quizzes.map(quiz => (
-        <Segment
-          className="quiz-card"
+        <Grid.Column
           key={quiz.id}
-          exact="true"
+          verticalAlign="top"
+          style={{ padding: "1rem 0" }}
           onClick={() => history.push(`/quizzes/${quiz.id}`)}
         >
-          <Header as="h1" textAlign="center" color="teal">
-            {quiz.title}
-            <Header.Subheader content={quiz.author} />
-          </Header>
-        </Segment>
+          <Grid.Row stretched={true}>
+            <Header
+              as="h1"
+              color="teal"
+              attached="bottom"
+              content={quiz.title}
+              subheader={`submitted by ${quiz.author}`}
+            />
+          </Grid.Row>
+        </Grid.Column>
       ))}
-    </div>
+    </Grid>
   );
 };
 
