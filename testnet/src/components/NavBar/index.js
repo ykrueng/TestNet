@@ -44,7 +44,7 @@ class NavBar extends React.Component {
               onClick={this.handleChange}
             />
             <Menu.Item
-              name="posts"
+              name="forum"
               as={NavLink}
               to="/forum"
               active={active === "posts"}
