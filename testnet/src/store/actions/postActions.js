@@ -177,7 +177,7 @@ export const getComment = (postId, commentId) => dispatch => {
   study
     .get(`/posts/${postId}/comments/${commentId}`)
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: COMMENT_SUCCESS,
         payload: res.data
