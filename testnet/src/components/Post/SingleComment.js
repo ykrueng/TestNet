@@ -42,7 +42,6 @@ class SingleComment extends React.Component {
 
   render() {
     const { comment } = this.props;
-
     return (
       comment && (
         <Comment.Group>

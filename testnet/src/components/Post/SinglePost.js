@@ -10,7 +10,6 @@ class SinglePost extends React.Component {
 
   render() {
     const { post, history } = this.props;
-
     const { id } = this.props.match.params;
     return (
       post && (
