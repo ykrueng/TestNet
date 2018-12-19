@@ -4,7 +4,7 @@ import { Header, Grid } from "semantic-ui-react";
 const QuizList = props => {
   const { quizzes, history } = props;
   return (
-    <Grid centered container fluid columns={2} relaxed padded="vertically">
+    <Grid centered container columns={2} relaxed padded="vertically">
       {quizzes.map(quiz => (
         <Grid.Column
           key={quiz.id}
