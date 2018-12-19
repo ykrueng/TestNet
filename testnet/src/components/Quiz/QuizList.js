@@ -8,7 +8,7 @@ const QuizList = props => {
       {quizzes.map(quiz => (
         <Grid.Column
           key={quiz.id}
-          style={{ padding: "1rem" }}
+          style={{ padding: "1rem", cursor: "pointer" }}
           onClick={() => history.push(`/quizzes/${quiz.id}`)}
         >
           <Grid.Row stretched={true}>
