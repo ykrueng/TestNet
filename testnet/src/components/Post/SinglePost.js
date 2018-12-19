@@ -1,20 +1,19 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { getPost } from "../../store/actions/postActions";
-import { Header, Container, Button } from "semantic-ui-react";
-// import { getComments } from "../../store/actions/postActions";
-// import CommentSection from "./Comments";
+import { Header, Container, Divider, Button, Segment } from "semantic-ui-react";
+import { getComments, postComment } from "../../store/actions/postActions";
 
 class SinglePost extends React.Component {
   componentDidMount() {
     this.props.getPost(this.props.match.params.id);
-    // this.props.getComments(this.props.match.params.id);
+    this.props.getComments(this.props.match.params.id);
   }
 
   render() {
-    const { post, token } = this.props;
+    const { post, history } = this.props;
+
     const { id } = this.props.match.params;
-    console.log(this.props.location.pathname);
     return (
       post && (
         <Fragment>
@@ -23,19 +22,20 @@ class SinglePost extends React.Component {
             <Header.Subheader>Created At:{post.created_at}</Header.Subheader>
           </Header>
           <Container>{post.body}</Container>
-          {this.props.location.pathname.length < 8 && (
-            <Button
-              onClick={() => this.props.history.push(`/posts/${id}/comments`)}
-            >
-              Show Comments
-            </Button>
+          {this.props.location.pathname.length < 9 && (
+            <Fragment>
+              <Divider horizontal>Or</Divider>
+              <Segment basic textAlign="center">
+                <Button
+                  basic
+                  color="teal"
+                  onClick={() => history.push(`/posts/${id}/comments`)}
+                >
+                  Show Comments
+                </Button>
+              </Segment>
+            </Fragment>
           )}
-
-          {/* <CommentSection
-            comments={comments}
-            token={token}
-            match={this.props.match}
-          /> */}
         </Fragment>
       )
     );
@@ -46,11 +46,12 @@ const mapStateToProps = state => {
   const { postReducer, loginReducer } = state;
   return {
     post: postReducer.post,
+    comments: postReducer.comments,
     token: loginReducer.token
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPost }
+  { getPost, getComments, postComment }
 )(SinglePost);
