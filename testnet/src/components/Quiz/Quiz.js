@@ -21,9 +21,9 @@ class Quiz extends React.Component {
 
     return (
       <Segment clearing>
-        <Header as="h2" color={quiz.favorite ? "yellow" : null}>
+        <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
+          {quiz.favorite && <Icon name="star outline" />}
           {quiz.title}
-          {quiz.favorite && <Icon name="star outline" color="yellow" />}
         </Header>
 
         <Button
