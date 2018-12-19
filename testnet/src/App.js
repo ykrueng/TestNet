@@ -1,10 +1,9 @@
 import React from "react";
-import { withRouter, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import QuizView from "./views/QuizView";
-import Forum from "./views/PostView";
-import DummyView from "./views/DummyView";
 import LoginForm from "./components/Login";
+import PostRoutes from "./components/Post/routes";
 import { login, register, checkStatus } from "./store/actions";
 
 class App extends React.Component {
@@ -55,8 +54,7 @@ class App extends React.Component {
           getRegistrationFrom={this.getRegistrationFrom}
         />
 
-        <Route exact path="/dummy" render={props => <DummyView {...props} />} />
-        <Route exact path="/forum" render={props => <Forum {...props} />} />
+        <PostRoutes />
       </div>
     );
   }
