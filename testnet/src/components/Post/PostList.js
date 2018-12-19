@@ -1,5 +1,7 @@
 import React from "react";
 import { Header, Comment, Segment } from "semantic-ui-react";
+import { Route } from "react-router-dom";
+import SinglePost from "./SinglePost";
 
 const PostList = ({ posts, history }) => {
   return (
@@ -20,6 +22,8 @@ const PostList = ({ posts, history }) => {
           </Comment>
         </Segment>
       ))}
+
+      <Route path="/posts/:id" render={props => <SinglePost {...props} />} />
     </Segment>
   );
 };
