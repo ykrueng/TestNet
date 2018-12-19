@@ -43,8 +43,6 @@ export const DELETE_COMMENT_REQUEST = "DELETE_COMMENT_REQUEST";
 export const DELETE_COMMENT_SUCCESS = "DELETE_COMMENT_SUCCESS";
 export const DELETE_COMMENT_FAILURE = "DELETE_COMMENT_FAILURE";
 
-
-
 /*
   Post Action Creators
 */
@@ -90,10 +88,10 @@ export const postPost = (post, token) => dispatch => {
   dispatch({ type: POST_POST_REQUEST });
 
   study({
-    method: 'post',
-    url: '/posts',
+    method: "post",
+    url: "/posts",
     data: post,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({
@@ -113,10 +111,10 @@ export const updatePost = (postId, post, token) => dispatch => {
   dispatch({ type: PATCH_POST_REQUEST });
 
   study({
-    method: 'patch',
+    method: "patch",
     url: `/posts/${postId}`,
     data: post,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({
@@ -136,9 +134,9 @@ export const deletePost = (postId, token) => dispatch => {
   dispatch({ type: DELETE_POST_REQUEST });
 
   study({
-    method: 'delete',
+    method: "delete",
     url: `/posts/${postId}`,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({
@@ -179,6 +177,7 @@ export const getComment = (postId, commentId) => dispatch => {
   study
     .get(`/posts/${postId}/comments/${commentId}`)
     .then(res => {
+      console.log(res.data);
       dispatch({
         type: COMMENT_SUCCESS,
         payload: res.data
@@ -196,10 +195,10 @@ export const postComment = (postId, comment, token) => dispatch => {
   dispatch({ type: POST_COMMENT_REQUEST });
 
   study({
-    method: 'post',
+    method: "post",
     url: `/posts/${postId}/comments`,
     data: comment,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({
@@ -215,14 +214,19 @@ export const postComment = (postId, comment, token) => dispatch => {
     });
 };
 
-export const updateComment = (postId, commentId, comment, token) => dispatch => {
+export const updateComment = (
+  postId,
+  commentId,
+  comment,
+  token
+) => dispatch => {
   dispatch({ type: PATCH_COMMENT_REQUEST });
 
   study({
-    method: 'patch',
+    method: "patch",
     url: `/posts/${postId}/comments/${commentId}`,
     data: comment,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({
@@ -242,9 +246,9 @@ export const deleteComment = (postId, commentId, token) => dispatch => {
   dispatch({ type: DELETE_COMMENT_REQUEST });
 
   study({
-    method: 'delete',
+    method: "delete",
     url: `/posts/${postId}/comments/${commentId}`,
-    headers: {authorization: token}
+    headers: { authorization: token }
   })
     .then(res => {
       dispatch({

@@ -6,16 +6,16 @@ import { logout } from "../store/actions";
 import { connect } from "react-redux";
 
 class QuizView extends React.Component {
-  state = {
-    isAuthed: false
-  };
+  // state = {
+  //   isAuthed: false
+  // };
 
   componentDidMount() {
     this.props.getQuizzes();
   }
 
   render() {
-    const { isAuthed } = this.state;
+    // const { isAuthed } = this.state;
     const { loggedIn, click, quizzes, logout } = this.props;
     return (
       <div>
@@ -25,13 +25,7 @@ class QuizView extends React.Component {
           click={click}
           getRegistrationFrom={this.props.getRegistrationFrom}
         />
-        {isAuthed && (
-          <input
-            type="text"
-            name="comment"
-            placeholder="logged in comment area"
-          />
-        )}
+
         <QuizRoutes quizzes={quizzes} loggedIn={loggedIn} />
       </div>
     );
