@@ -8,6 +8,7 @@ const Summary = ({ questions, answers, rubric, auth, match }) => {
     const id = match.params.id;
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
+        <Header as="h1" content="Quiz Result:" />
         {questions.map((q, index) => (
           <Header key={index}>
             {q.question}
@@ -17,7 +18,7 @@ const Summary = ({ questions, answers, rubric, auth, match }) => {
             />
           </Header>
         ))}
-        <Header>
+        <Header textAlign="center">
           Total Score:
           {rubric.filter(item => item.correct === true).length} /{rubric.length}
         </Header>
