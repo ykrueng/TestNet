@@ -36,6 +36,7 @@ class CommentSection extends React.Component {
                 this.props.history.push(`/posts/${id}/comments/${comment.id}`)
               }
             >
+              <Comment.Avatar src={comment.author_img} />
               <Comment.Content>
                 <Comment.Author>{comment.author}</Comment.Author>
                 <Comment.Metadata>
