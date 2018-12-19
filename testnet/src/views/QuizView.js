@@ -6,16 +6,11 @@ import { logout } from "../store/actions";
 import { connect } from "react-redux";
 
 class QuizView extends React.Component {
-  // state = {
-  //   isAuthed: false
-  // };
-
   componentDidMount() {
     this.props.getQuizzes();
   }
 
   render() {
-    // const { isAuthed } = this.state;
     const { loggedIn, click, quizzes, logout } = this.props;
     return (
       <div>

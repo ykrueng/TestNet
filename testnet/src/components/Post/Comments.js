@@ -1,6 +1,4 @@
 import React from "react";
-import SingleComment from "./SingleComment";
-
 import { connect } from "react-redux";
 import { Button, Comment, Form, Segment } from "semantic-ui-react";
 import { getComments, postComment } from "../../store/actions/postActions";
@@ -22,7 +20,6 @@ class CommentSection extends React.Component {
     const { token, postComment } = this.props;
     const { id } = this.props.match.params;
     postComment(id, this.state, token);
-    // this.setState({ text: "" });
     this.props.history.push(`/posts/${id}`);
   };
 

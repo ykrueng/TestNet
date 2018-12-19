@@ -29,7 +29,6 @@ class SingleComment extends React.Component {
 
   editComment = () => {
     const comment = { text: this.state.text };
-
     const { id, commentId } = this.props.match.params;
     this.props.updateComment(id, commentId, comment, this.props.token);
     this.props.history.push(`/posts/${id}`);
@@ -63,7 +62,6 @@ class SingleComment extends React.Component {
               </Comment.Actions>
             </Comment.Content>
           </Comment>
-
           {this.state.reveal && (
             <Form reply>
               <Form.TextArea
