@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Segment, Button, Icon, Grid } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { userResults } from "../../store/actions/quizzActions";
@@ -30,27 +30,54 @@ class ResultForm extends React.Component {
   render() {
     const { token, id } = this.props;
     return (
-      <Form>
-        <Button content="Favorite" onClick={() => this.handleToggle()} />
-        <Button
-          content="+1 Vote"
-          name="up"
-          selected={this.state.vote === 1}
-          onClick={e => this.handleChange(e)}
-        />
-        <Button
-          content="-1 Vote"
-          name="down"
-          selected={this.state.vote === -1}
-          onClick={e => this.handleChange(e)}
-        />
-        <Button
-          as={Link}
-          to="/"
-          onClick={() => this.props.userResults(id, this.state, token)}
-          content="Save"
-        />
-      </Form>
+      <Grid container centered>
+        <Grid.Column>
+          <Segment.Group horizontal={true}>
+            <Segment>
+              <Button.Group attached="top">
+                <Button
+                  icon
+                  basic
+                  color="yellow"
+                  labelPosition="left"
+                  onClick={() => this.handleToggle()}
+                >
+                  <Icon name="favorite" color="yellow" />
+                  Favorite
+                </Button>
+                <Button
+                  basic
+                  positive
+                  color="green"
+                  content="+1"
+                  name="up"
+                  selected={this.state.vote === 1}
+                  onClick={e => this.handleChange(e)}
+                />
+                <Button
+                  basic
+                  negative
+                  content="-1"
+                  color="red"
+                  name="down"
+                  selected={this.state.vote === -1}
+                  onClick={e => this.handleChange(e)}
+                />
+              </Button.Group>
+            </Segment>
+          </Segment.Group>
+
+          <Button
+            primary
+            attached="bottom"
+            color="blue"
+            as={Link}
+            to="/"
+            onClick={() => this.props.userResults(id, this.state, token)}
+            content={`Save Result & Exit`}
+          />
+        </Grid.Column>
+      </Grid>
     );
   }
 }
