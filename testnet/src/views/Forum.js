@@ -2,7 +2,6 @@ import React from "react";
 import PostList from "../components/Post/PostList";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import CommentSection from "../components/Post/Comments";
 import { getPosts } from "../store/actions/postActions";
 
 class Forum extends React.Component {
@@ -13,11 +12,10 @@ class Forum extends React.Component {
   render() {
     return (
       <div className="posts-container">
-        <PostList posts={this.props.posts} />
-
         <Route
-          path="/posts/:id"
-          render={props => <CommentSection {...props} />}
+          exact
+          path="/forum"
+          render={props => <PostList {...props} posts={this.props.posts} />}
         />
       </div>
     );
