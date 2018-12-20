@@ -10,12 +10,17 @@ class SinglePost extends React.Component {
 
   render() {
     const { post, history, user } = this.props;
-    // const user = JSON.parse(localStorage.getItem("testnet-user"));
     const { id } = this.props.match.params;
     return (
       post && (
         <Fragment>
-          <Header as="h1" color="violet" block dividing textAlign="center">
+          <Header
+            as="h1"
+            color={user.id !== post.author.id && "blue"}
+            block
+            dividing
+            textAlign="center"
+          >
             {post.title}
             <Header.Subheader as="p">
               submitted by:
@@ -45,7 +50,6 @@ class SinglePost extends React.Component {
               <Segment basic textAlign="center">
                 <Button
                   basic
-                  // color="green"
                   onClick={() => history.push(`/posts/${id}/comments`)}
                 >
                   Show Comments

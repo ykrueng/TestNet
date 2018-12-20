@@ -1,8 +1,8 @@
 import React from "react";
-import { Header, Grid } from "semantic-ui-react";
+import { Header, Grid, Icon } from "semantic-ui-react";
 
 const QuizList = props => {
-  const { quizzes, history } = props;
+  const { quizzes, history, user } = props;
   return (
     <Grid centered container columns={2} relaxed padded="vertically">
       {quizzes.map(quiz => (
@@ -14,11 +14,16 @@ const QuizList = props => {
           <Grid.Row stretched={true}>
             <Header
               as="h1"
-              color="teal"
+              color={quiz.author !== user.username && "blue"}
               attached="bottom"
-              content={quiz.title}
-              subheader={`submitted by ${quiz.author}`}
-            />
+              dividing
+            >
+              {user.username === quiz.author && <Icon name="street view" />}
+              <Header.Content>
+                {quiz.title}
+                <Header.Subheader content={`submitted by: ${quiz.author}`} />
+              </Header.Content>
+            </Header>
           </Grid.Row>
         </Grid.Column>
       ))}
