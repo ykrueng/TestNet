@@ -17,7 +17,7 @@ const PostRoutes = ({ user }) => {
       <Route
         exact
         path="/posts/add"
-        render={props => <AddEditPost {...props} add />}
+        render={props => <AddEditPost {...props} />}
       />
       <Route
         path="/posts/:id"
@@ -26,12 +26,12 @@ const PostRoutes = ({ user }) => {
       <Route
         exact
         path="/posts/:id/comments"
-        render={props => <CommentSection {...props} />}
+        render={props => <CommentSection {...props} user={user} />}
       />
       <Route
         exact
         path="/posts/:id/comments/:commentId"
-        render={props => <SingleComment {...props} />}
+        render={props => <SingleComment {...props} user={user} />}
       />
       <Route
         path="/posts/:id/edit"
