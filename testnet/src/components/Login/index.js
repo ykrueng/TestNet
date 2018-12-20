@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
     email: "",
     password: "",
     img_url: "",
-    loginForm: true,
+    loginForm: true
   };
 
   // handleFormSwitch = () => {
@@ -30,11 +30,11 @@ class LoginForm extends React.Component {
     e.preventDefault();
     const { email, username, password, img_url } = this.state;
     const { login, register, signin } = this.props;
-    
+
     const user = {
       email,
-      password,
-    }
+      password
+    };
     if (signin) {
       login(user);
     } else {
@@ -44,12 +44,17 @@ class LoginForm extends React.Component {
       }
       register(user);
     }
-
-  }
+  };
 
   render() {
     const { email, username, password, img_url } = this.state;
-    const { signin, loginError, registrationError, handleCancel, handleFormSwitch } = this.props;
+    const {
+      signin,
+      loginError,
+      registrationError,
+      handleCancel,
+      handleFormSwitch
+    } = this.props;
     return (
       <div className="login-form">
         {/*
@@ -84,8 +89,7 @@ class LoginForm extends React.Component {
                   value={email}
                   onChange={this.handleChange}
                 />
-                {
-                  !signin &&
+                {!signin && (
                   <Form.Input
                     fluid
                     icon="user"
@@ -95,19 +99,18 @@ class LoginForm extends React.Component {
                     value={username}
                     onChange={this.handleChange}
                   />
-                }
-                  <Form.Input
-                    fluid
-                    icon="lock"
-                    iconPosition="left"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-                {
-                  !signin &&
+                )}
+                <Form.Input
+                  fluid
+                  icon="lock"
+                  iconPosition="left"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                {!signin && (
                   <Form.Input
                     fluid
                     icon="user secret"
@@ -117,41 +120,27 @@ class LoginForm extends React.Component {
                     value={img_url}
                     onChange={this.handleChange}
                   />
-                }
-                <Button
-                  color="gray"
-                  fluid
-                  size="large"
-                  onClick={handleCancel}
-                >
+                )}
+                <Button color="grey" fluid size="large" onClick={handleCancel}>
                   Cancel
                 </Button>
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  type="submit"
-                >
-                  { signin ? "Sign In" : "Sign Up"}
+                <Button color="teal" fluid size="large" type="submit">
+                  {signin ? "Sign In" : "Sign Up"}
                 </Button>
               </Segment>
             </Form>
-            {
-              loginError &&
+            {loginError && (
               <Message>
                 ** Login failed, please check your username and password
               </Message>
-            }
-            {
-              registrationError &&
-              <Message>
-                ** Registration failed, please try again
-              </Message>
-            }
+            )}
+            {registrationError && (
+              <Message>** Registration failed, please try again</Message>
+            )}
             <Message>
-              { signin ? "New to us? " : "Already have an account? "} 
+              {signin ? "New to us? " : "Already have an account? "}
               <Button onClick={handleFormSwitch}>
-                { signin ? "Sign Up" : "Sign In"}
+                {signin ? "Sign Up" : "Sign In"}
               </Button>
             </Message>
           </Grid.Column>
