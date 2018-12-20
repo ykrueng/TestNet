@@ -14,9 +14,15 @@ class AddEditPost extends React.Component {
   };
 
   render() {
+    const { edit, add } = this.props;
+    console.log(edit, add);
     return (
       <Fragment>
-        <Divider section horizontal content="Edit Your Post" />
+        <Divider
+          section
+          horizontal
+          content={edit ? "Edit Your Post" : "Add New Post"}
+        />
         <Grid centered container columns={2}>
           <Grid.Column>
             <Form widths="equal">
@@ -36,7 +42,7 @@ class AddEditPost extends React.Component {
               />
 
               <Form.Button
-                content="Submit"
+                content={edit ? "Submit Edit" : "Submit Post"}
                 onSubmit={() => this.props.updatePost()}
               />
             </Form>
