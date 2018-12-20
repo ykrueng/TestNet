@@ -19,8 +19,9 @@ const Summary = ({ questions, answers, rubric, auth, match }) => {
           </Header>
         ))}
         <Header textAlign="center">
-          Total Score:
-          {rubric.filter(item => item.correct === true).length} /{rubric.length}
+          {`Total Score: ${
+            rubric.filter(item => item.correct === true).length
+          } / ${rubric.length}`}
         </Header>
         {auth && (
           <Header block>
