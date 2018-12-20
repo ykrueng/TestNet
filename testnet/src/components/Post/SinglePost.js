@@ -34,10 +34,10 @@ class SinglePost extends React.Component {
                 <Segment basic textAlign="center">
                   <Button
                     basic
-                    color="teal"
+                    color="red"
                     onClick={() => history.push(`/posts/${id}/edit`)}
                   >
-                    Edit Post
+                    Edit Your Post
                   </Button>
                 </Segment>
               )}
@@ -45,7 +45,7 @@ class SinglePost extends React.Component {
               <Segment basic textAlign="center">
                 <Button
                   basic
-                  color="violet"
+                  // color="green"
                   onClick={() => history.push(`/posts/${id}/comments`)}
                 >
                   Show Comments
