@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Header } from "semantic-ui-react";
 
 const QuestionDisplay = ({ question, change, current }) => {
+  // console.log(question.options);
   return (
     <Form style={{ padding: "1rem 0" }}>
       <Header as="h3" style={{ margin: "2.5rem 0" }}>{` ${

@@ -18,7 +18,7 @@ class QuestionPage extends React.Component {
   componentDidMount() {
     const quizId = this.props.match.params.id;
     const questionId = this.props.match.params.questionId;
-    if (this.props.history.location === `/quizzes/${quizId}/review`) {
+    if (this.props.history.location.pathname === `/quizzes/${quizId}/review`) {
       return;
     }
     this.props.getQuestion(quizId, questionId);
@@ -45,27 +45,29 @@ class QuestionPage extends React.Component {
   nextQuestion = () => {
     const quizId = this.props.match.params.id;
     const questionId = parseInt(this.props.match.params.questionId);
-    const next = this.props.questions.find(
-      question => question.id === questionId + 1
+    const index = this.props.questions.findIndex(
+      question => question.id === questionId
     );
-    if (!next) {
+    const nextQ = this.props.questions[index + 1];
+
+    if (!nextQ) {
       this.updateState();
       this.props.history.push(`/quizzes/${quizId}/review`);
     } else {
       this.updateState();
-      this.props.getQuestion(quizId, next.id);
-      this.props.history.push(`/quizzes/${quizId}/${next.id}`);
+      this.props.getQuestion(quizId, nextQ.id);
+      this.props.history.push(`/quizzes/${quizId}/${nextQ.id}`);
     }
   };
 
   render() {
-    console.log(this.props);
     const { question, questions, checkingAnswer } = this.props;
     const { rubric, answers, current, progress } = this.state;
     const id = parseInt(this.props.match.params.questionId, 10);
-    const nextId = questions.find(question => question.id === id);
+    let index = this.props.questions.findIndex(question => question.id === id);
+    const next = questions[index];
 
-    if (!nextId) {
+    if (!next) {
       return (
         <Review
           answers={answers}
@@ -79,12 +81,10 @@ class QuestionPage extends React.Component {
     if (!question) {
       return <Header as="h1" content="Loading.." />;
     }
+
     return (
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
         <Grid.Column style={{ marginTop: "5rem" }}>
-          {/* {this.props.fetchingQuestion && (
-            <Header as="h1" content="Loading..." />
-          )} */}
           <QuestionDisplay
             question={question}
             change={this.handleChange}
