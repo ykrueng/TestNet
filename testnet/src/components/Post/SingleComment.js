@@ -41,7 +41,7 @@ class SingleComment extends React.Component {
   };
 
   render() {
-    const { comment } = this.props;
+    const { comment, user } = this.props;
     return (
       comment && (
         <Comment.Group>
@@ -53,12 +53,14 @@ class SingleComment extends React.Component {
                 <div>{comment.created_at}</div>
               </Comment.Metadata>
               <Comment.Text>{comment.text}</Comment.Text>
-              <Comment.Actions>
-                <Comment.Action onClick={this.revealer}>Edit</Comment.Action>
-                <Comment.Action onClick={this.deleteComment}>
-                  Delete
-                </Comment.Action>
-              </Comment.Actions>
+              {user.id === comment.author.id && (
+                <Comment.Actions>
+                  <Comment.Action onClick={this.revealer}>Edit</Comment.Action>
+                  <Comment.Action onClick={this.deleteComment}>
+                    Delete
+                  </Comment.Action>
+                </Comment.Actions>
+              )}
             </Comment.Content>
           </Comment>
           {this.state.reveal && (
