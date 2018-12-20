@@ -18,7 +18,7 @@ class QuestionPage extends React.Component {
   componentDidMount() {
     const quizId = this.props.match.params.id;
     const questionId = this.props.match.params.questionId;
-    if (this.props.history.location.pathname === `/quizzes/${quizId}/review`) {
+    if (questionId === "review") {
       return;
     }
     this.props.getQuestion(quizId, questionId);
