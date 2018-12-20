@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Comment, Form, Segment } from "semantic-ui-react";
+import { Button, Comment, Form, Segment, Grid } from "semantic-ui-react";
 import { getComments, postComment } from "../../store/actions/postActions";
 
 class CommentSection extends React.Component {
@@ -30,44 +30,50 @@ class CommentSection extends React.Component {
   };
 
   render() {
-    const { comments } = this.props;
+    const { comments, user } = this.props;
     const { id } = this.props.match.params;
     return (
       <Segment>
-        <Comment.Group>
-          {comments.map((comment, i) => (
-            <Comment
-              key={i}
-              onClick={() =>
-                this.props.history.push(`/posts/${id}/comments/${comment.id}`)
-              }
-            >
-              <Comment.Avatar src={comment.author_img} />
-              <Comment.Content>
-                <Comment.Author>{comment.author}</Comment.Author>
-                <Comment.Metadata>
-                  <div>{comment.created_at}</div>
-                </Comment.Metadata>
-                <Comment.Text>{comment.text}</Comment.Text>
-              </Comment.Content>
-            </Comment>
-          ))}
+        <Grid centered>
+          <Grid.Column>
+            <Comment.Group style={{ margin: "0 auto" }}>
+              {comments.map((comment, i) => (
+                <Comment
+                  key={i}
+                  onClick={() =>
+                    this.props.history.push(
+                      `/posts/${id}/comments/${comment.id}`
+                    )
+                  }
+                >
+                  <Comment.Avatar src={comment.author_img} />
+                  <Comment.Content>
+                    <Comment.Author>{comment.author}</Comment.Author>
+                    <Comment.Metadata>
+                      <p>{comment.created_at}</p>
+                    </Comment.Metadata>
+                    <Comment.Text>{comment.text}</Comment.Text>
+                  </Comment.Content>
+                </Comment>
+              ))}
 
-          <Form reply>
-            <Form.TextArea
-              value={this.state.text}
-              onChange={this.handleChange}
-            />
-            <Button
-              content="Add Reply"
-              type="submit"
-              labelPosition="left"
-              icon="edit"
-              onClick={this.postComment}
-              primary
-            />
-          </Form>
-        </Comment.Group>
+              <Form reply>
+                <Form.TextArea
+                  value={this.state.text}
+                  onChange={this.handleChange}
+                />
+                <Button
+                  content="Reply"
+                  type="submit"
+                  labelPosition="left"
+                  icon="edit"
+                  onClick={this.postComment}
+                  primary
+                />
+              </Form>
+            </Comment.Group>
+          </Grid.Column>
+        </Grid>
       </Segment>
     );
   }
