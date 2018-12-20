@@ -6,6 +6,8 @@ import LoginForm from "./components/Login";
 import PostRoutes from "./components/Post/routes";
 import { login, register, checkStatus } from "./store/actions";
 
+const user = JSON.parse(localStorage.getItem("testnet-user"));
+
 class App extends React.Component {
   state = {
     modal: false,
@@ -55,7 +57,7 @@ class App extends React.Component {
           getRegistrationFrom={this.getRegistrationFrom}
         />
 
-        <PostRoutes />
+        <PostRoutes user={user} />
       </div>
     );
   }

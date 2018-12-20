@@ -1,7 +1,8 @@
 import React from "react";
 import { Header, Comment, Segment } from "semantic-ui-react";
 
-const PostList = ({ posts, history }) => {
+const PostList = ({ posts, history, user }) => {
+  console.log(user, posts);
   return (
     <Segment>
       {posts.map((post, index) => (
@@ -10,7 +11,12 @@ const PostList = ({ posts, history }) => {
           style={{ cursor: "pointer" }}
           onClick={() => history.push(`/posts/${post.id}`)}
         >
-          <Header as="h2" dividing block color="teal">
+          <Header
+            as="h2"
+            dividing
+            block
+            color={post.author === user.username ? "violet" : "black"}
+          >
             {post.title}
             <Header.Subheader content={post.author} />
           </Header>

@@ -15,7 +15,13 @@ class Forum extends React.Component {
         <Route
           exact
           path="/forum"
-          render={props => <PostList {...props} posts={this.props.posts} />}
+          render={props => (
+            <PostList
+              {...props}
+              posts={this.props.posts}
+              user={this.props.user}
+            />
+          )}
         />
       </div>
     );
