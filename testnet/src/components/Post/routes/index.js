@@ -15,6 +15,11 @@ const PostRoutes = ({ user }) => {
         render={props => <Forum {...props} user={user} />}
       />
       <Route
+        exact
+        path="/posts/add"
+        render={props => <AddEditPost {...props} add />}
+      />
+      <Route
         path="/posts/:id"
         render={props => <SinglePost {...props} user={user} />}
       />
@@ -30,7 +35,7 @@ const PostRoutes = ({ user }) => {
       />
       <Route
         path="/posts/:id/edit"
-        render={props => <AddEditPost {...props} />}
+        render={props => <AddEditPost {...props} edit />}
       />
     </Fragment>
   );
