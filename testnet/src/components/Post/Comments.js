@@ -12,6 +12,12 @@ class CommentSection extends React.Component {
     this.props.getComments(this.props.match.params.id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      this.props.getComments(this.props.match.params.id);
+    }
+  }
+
   handleChange = e => {
     this.setState({ text: e.target.value });
   };
@@ -20,7 +26,7 @@ class CommentSection extends React.Component {
     const { token, postComment } = this.props;
     const { id } = this.props.match.params;
     postComment(id, this.state, token);
-    this.props.history.push(`/posts/${id}`);
+    this.setState({ text: "" });
   };
 
   render() {
@@ -71,7 +77,9 @@ const mapStateToProps = state => {
   const { loginReducer, postReducer } = state;
   return {
     token: loginReducer.token,
-    comments: postReducer.comments
+    comments: postReducer.comments,
+    updatingComment: postReducer.updatingComment,
+    addingComment: postReducer.addingComment
   };
 };
 

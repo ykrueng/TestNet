@@ -8,6 +8,12 @@ class SinglePost extends React.Component {
     this.props.getPost(this.props.match.params.id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      this.props.getPost(this.props.match.params.id);
+    }
+  }
+
   render() {
     const { post, history, user } = this.props;
     const { id } = this.props.match.params;
@@ -67,7 +73,8 @@ const mapStateToProps = state => {
   const { postReducer, loginReducer } = state;
   return {
     post: postReducer.post,
-    token: loginReducer.token
+    token: loginReducer.token,
+    updatingPost: postReducer.updatingPost
     // user: loginReducer.user
   };
 };
