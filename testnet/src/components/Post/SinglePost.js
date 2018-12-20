@@ -16,7 +16,7 @@ class SinglePost extends React.Component {
         <Fragment>
           <Header
             as="h1"
-            color={user.id !== post.author.id && "blue"}
+            color={user.id !== post.author.id ? "blue" : null}
             block
             dividing
             textAlign="center"
