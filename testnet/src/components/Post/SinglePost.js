@@ -9,23 +9,43 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    const { post, history } = this.props;
+    const { post, history, user } = this.props;
+    // const user = JSON.parse(localStorage.getItem("testnet-user"));
     const { id } = this.props.match.params;
     return (
       post && (
         <Fragment>
-          <Header as="h2" color="teal" block>
+          <Header as="h1" color="violet" block dividing textAlign="center">
             {post.title}
-            <Header.Subheader>Created At:{post.created_at}</Header.Subheader>
+            <Header.Subheader as="p">
+              submitted by:
+              {post.author ? ` ${post.author.username}` : "Loading"}
+            </Header.Subheader>
           </Header>
-          <Container>{post.body}</Container>
+          <div style={{ width: "60%", margin: "2% auto" }}>
+            <Container fluid text textAlign="justified">
+              <p>{post.body}</p>
+            </Container>
+          </div>
+
           {this.props.location.pathname.length < 9 && (
             <Fragment>
-              <Divider horizontal>Or</Divider>
+              {post.author.id === user.id && (
+                <Segment basic textAlign="center">
+                  <Button
+                    basic
+                    color="teal"
+                    onClick={() => history.push(`/posts/${id}/edit`)}
+                  >
+                    Edit Post
+                  </Button>
+                </Segment>
+              )}
+              <Divider horizontal>options</Divider>
               <Segment basic textAlign="center">
                 <Button
                   basic
-                  color="teal"
+                  color="violet"
                   onClick={() => history.push(`/posts/${id}/comments`)}
                 >
                   Show Comments
@@ -44,6 +64,7 @@ const mapStateToProps = state => {
   return {
     post: postReducer.post,
     token: loginReducer.token
+    // user: loginReducer.user
   };
 };
 

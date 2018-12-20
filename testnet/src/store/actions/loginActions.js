@@ -15,7 +15,7 @@ export const STATUS_REQUEST = "STATUS_REQUEST";
 export const STATUS_SUCCESS = "STATUS_SUCCESS";
 export const STATUS_FAILURE = "STATUS_FAILURE";
 
-export const LOGOUT = 'LOGOUT';
+export const LOGOUT = "LOGOUT";
 
 /*
   Authentication Action Creators
@@ -47,7 +47,8 @@ export const login = user => dispatch => {
   study
     .post("/auth/login", user)
     .then(res => {
-      localStorage.setItem('testnet-login', res.data.token);
+      localStorage.setItem("testnet-login", res.data.token);
+      localStorage.setItem("testnet-user", JSON.stringify(res.data.user));
       dispatch({
         type: LOGIN_SUCCESS,
         payload: { token: res.data.token }
@@ -64,13 +65,13 @@ export const login = user => dispatch => {
 export const checkStatus = () => dispatch => {
   dispatch({ type: STATUS_REQUEST });
 
-  const token = localStorage.getItem('testnet-login');
-  dispatch(token ?
-  { type: STATUS_SUCCESS, payload: token } :
-  { type: STATUS_FAILURE })
-}
+  const token = localStorage.getItem("testnet-login");
+  dispatch(
+    token ? { type: STATUS_SUCCESS, payload: token } : { type: STATUS_FAILURE }
+  );
+};
 
 export const logout = () => {
-  localStorage.removeItem('testnet-login');
-  return ({type: LOGOUT});
-}
+  localStorage.removeItem("testnet-login");
+  return { type: LOGOUT };
+};

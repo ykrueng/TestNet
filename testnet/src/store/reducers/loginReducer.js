@@ -8,8 +8,8 @@ import {
   STATUS_REQUEST,
   STATUS_SUCCESS,
   STATUS_FAILURE,
-  LOGOUT,
-} from '../actions';
+  LOGOUT
+} from "../actions";
 
 const initialState = {
   loggedIn: false,
@@ -18,21 +18,22 @@ const initialState = {
   logingIn: false,
   checkingStatus: false,
   registrationError: null,
-  loginError: false,
-}
+  loginError: false
+  // user: {}
+};
 
-export const loginReducer = (state=initialState, action) => {
-  switch(action.type) {
+export const loginReducer = (state = initialState, action) => {
+  switch (action.type) {
     case REGISTER_REQUEST:
       return {
         ...state,
-        registering: true,
-      }
+        registering: true
+      };
     case LOGIN_REQUEST:
       return {
         ...state,
-        loggingIn: true,
-      }
+        loggingIn: true
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -40,8 +41,8 @@ export const loginReducer = (state=initialState, action) => {
         loggedIn: true,
         loginError: false,
         registrationError: false,
-        token: action.payload.token,
-      }
+        token: action.payload.token
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -49,45 +50,46 @@ export const loginReducer = (state=initialState, action) => {
         loggedIn: true,
         loginError: false,
         registrationError: false,
-        token: action.payload.token,
-      }
+        token: action.payload.token
+        // user: action.payload.user
+      };
     case STATUS_REQUEST:
       return {
         ...state,
-        checkingStatus: true,
-      }
+        checkingStatus: true
+      };
     case STATUS_SUCCESS:
       return {
         ...state,
         checkingStatus: false,
         token: action.payload,
-        loggedIn:true,
-      }
+        loggedIn: true
+      };
     case STATUS_FAILURE:
       return {
         ...state,
         checkingStatus: false,
         loggedIn: false,
-        token: null,
-      }
+        token: null
+      };
     case LOGIN_FAILURE:
       return {
         loggingIn: false,
         registering: false,
-        loginError: true,
-      }
+        loginError: true
+      };
     case REGISTER_FAILURE:
       return {
         loggingIn: false,
         registering: false,
-        registrationError: action.payload,
-      }
+        registrationError: action.payload
+      };
     case LOGOUT:
       return {
         loggedIn: false,
-        token: null,
-      }
+        token: null
+      };
     default:
-      return state
+      return state;
   }
-}
+};
