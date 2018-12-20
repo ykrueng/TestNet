@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Form, Grid, Divider } from "semantic-ui-react";
-import { updatePost } from "../../store/actions/postActions";
+import { updatePost, postPost } from "../../store/actions/postActions";
 import { connect } from "react-redux";
 
 class AddEditPost extends React.Component {
@@ -13,9 +13,23 @@ class AddEditPost extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = () => {
+    const post = {
+      title: this.state.title.length > 0 ? this.state.title : undefined,
+      body: this.state.body.length > 0 ? this.state.body : undefined
+    };
+    if (this.props.edit) {
+      const { id } = this.props.match.params;
+      this.props.updatePost(id, post, this.props.token);
+      this.props.history.push(`/posts/${id}`);
+    } else {
+      this.props.addPost(post, this.props.token);
+      this.props.history.push("/forum");
+    }
+  };
+
   render() {
-    const { edit, add } = this.props;
-    console.log(edit, add);
+    const { edit } = this.props;
     return (
       <Fragment>
         <Divider
@@ -25,7 +39,7 @@ class AddEditPost extends React.Component {
         />
         <Grid centered container columns={2}>
           <Grid.Column>
-            <Form widths="equal">
+            <Form widths="equal" onSubmit={this.handleSubmit}>
               <Form.Input
                 name="title"
                 label="Title"
@@ -41,10 +55,7 @@ class AddEditPost extends React.Component {
                 placeholder="Tell us about it..."
               />
 
-              <Form.Button
-                content={edit ? "Submit Edit" : "Submit Post"}
-                onSubmit={() => this.props.updatePost()}
-              />
+              <Form.Button content={edit ? "Submit Edit" : "Add Post"} />
             </Form>
           </Grid.Column>
         </Grid>
@@ -57,11 +68,12 @@ const mapStateToProps = state => {
   const { loginReducer, postReducer } = state;
   return {
     token: loginReducer.token,
-    updating: postReducer.updatingPost
+    updatingPost: postReducer.updatingPost,
+    addingPost: postReducer.addingPost
   };
 };
 
 export default connect(
   mapStateToProps,
-  { updatePost }
+  { updatePost, postPost }
 )(AddEditPost);
