@@ -6,11 +6,7 @@ import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 class Quiz extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    if (this.props.token) {
-      this.props.getQuizz(id, this.props.token);
-    } else {
-      this.props.getQuizz(id);
-    }
+    this.props.getQuizz(id, this.props.token);
     this.props.getQuestions(id);
   }
 
@@ -18,7 +14,6 @@ class Quiz extends React.Component {
     const id = this.props.match.params.id;
     const { quiz, questions } = this.props;
     const firstQuestion = questions ? questions[0] : null;
-
     return (
       <Segment clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
@@ -36,8 +31,7 @@ class Quiz extends React.Component {
             this.props.history.push(`/quizzes/${id}/${firstQuestion.id}`)
           }
         />
-
-        <Header as="h5">
+        <Header as="h4">
           {quiz.topic}
           <Header.Subheader>
             submitted by:
@@ -47,8 +41,14 @@ class Quiz extends React.Component {
             {quiz.author ? quiz.author.username : "Loading"}
           </Header.Subheader>
 
-          <Header.Subheader content={`${quiz.votes} Votes`} />
+          <Header.Subheader
+            content={`${quiz.votes} Votes Total (Your Vote: ${quiz.user_vote})`}
+          />
         </Header>
+        <Header
+          as="h5"
+          content={`Last Score: ${quiz.score}/${questions.length}`}
+        />
       </Segment>
     );
   }
