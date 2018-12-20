@@ -14,9 +14,13 @@ class ResultForm extends React.Component {
   handleChange = e => {
     if (-1 <= this.state.vote <= 1) {
       if (e.target.name === "up") {
-        this.setState({ vote: 1 });
+        this.state.vote === 1
+          ? this.setState({ vote: 0 })
+          : this.setState({ vote: 1 });
       } else {
-        this.setState({ vote: -1 });
+        this.state.vote === -1
+          ? this.setState({ vote: 0 })
+          : this.setState({ vote: -1 });
       }
     }
   };
@@ -26,6 +30,7 @@ class ResultForm extends React.Component {
 
   save = (id, obj, token) => {
     this.props.userResults(id, obj, token);
+    this.setState({ vote: 0, score: 0 });
   };
   render() {
     const { token, id } = this.props;
@@ -37,7 +42,7 @@ class ResultForm extends React.Component {
               <Button.Group attached="top">
                 <Button
                   icon
-                  basic
+                  inverted={!this.state.favorite}
                   color="yellow"
                   labelPosition="left"
                   onClick={() => this.handleToggle()}
@@ -46,34 +51,28 @@ class ResultForm extends React.Component {
                   Favorite
                 </Button>
                 <Button
-                  basic
-                  positive
+                  inverted={!(this.state.vote === 1)}
                   color="green"
                   content="+1"
                   name="up"
-                  selected={this.state.vote === 1}
                   onClick={e => this.handleChange(e)}
                 />
                 <Button
-                  basic
-                  negative
+                  inverted={!(this.state.vote === -1)}
                   content="-1"
                   color="red"
                   name="down"
-                  selected={this.state.vote === -1}
                   onClick={e => this.handleChange(e)}
                 />
               </Button.Group>
             </Segment>
           </Segment.Group>
-
           <Button
-            primary
             attached="bottom"
             color="blue"
             as={Link}
             to="/"
-            onClick={() => this.props.userResults(id, this.state, token)}
+            onClick={() => this.save(id, this.state, token)}
             content={`Save Result & Exit`}
           />
         </Grid.Column>
