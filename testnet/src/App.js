@@ -33,16 +33,17 @@ class App extends React.Component {
   };
 
   render() {
+    const { login, register, loginError, registrationError } = this.props;
     if (this.state.modal) {
       return (
         <LoginForm
-          login={this.props.login}
-          register={this.props.register}
+          login={login}
+          register={register}
           signin={this.state.signin}
           handleFormSwitch={this.handleFormSwitch}
           handleCancel={this.handleClick}
-          loginError={this.props.loginError}
-          registrationError={this.props.registrationError}
+          loginError={loginError}
+          registrationError={registrationError}
         />
       );
     }
