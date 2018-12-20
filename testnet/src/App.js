@@ -54,6 +54,7 @@ class App extends React.Component {
         <QuizView
           {...this.props}
           click={this.handleClick}
+          user={user}
           getRegistrationFrom={this.getRegistrationFrom}
         />
 

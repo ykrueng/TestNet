@@ -11,7 +11,7 @@ class QuizView extends React.Component {
   }
 
   render() {
-    const { loggedIn, click, quizzes, logout } = this.props;
+    const { loggedIn, click, quizzes, logout, user } = this.props;
     return (
       <div>
         <NavBar
@@ -20,8 +20,7 @@ class QuizView extends React.Component {
           click={click}
           getRegistrationFrom={this.props.getRegistrationFrom}
         />
-
-        <QuizRoutes quizzes={quizzes} loggedIn={loggedIn} />
+        <QuizRoutes quizzes={quizzes} loggedIn={loggedIn} user={user} />
       </div>
     );
   }
