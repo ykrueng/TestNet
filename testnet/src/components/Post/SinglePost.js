@@ -17,6 +17,7 @@ class SinglePost extends React.Component {
   render() {
     const { post, history, user } = this.props;
     const { id } = this.props.match.params;
+    // console.log(this.props.location.pathname.length);
     return (
       post && (
         <Fragment>
@@ -39,7 +40,7 @@ class SinglePost extends React.Component {
             </Container>
           </div>
 
-          {this.props.location.pathname.length < 9 && (
+          {this.props.location.pathname.length < 11 && (
             <Fragment>
               {post.author.id === user.id && (
                 <Segment basic textAlign="center">

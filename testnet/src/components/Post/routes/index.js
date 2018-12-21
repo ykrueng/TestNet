@@ -15,13 +15,13 @@ const PostRoutes = ({ user }) => {
         render={props => <Forum {...props} user={user} />}
       />
       <Route
-        exact
-        path="/posts/add"
-        render={props => <AddEditPost {...props} />}
-      />
-      <Route
         path="/posts/:id"
         render={props => <SinglePost {...props} user={user} />}
+      />
+      <Route
+        exact
+        path="/forum/create"
+        render={props => <AddEditPost {...props} />}
       />
       <Route
         exact

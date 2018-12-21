@@ -66,10 +66,10 @@ class App extends React.Component {
 
 export default withRouter(
   connect(
-    state => ({
-      loggedIn: state.loginReducer.loggedIn,
-      loginError: state.loginReducer.loginError,
-      registrationError: state.loginReducer.registrationError
+    ({ loginReducer }) => ({
+      loggedIn: loginReducer.loggedIn,
+      loginError: loginReducer.loginError,
+      registrationError: loginReducer.registrationError
     }),
     { login, register, checkStatus }
   )(App)

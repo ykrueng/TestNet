@@ -5,7 +5,7 @@ import { getQuizzes } from "../store/actions/quizzActions";
 import { logout } from "../store/actions";
 import { connect } from "react-redux";
 
-class QuizView extends React.Component {
+class QuizView extends React.PureComponent {
   componentDidMount() {
     this.props.getQuizzes();
   }

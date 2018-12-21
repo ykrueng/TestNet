@@ -1,6 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Comment, Form, Segment, Grid } from "semantic-ui-react";
+import {
+  Button,
+  Comment,
+  Form,
+  Segment,
+  Grid,
+  Header
+} from "semantic-ui-react";
 import { getComments, postComment } from "../../store/actions/postActions";
 
 class CommentSection extends React.PureComponent {
@@ -34,6 +41,9 @@ class CommentSection extends React.PureComponent {
       <Segment>
         <Grid centered>
           <Grid.Column>
+            {comments.length === 0 && (
+              <Header content="Be the First to Comment!" />
+            )}
             <Comment.Group style={{ margin: "0 auto" }}>
               {comments.map((comment, i) => (
                 <Comment
