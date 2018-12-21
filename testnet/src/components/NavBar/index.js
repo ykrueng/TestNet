@@ -26,7 +26,7 @@ class NavBar extends React.Component {
     const { loggedIn, getRegistrationFrom } = this.props;
     return (
       <Segment style={{ padding: "1.5rem 0" }}>
-        <Menu pointing={true} size="large" fixed="top" inverted>
+        <Menu pointing borderless fixed="top" fluid inverted>
           <Menu.Menu position="left">
             <Menu.Item
               name="home"
