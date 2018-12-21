@@ -17,11 +17,6 @@ class LoginForm extends React.Component {
     loginForm: true
   };
 
-  // handleFormSwitch = () => {
-  //   console.log('clicked')
-  //   this.setState( state => ({ loginForm: !state.loginForm }))
-  // }
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -31,10 +26,7 @@ class LoginForm extends React.Component {
     const { email, username, password, img_url } = this.state;
     const { login, register, signin } = this.props;
 
-    const user = {
-      email,
-      password
-    };
+    const user = { email, password };
     if (signin) {
       login(user);
     } else {
@@ -121,11 +113,11 @@ class LoginForm extends React.Component {
                     onChange={this.handleChange}
                   />
                 )}
-                <Button color="grey" fluid size="large" onClick={handleCancel}>
-                  Cancel
-                </Button>
-                <Button color="teal" fluid size="large" type="submit">
+                <Button color="teal" size="large" type="submit">
                   {signin ? "Sign In" : "Sign Up"}
+                </Button>
+                <Button color="grey" size="large" onClick={handleCancel}>
+                  Cancel
                 </Button>
               </Segment>
             </Form>
@@ -138,8 +130,8 @@ class LoginForm extends React.Component {
               <Message>** Registration failed, please try again</Message>
             )}
             <Message>
-              {signin ? "New to us? " : "Already have an account? "}
-              <Button onClick={handleFormSwitch}>
+              {signin ? "New to TestNet? " : "Already have an account? "}
+              <Button inverted secondary onClick={handleFormSwitch}>
                 {signin ? "Sign Up" : "Sign In"}
               </Button>
             </Message>
