@@ -1,6 +1,7 @@
 import React from "react";
 import { Comment, Form, Button, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
+import debounce from "lodash/debounce";
 import {
   getComment,
   updateComment,
@@ -9,6 +10,8 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 
 const SITE_KEY = "6LeP1YMUAAAAAP3dZkGkycis0iE0IhxMe3iEXXUe";
+
+window.debounce = debounce;
 
 class SingleComment extends React.Component {
   state = {
@@ -22,8 +25,17 @@ class SingleComment extends React.Component {
     this.props.getComment(id, commentId);
   }
 
+  delayedChange = debounce(e => {
+    this.emitChange(e.target.value);
+  }, 1000);
+
   handleChange = e => {
-    this.setState({ text: e.target.value });
+    e.persist();
+    this.delayedChange(e);
+  };
+
+  emitChange = value => {
+    this.setState({ text: value });
   };
 
   recaptchaHandler = value => {
@@ -50,7 +62,7 @@ class SingleComment extends React.Component {
 
   render() {
     const { comment, user } = this.props;
-    console.log(this.state.value);
+    console.log(this.state);
     return (
       comment && (
         <Grid centered>
