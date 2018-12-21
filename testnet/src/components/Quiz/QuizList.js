@@ -21,7 +21,13 @@ const QuizList = props => {
               {user.username === quiz.author && <Icon name="street view" />}
               <Header.Content>
                 {quiz.title}
-                <Header.Subheader content={`submitted by: ${quiz.author}`} />
+                <Header.Subheader
+                  content={
+                    user.username === quiz.author
+                      ? "submitted by: You"
+                      : `submitted by: ${quiz.author}`
+                  }
+                />
               </Header.Content>
             </Header>
           </Grid.Row>

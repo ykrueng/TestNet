@@ -17,7 +17,10 @@ const PostList = ({ posts, history, user }) => {
             color={post.author !== user.username ? "teal" : null}
           >
             {post.title}
-            <Header.Subheader content={post.author} />
+            <Header.Subheader>
+              {post.author}
+              {post.author === user.username && " (you)"}
+            </Header.Subheader>
           </Header>
           <Comment>
             {post.body}
