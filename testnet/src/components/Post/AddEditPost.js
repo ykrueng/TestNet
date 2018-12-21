@@ -9,7 +9,7 @@ class AddEditPost extends React.Component {
     body: ""
   };
 
-  handleChange = (e, { name, value }) => {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
 
@@ -30,6 +30,7 @@ class AddEditPost extends React.Component {
 
   render() {
     const { edit } = this.props;
+    console.log("wtf");
     return (
       <Fragment>
         <Divider
