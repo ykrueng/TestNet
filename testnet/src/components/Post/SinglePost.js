@@ -69,16 +69,11 @@ class SinglePost extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  const { postReducer, loginReducer } = state;
-  return {
-    post: postReducer.post,
-    token: loginReducer.token,
-    updatingPost: postReducer.updatingPost
-    // user: loginReducer.user
-  };
-};
+const mapStateToProps = ({ postReducer, loginReducer }) => ({
+  post: postReducer.post,
+  token: loginReducer.token,
+  updatingPost: postReducer.updatingPost
+});
 
 export default connect(
   mapStateToProps,

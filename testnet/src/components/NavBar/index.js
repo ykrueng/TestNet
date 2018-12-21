@@ -7,11 +7,11 @@ class NavBar extends React.Component {
     active: "home"
   };
 
-  handleChange = e => {
-    this.setState({ active: e.target.name });
+  handleChange = ({ target: { name } }) => {
+    this.setState({ active: name });
   };
 
-  handleClick = e => {
+  handleClick = () => {
     const { loggedIn, click, logout } = this.props;
 
     if (loggedIn) {

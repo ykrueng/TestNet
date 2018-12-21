@@ -19,7 +19,6 @@ const initialState = {
   checkingStatus: false,
   registrationError: null,
   loginError: false
-  // user: {}
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -51,7 +50,6 @@ export const loginReducer = (state = initialState, action) => {
         loginError: false,
         registrationError: false,
         token: action.payload.token
-        // user: action.payload.user
       };
     case STATUS_REQUEST:
       return {

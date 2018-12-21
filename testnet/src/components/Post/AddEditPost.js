@@ -30,7 +30,7 @@ class AddEditPost extends React.Component {
 
   render() {
     const { edit } = this.props;
-    console.log("wtf");
+    // console.log(this.state);
     return (
       <Fragment>
         <Divider

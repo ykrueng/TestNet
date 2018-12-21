@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button, Comment, Form, Segment, Grid } from "semantic-ui-react";
 import { getComments, postComment } from "../../store/actions/postActions";
 
-class CommentSection extends React.Component {
+class CommentSection extends React.PureComponent {
   state = {
     text: ""
   };
@@ -22,15 +22,13 @@ class CommentSection extends React.Component {
     this.setState({ text: e.target.value });
   };
 
-  postComment = () => {
-    const { token, postComment } = this.props;
-    const { id } = this.props.match.params;
-    postComment(id, this.state, token);
+  postComment = (id, token) => {
+    this.props.postComment(id, this.state, token);
     this.setState({ text: "" });
   };
 
   render() {
-    const { comments } = this.props;
+    const { comments, history, token } = this.props;
     const { id } = this.props.match.params;
     return (
       <Segment>
@@ -41,9 +39,7 @@ class CommentSection extends React.Component {
                 <Comment
                   key={i}
                   onClick={() =>
-                    this.props.history.push(
-                      `/posts/${id}/comments/${comment.id}`
-                    )
+                    history.push(`/posts/${id}/comments/${comment.id}`)
                   }
                 >
                   <Comment.Avatar src={comment.author_img} />
@@ -67,7 +63,7 @@ class CommentSection extends React.Component {
                   type="submit"
                   labelPosition="left"
                   icon="edit"
-                  onClick={this.postComment}
+                  onClick={() => this.postComment(id, token)}
                   primary
                 />
               </Form>
@@ -79,15 +75,13 @@ class CommentSection extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { loginReducer, postReducer } = state;
-  return {
-    token: loginReducer.token,
-    comments: postReducer.comments,
-    updatingComment: postReducer.updatingComment,
-    addingComment: postReducer.addingComment
-  };
-};
+const mapStateToProps = ({ loginReducer, postReducer }) => ({
+  token: loginReducer.token,
+  comments: postReducer.comments,
+  updating: postReducer.updatingComment,
+  adding: postReducer.addingComment,
+  deleting: postReducer.deletingComment
+});
 
 export default connect(
   mapStateToProps,

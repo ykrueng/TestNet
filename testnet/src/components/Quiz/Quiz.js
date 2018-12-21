@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
 class Quiz extends React.Component {
-  // id = this.props.match.params.id;
-
   componentDidMount() {
     this.props.getQuizz(this.props.match.params.id, this.props.token);
     this.props.getQuestions(this.props.match.params.id);

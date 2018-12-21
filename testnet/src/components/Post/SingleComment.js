@@ -11,7 +11,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const SITE_KEY = "6LeP1YMUAAAAAP3dZkGkycis0iE0IhxMe3iEXXUe";
 
-window.debounce = debounce;
+// window.debounce = debounce;
 
 class SingleComment extends React.Component {
   state = {
@@ -26,6 +26,7 @@ class SingleComment extends React.Component {
   }
 
   delayedChange = debounce(e => {
+    console.log(e);
     this.emitChange(e.target.value);
   }, 1000);
 
@@ -47,20 +48,19 @@ class SingleComment extends React.Component {
     this.setState({ reveal: !this.state.reveal });
   };
 
-  editComment = () => {
+  editComment = (id, commentId) => {
     const comment = { text: this.state.text };
-    const { id, commentId } = this.props.match.params;
     this.props.updateComment(id, commentId, comment, this.props.token);
     this.props.history.push(`/posts/${id}/comments`);
   };
 
-  deleteComment = () => {
-    const { id, commentId } = this.props.match.params;
-    this.props.deleteComment(id, commentId, this.props.token);
+  deleteComment = (id, comment) => {
+    this.props.deleteComment(id, comment, this.props.token);
     this.props.history.push(`/posts/${id}/comments`);
   };
 
   render() {
+    const { id, commentId } = this.props.match.params;
     const { comment, user } = this.props;
     return (
       comment && (
@@ -80,7 +80,9 @@ class SingleComment extends React.Component {
                       <Comment.Action onClick={this.revealer}>
                         Edit
                       </Comment.Action>
-                      <Comment.Action onClick={this.deleteComment}>
+                      <Comment.Action
+                        onClick={() => this.deleteComment(id, commentId)}
+                      >
                         Delete
                       </Comment.Action>
                     </Comment.Actions>
@@ -103,7 +105,7 @@ class SingleComment extends React.Component {
                     labelPosition="left"
                     disabled={!this.state.value}
                     icon="edit"
-                    onClick={() => this.editComment()}
+                    onClick={() => this.editComment(id, commentId)}
                     primary
                   />
                 </Form>
@@ -116,13 +118,10 @@ class SingleComment extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { postReducer, loginReducer } = state;
-  return {
-    comment: postReducer.comment,
-    token: loginReducer.token
-  };
-};
+const mapStateToProps = ({ postReducer, loginReducer }) => ({
+  comment: postReducer.comment,
+  token: loginReducer.token
+});
 
 export default connect(
   mapStateToProps,

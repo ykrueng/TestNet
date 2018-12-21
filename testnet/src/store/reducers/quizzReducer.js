@@ -155,7 +155,6 @@ export const quizzReducer = (state = initialState, action) => {
         checkingAnswer: false,
         checkDone: true,
         answer: action.payload
-        // TODO: add res to the state if needed
       };
     case PATCH_QUIZZ_FAILURE:
       return {
@@ -172,7 +171,6 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingQuizz: false
-        // TODO: add res to the state if needed
       };
     case DELETE_QUIZZ_FAILURE:
       return {
@@ -189,7 +187,6 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuestion: false
-        // TODO: add res to the state if needed
       };
     case POST_QUESTION_FAILURE:
       return {
@@ -206,7 +203,6 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingQuestion: false
-        // TODO: add res to the state if needed
       };
     case DELETE_QUESTION_FAILURE:
       return {

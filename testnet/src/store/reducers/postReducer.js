@@ -28,8 +28,8 @@ import {
   PATCH_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
-  DELETE_COMMENT_REQUEST,
-} from '../actions';
+  DELETE_COMMENT_REQUEST
+} from "../actions";
 
 const initialState = {
   posts: [],
@@ -46,182 +46,176 @@ const initialState = {
   addingComment: false,
   updatingComment: false,
   deletingComment: false,
-  error: null,
-}
+  error: null
+};
 
-export const postReducer = (state=initialState, action) => {
+export const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case POSTS_REQUEST:
       return {
         ...state,
-        fetchingPosts: true,
-      }
+        fetchingPosts: true
+      };
     case POSTS_SUCCESS:
       return {
         ...state,
         fetchingPosts: false,
-        posts: action.payload,
-      }
+        posts: action.payload
+      };
     case POSTS_FAILURE:
       return {
         ...state,
         fetchingPosts: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case POST_REQUEST:
       return {
         ...state,
-        fetchingPost: true,
-      }
+        fetchingPost: true
+      };
     case POST_SUCCESS:
       return {
         ...state,
         fetchingPost: false,
-        post: action.payload,
-      }
+        post: action.payload
+      };
     case POST_FAILURE:
       return {
         ...state,
         fetchingPost: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case POST_POST_REQUEST:
       return {
         ...state,
-        addingPost: true,
-      }
+        addingPost: true
+      };
     case POST_POST_SUCCESS:
       return {
         ...state,
-        addingPost: false,
-        // TODO: add res to the state if needed
-      }
+        addingPost: false
+      };
     case POST_POST_FAILURE:
       return {
         ...state,
         addingPost: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case PATCH_POST_REQUEST:
       return {
         ...state,
-        updatingPost: true,
-      }
+        updatingPost: true
+      };
     case PATCH_POST_SUCCESS:
       return {
         ...state,
-        updatingPost: false,
-        // TODO: add res to the state if needed
-      }
+        updatingPost: false
+      };
     case PATCH_POST_FAILURE:
       return {
         ...state,
         updatingPost: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case DELETE_POST_REQUEST:
       return {
         ...state,
-        deletingPost: true,
-      }
+        deletingPost: true
+      };
     case DELETE_POST_SUCCESS:
       return {
         ...state,
-        deletingPost: false,
-        // TODO: add res to the state if needed
-      }
+        deletingPost: false
+      };
     case DELETE_POST_FAILURE:
       return {
         ...state,
         deletingPost: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case COMMENTS_REQUEST:
       return {
         ...state,
-        fetchingComments: true,
-      }
+        fetchingComments: true
+      };
     case COMMENTS_SUCCESS:
       return {
         ...state,
         fetchingComments: false,
-        comments: action.payload,
-      }
+        comments: action.payload
+      };
     case COMMENTS_FAILURE:
       return {
         ...state,
         fetchingComments: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case COMMENT_REQUEST:
       return {
         ...state,
-        fetchingComment: true,
-      }
+        fetchingComment: true
+      };
     case COMMENT_SUCCESS:
       return {
         ...state,
         fetchingComment: false,
-        comment: action.payload,
-      }
+        comment: action.payload
+      };
     case COMMENT_FAILURE:
       return {
         ...state,
         fetchingComment: false,
-        error: action.payload,
-      }
-      case POST_COMMENT_REQUEST:
+        error: action.payload
+      };
+    case POST_COMMENT_REQUEST:
       return {
         ...state,
-        addingComment: true,
-      }
+        addingComment: true
+      };
     case POST_COMMENT_SUCCESS:
       return {
         ...state,
-        addingComment: false,
-        // TODO: add res to the state if needed
-      }
+        addingComment: false
+      };
     case POST_COMMENT_FAILURE:
       return {
         ...state,
         addingComment: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case PATCH_COMMENT_REQUEST:
       return {
         ...state,
-        updatingComment: true,
-      }
+        updatingComment: true
+      };
     case PATCH_COMMENT_SUCCESS:
       return {
         ...state,
-        updatingComment: false,
-        // TODO: add res to the state if needed
-      }
+        updatingComment: false
+      };
     case PATCH_COMMENT_FAILURE:
       return {
         ...state,
         updatingComment: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     case DELETE_COMMENT_REQUEST:
       return {
         ...state,
-        deletingComment: true,
-      }
+        deletingComment: true
+      };
     case DELETE_COMMENT_SUCCESS:
       return {
         ...state,
-        deletingComment: false,
-        // TODO: add res to the state if needed
-      }
+        deletingComment: false
+      };
     case DELETE_COMMENT_FAILURE:
       return {
         ...state,
         deletingComment: false,
-        error: action.payload,
-      }
+        error: action.payload
+      };
     default:
-      return state
+      return state;
   }
-}
+};
