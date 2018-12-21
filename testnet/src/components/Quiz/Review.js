@@ -3,8 +3,9 @@ import Summary from "./Summary";
 import { Button, Form, Grid } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { getQuestions } from "../../store/actions/quizzActions";
 
-class Review extends React.Component {
+class Review extends React.PureComponent {
   state = {
     reveal: false
   };
@@ -15,9 +16,9 @@ class Review extends React.Component {
   };
 
   render() {
-    const { questions, answers, rubric, history, match, token } = this.props;
+    const { questions, answers, rubric, history, quizId, token } = this.props;
     if (answers.length < 1) {
-      return <Redirect to="/quizzes" />;
+      return <Redirect to={`/quizzes/${quizId}/`} />;
     }
     if (this.state.reveal) {
       return (
@@ -27,7 +28,7 @@ class Review extends React.Component {
             questions={questions}
             answer={answers}
             rubric={rubric}
-            match={match}
+            quizId={quizId}
           />
         </Grid>
       );
@@ -50,7 +51,7 @@ class Review extends React.Component {
               attached="bottom"
               color="red"
               content="Restart"
-              onClick={() => history.push(`/quizzes/${match.params.id}`)}
+              onClick={() => history.push(`/quizzes/${quizId}`)}
               style={{ marginTop: "1rem" }}
             />
           </Form>
@@ -60,10 +61,12 @@ class Review extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { loginReducer } = state;
-  return {
-    token: loginReducer.token
-  };
-};
-export default connect(mapStateToProps)(Review);
+const mapStateToProps = ({ loginReducer, quizzReducer }) => ({
+  token: loginReducer.token,
+  questions: quizzReducer.questions
+});
+
+export default connect(
+  mapStateToProps,
+  { getQuestions }
+)(Review);

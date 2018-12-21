@@ -30,7 +30,7 @@ class CommentSection extends React.Component {
   };
 
   render() {
-    const { comments, user } = this.props;
+    const { comments } = this.props;
     const { id } = this.props.match.params;
     return (
       <Segment>

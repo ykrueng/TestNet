@@ -62,7 +62,6 @@ class SingleComment extends React.Component {
 
   render() {
     const { comment, user } = this.props;
-    console.log(this.state);
     return (
       comment && (
         <Grid centered>

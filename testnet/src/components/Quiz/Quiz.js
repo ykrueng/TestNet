@@ -4,16 +4,29 @@ import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
 class Quiz extends React.Component {
+  // id = this.props.match.params.id;
+
   componentDidMount() {
-    const id = this.props.match.params.id;
-    this.props.getQuizz(id, this.props.token);
-    this.props.getQuestions(id);
+    this.props.getQuizz(this.props.match.params.id, this.props.token);
+    this.props.getQuestions(this.props.match.params.id);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    // TRYING TO OPTIMIZE THE BOOTY OUT THIS APP
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    return false;
   }
 
   render() {
-    const id = this.props.match.params.id;
-    const { quiz, questions } = this.props;
+    const { quiz, questions, history, fetching } = this.props;
+
+    const { id } = this.props.match.params;
     const firstQuestion = questions ? questions[0] : null;
+    if (fetching) {
+      return <div />;
+    }
     return (
       <Segment clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
@@ -27,9 +40,7 @@ class Quiz extends React.Component {
           content="Begin Quiz"
           floated="right"
           color="green"
-          onClick={() =>
-            this.props.history.push(`/quizzes/${id}/${firstQuestion.id}`)
-          }
+          onClick={() => history.push(`/quizzes/${id}/${firstQuestion.id}`)}
         />
         <Header as="h4">
           {quiz.topic}
@@ -54,14 +65,12 @@ class Quiz extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { quizzReducer, loginReducer } = state;
-  return {
-    quiz: quizzReducer.quizz,
-    questions: quizzReducer.questions,
-    token: loginReducer.token
-  };
-};
+const mapStateToProps = ({ quizzReducer, loginReducer }) => ({
+  quiz: quizzReducer.quizz,
+  questions: quizzReducer.questions,
+  fetching: quizzReducer.fetchingQuizz,
+  token: loginReducer.token
+});
 
 export default connect(
   mapStateToProps,

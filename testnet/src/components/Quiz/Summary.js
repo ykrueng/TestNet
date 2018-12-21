@@ -2,13 +2,12 @@ import React from "react";
 import { Header, Form, Grid } from "semantic-ui-react";
 import ResultForm from "./ResultForm";
 
-const Summary = ({ questions, answers, rubric, auth, match }) => {
+const Summary = ({ questions, answers, rubric, auth, quizId }) => {
   if (rubric) {
     const score = rubric.filter(item => item.correct === true).length;
-    const id = match.params.id;
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
-        <Header as="h1" content="Quiz Result:" />
+        <Header as="h1" content="Your Result:" />
         {questions.map((q, index) => (
           <Header key={index}>
             {q.question}
@@ -25,7 +24,7 @@ const Summary = ({ questions, answers, rubric, auth, match }) => {
         </Header>
         {auth && (
           <Header block>
-            <ResultForm score={score} id={id} />
+            <ResultForm score={score} id={quizId} />
           </Header>
         )}
       </Grid.Column>
