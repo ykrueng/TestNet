@@ -6,11 +6,15 @@ import {
   updateComment,
   deleteComment
 } from "../../store/actions/postActions";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const SITE_KEY = "6LeP1YMUAAAAAP3dZkGkycis0iE0IhxMe3iEXXUe";
 
 class SingleComment extends React.Component {
   state = {
     reveal: false,
-    text: ""
+    text: "",
+    value: null
   };
 
   componentDidMount() {
@@ -20,6 +24,10 @@ class SingleComment extends React.Component {
 
   handleChange = e => {
     this.setState({ text: e.target.value });
+  };
+
+  recaptchaHandler = value => {
+    this.setState({ value });
   };
 
   revealer = e => {
@@ -42,6 +50,7 @@ class SingleComment extends React.Component {
 
   render() {
     const { comment, user } = this.props;
+    console.log(this.state.value);
     return (
       comment && (
         <Grid centered>
@@ -73,9 +82,15 @@ class SingleComment extends React.Component {
                     value={this.state.comment}
                     onChange={this.handleChange}
                   />
+                  <ReCAPTCHA
+                    style={{ margin: "1% auto" }}
+                    sitekey={SITE_KEY}
+                    onChange={this.recaptchaHandler}
+                  />
                   <Button
                     content="Edit Comment"
                     labelPosition="left"
+                    disabled={!this.state.value}
                     icon="edit"
                     onClick={() => this.editComment()}
                     primary
