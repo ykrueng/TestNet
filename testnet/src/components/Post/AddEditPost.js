@@ -1,6 +1,10 @@
 import React, { Fragment } from "react";
-import { Form, Grid, Divider } from "semantic-ui-react";
-import { updatePost, postPost } from "../../store/actions/postActions";
+import { Form, Grid, Divider, Label } from "semantic-ui-react";
+import {
+  updatePost,
+  postPost,
+  deletePost
+} from "../../store/actions/postActions";
 import { connect } from "react-redux";
 
 class AddEditPost extends React.Component {
@@ -13,6 +17,12 @@ class AddEditPost extends React.Component {
     this.setState({ [name]: value });
   };
 
+  delete = () => {
+    const { id } = this.props.match.params;
+    this.props.deletePost(id, this.props.token);
+    this.props.history.push("/forum");
+  };
+
   handleSubmit = () => {
     const post = {
       title: this.state.title.length > 0 ? this.state.title : undefined,
@@ -23,14 +33,13 @@ class AddEditPost extends React.Component {
       this.props.updatePost(id, post, this.props.token);
       this.props.history.push(`/posts/${id}`);
     } else {
-      this.props.addPost(post, this.props.token);
+      this.props.postPost(post, this.props.token);
       this.props.history.push("/forum");
     }
   };
 
   render() {
     const { edit } = this.props;
-    // console.log(this.state);
     return (
       <Fragment>
         <Divider
@@ -41,22 +50,35 @@ class AddEditPost extends React.Component {
         <Grid centered container columns={2}>
           <Grid.Column>
             <Form widths="equal" onSubmit={this.handleSubmit}>
+              <Label basic color="teal" ribbon content="Post Title" />
               <Form.Input
                 name="title"
-                label="Title"
                 value={this.state.title}
                 onChange={this.handleChange}
-                placeholder="Title of post.."
               />
+              <Label basic color="teal" ribbon="right" content="Description" />
               <Form.TextArea
                 name="body"
-                label="Text"
                 value={this.state.body}
                 onChange={this.handleChange}
-                placeholder="Tell us about it..."
+                rows={8}
               />
 
-              <Form.Button content={edit ? "Submit Edit" : "Add Post"} />
+              <Form.Button
+                color="teal"
+                floated="right"
+                style={{ marginBottom: "1%" }}
+                content={edit ? "Submit Edit" : "Add Post"}
+              />
+              {edit && (
+                <Form.Button
+                  color="red"
+                  basic
+                  floated="right"
+                  content="Delete Post"
+                  onClick={this.delete}
+                />
+              )}
             </Form>
           </Grid.Column>
         </Grid>
@@ -64,17 +86,13 @@ class AddEditPost extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  const { loginReducer, postReducer } = state;
-  return {
-    token: loginReducer.token,
-    updatingPost: postReducer.updatingPost,
-    addingPost: postReducer.addingPost
-  };
-};
+const mapStateToProps = ({ loginReducer, postReducer }) => ({
+  token: loginReducer.token,
+  updating: postReducer.updatingPost,
+  adding: postReducer.addingPost
+});
 
 export default connect(
   mapStateToProps,
-  { updatePost, postPost }
+  { updatePost, postPost, deletePost }
 )(AddEditPost);
