@@ -22,7 +22,7 @@ class SinglePost extends React.Component {
         <Fragment>
           <Header
             as="h1"
-            color={user.id !== post.author.id ? "blue" : null}
+            color={user.id !== post.author.id ? "teal" : null}
             block
             dividing
             textAlign="center"
@@ -56,6 +56,7 @@ class SinglePost extends React.Component {
               <Segment basic textAlign="center">
                 <Button
                   basic
+                  color="teal"
                   onClick={() => history.push(`/posts/${id}/comments`)}
                 >
                   Show Comments

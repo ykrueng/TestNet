@@ -14,7 +14,7 @@ const QuizList = props => {
           <Grid.Row stretched={true}>
             <Header
               as="h1"
-              color={quiz.author !== user.username ? "blue" : null}
+              color={quiz.author !== user.username ? "teal" : null}
               attached="bottom"
               dividing
             >

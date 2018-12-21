@@ -14,7 +14,7 @@ const PostList = ({ posts, history, user }) => {
             as="h2"
             dividing
             block
-            color={post.author !== user.username ? "blue" : null}
+            color={post.author !== user.username ? "teal" : null}
           >
             {post.title}
             <Header.Subheader content={post.author} />
