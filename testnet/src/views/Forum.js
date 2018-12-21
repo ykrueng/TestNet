@@ -4,9 +4,15 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPosts } from "../store/actions/postActions";
 
-class Forum extends React.Component {
+class Forum extends React.PureComponent {
   componentDidMount() {
     this.props.getPosts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      this.props.getPosts();
+    }
   }
 
   render() {
@@ -23,12 +29,11 @@ class Forum extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { postReducer } = state;
-  return {
-    posts: postReducer.posts
-  };
-};
+const mapStateToProps = ({ postReducer }) => ({
+  posts: postReducer.posts,
+  adding: postReducer.addingPost,
+  deleting: postReducer.deletingPost
+});
 
 export default connect(
   mapStateToProps,

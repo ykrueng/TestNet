@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Comment, Segment } from "semantic-ui-react";
+import { Header, Comment, Segment, Button, Card } from "semantic-ui-react";
 
 const PostList = ({ posts, history, user }) => {
   return (
@@ -28,6 +28,25 @@ const PostList = ({ posts, history, user }) => {
           </Comment>
         </Segment>
       ))}
+      <Card centered raised color="teal">
+        <Card.Content header="Something on Your Mind?" />
+        <Card.Content>
+          Join the discussion today!
+          <br />
+          Click the button below and tell us your thoughts!
+          <br />
+          <Button
+            color="teal"
+            icon="write"
+            floated="right"
+            onClick={() => history.push(`/forum/create`)}
+          />
+        </Card.Content>
+
+        <Card.Content extra textAlign="right">
+          All posts are subject to approval by our team of Moderators
+        </Card.Content>
+      </Card>
     </Segment>
   );
 };
