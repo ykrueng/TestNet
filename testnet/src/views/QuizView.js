@@ -18,6 +18,7 @@ class QuizView extends React.PureComponent {
           logout={logout}
           loggedIn={loggedIn}
           click={click}
+          user={user}
           getRegistrationFrom={this.props.getRegistrationFrom}
         />
         <QuizRoutes quizzes={quizzes} loggedIn={loggedIn} user={user} />
@@ -30,7 +31,8 @@ const mapStateToProps = state => {
   const { loginReducer, quizzReducer } = state;
   return {
     quizzes: quizzReducer.quizzes,
-    loggedIn: loginReducer.loggedIn
+    loggedIn: loginReducer.loggedIn,
+    user: loginReducer.user,
   };
 };
 export default connect(

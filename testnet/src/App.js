@@ -14,10 +14,12 @@ class App extends React.Component {
     signin: true
   };
 
+  // Check local storage for previous login info
   componentDidMount() {
     this.props.checkStatus();
   }
 
+  // Hide modal when Login / Register succeed
   componentWillReceiveProps(props) {
     props.loggedIn && this.setState({ modal: false });
   }
@@ -54,7 +56,7 @@ class App extends React.Component {
         <QuizView
           {...this.props}
           click={this.handleClick}
-          user={user}
+//          user={user}
           getRegistrationFrom={this.getRegistrationFrom}
         />
 

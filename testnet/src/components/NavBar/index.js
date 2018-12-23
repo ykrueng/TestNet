@@ -23,7 +23,7 @@ class NavBar extends React.Component {
 
   render() {
     const { active } = this.state;
-    const { loggedIn, getRegistrationFrom } = this.props;
+    const { loggedIn, getRegistrationFrom, user } = this.props;
     return (
       <Segment style={{ padding: "1.5rem 0" }}>
         <Menu pointing borderless fixed="top" fluid inverted>
@@ -51,6 +51,21 @@ class NavBar extends React.Component {
               onClick={this.handleChange}
             />
           </Menu.Menu>
+
+          {user && user.username && (
+            <div
+              position="right"
+              style={{
+                display: "flex",
+                color: "white",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                width: "100%"
+              }}
+            >
+              Logged in as: {user.username}
+            </div>
+          )}
 
           <Menu.Menu position="right">
             <Menu.Item>
