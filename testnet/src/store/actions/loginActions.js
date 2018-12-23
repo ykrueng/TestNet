@@ -51,7 +51,7 @@ export const login = user => dispatch => {
       localStorage.setItem("testnet-user", JSON.stringify(res.data.user));
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { token: res.data.token }
+        payload: { token: res.data.token, user: res.data.user }
       });
     })
     .catch(err => {

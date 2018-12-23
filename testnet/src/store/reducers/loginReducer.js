@@ -12,6 +12,7 @@ import {
 } from "../actions";
 
 const initialState = {
+  user: {},
   loggedIn: false,
   token: null,
   registering: false,
@@ -49,7 +50,8 @@ export const loginReducer = (state = initialState, action) => {
         loggedIn: true,
         loginError: false,
         registrationError: false,
-        token: action.payload.token
+        token: action.payload.token,
+        user: action.payload.user,
       };
     case STATUS_REQUEST:
       return {
