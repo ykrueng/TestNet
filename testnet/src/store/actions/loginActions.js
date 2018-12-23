@@ -26,11 +26,11 @@ export const register = user => dispatch => {
   study
     .post("/auth/register", user)
     .then(res => {
+      localStorage.setItem("testnet-login", res.data.token);
+      localStorage.setItem("testnet-user", JSON.stringify(res.data.user));
       dispatch({
         type: REGISTER_SUCCESS,
-        payload: {
-          token: res.token
-        }
+        payload: { token: res.data.token, user: res.data.user }
       });
     })
     .catch(err => {
@@ -66,12 +66,25 @@ export const checkStatus = () => dispatch => {
   dispatch({ type: STATUS_REQUEST });
 
   const token = localStorage.getItem("testnet-login");
-  dispatch(
-    token ? { type: STATUS_SUCCESS, payload: token } : { type: STATUS_FAILURE }
-  );
+  const user = JSON.parse(localStorage.getItem("testnet-user"));
+  if (token && user) {
+    dispatch({
+      type: STATUS_SUCCESS,
+      payload: { token: token, user: user }
+    });
+  } else {
+    dispatch({
+      type: STATUS_FAILURE
+    });
+  }
+
+  // dispatch(
+  //   token ? { type: STATUS_SUCCESS, payload: token } : { type: STATUS_FAILURE }
+  // );
 };
 
 export const logout = () => {
   localStorage.removeItem("testnet-login");
+  localStorage.removeItem("testnet-user");
   return { type: LOGOUT };
 };

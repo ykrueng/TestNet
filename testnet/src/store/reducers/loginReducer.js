@@ -41,7 +41,8 @@ export const loginReducer = (state = initialState, action) => {
         loggedIn: true,
         loginError: false,
         registrationError: false,
-        token: action.payload.token
+        token: action.payload.token,
+        user: action.payload.user
       };
     case LOGIN_SUCCESS:
       return {
@@ -51,7 +52,7 @@ export const loginReducer = (state = initialState, action) => {
         loginError: false,
         registrationError: false,
         token: action.payload.token,
-        user: action.payload.user,
+        user: action.payload.user
       };
     case STATUS_REQUEST:
       return {
@@ -62,7 +63,8 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         checkingStatus: false,
-        token: action.payload,
+        token: action.payload.token,
+        user: action.payload.user,
         loggedIn: true
       };
     case STATUS_FAILURE:
@@ -70,7 +72,8 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         checkingStatus: false,
         loggedIn: false,
-        token: null
+        token: null,
+        user: {}
       };
     case LOGIN_FAILURE:
       return {
