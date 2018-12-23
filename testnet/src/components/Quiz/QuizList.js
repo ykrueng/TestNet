@@ -14,16 +14,16 @@ const QuizList = props => {
           <Grid.Row stretched={true}>
             <Header
               as="h1"
-              color={quiz.author !== user.username ? "teal" : null}
+              color={user && quiz.author !== user.username ? "teal" : null}
               attached="bottom"
               dividing
             >
-              {user.username === quiz.author && <Icon name="street view" />}
+              {user && user.username === quiz.author && <Icon name="street view" />}
               <Header.Content>
                 {quiz.title}
                 <Header.Subheader
                   content={
-                    user.username === quiz.author
+                    user && user.username === quiz.author
                       ? "submitted by: You"
                       : `submitted by: ${quiz.author}`
                   }

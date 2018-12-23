@@ -6,7 +6,8 @@ import LoginForm from "./components/Login";
 import PostRoutes from "./components/Post/routes";
 import { login, register, checkStatus } from "./store/actions";
 
-const user = JSON.parse(localStorage.getItem("testnet-user"));
+// this is being moved to the loginReducer
+// const user = JSON.parse(localStorage.getItem("testnet-user"));
 
 class App extends React.Component {
   state = {
@@ -37,7 +38,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { login, register, loginError, registrationError } = this.props;
+    const { user, login, register, loginError, registrationError } = this.props;
     if (this.state.modal) {
       return (
         <LoginForm
@@ -69,6 +70,7 @@ class App extends React.Component {
 export default withRouter(
   connect(
     ({ loginReducer }) => ({
+      user: loginReducer.user,
       loggedIn: loginReducer.loggedIn,
       loginError: loginReducer.loginError,
       registrationError: loginReducer.registrationError

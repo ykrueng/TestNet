@@ -14,12 +14,12 @@ const PostList = ({ posts, history, user }) => {
             as="h2"
             dividing
             block
-            color={post.author !== user.username ? "teal" : null}
+            color={user && post.author !== user.username ? "teal" : null}
           >
             {post.title}
             <Header.Subheader>
               {post.author}
-              {post.author === user.username && " (you)"}
+              {user && post.author === user.username && " (you)"}
             </Header.Subheader>
           </Header>
           <Comment>

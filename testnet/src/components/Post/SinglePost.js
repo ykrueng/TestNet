@@ -23,7 +23,7 @@ class SinglePost extends React.Component {
         <Fragment>
           <Header
             as="h1"
-            color={user.id !== post.author.id ? "teal" : null}
+            color={user && user.id !== post.author.id ? "teal" : null}
             block
             dividing
             textAlign="center"
@@ -42,7 +42,7 @@ class SinglePost extends React.Component {
 
           {this.props.location.pathname.length < 11 && (
             <Fragment>
-              {post.author.id === user.id && (
+              {user && post.author.id === user.id && (
                 <Segment basic textAlign="center">
                   <Button
                     basic
