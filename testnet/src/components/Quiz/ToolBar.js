@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const ToolBar = ({
   filterText,
   field,
-  handleFieldChange,
+  topics,
+  handleDropdownChange,
   handleFilterChange
 }) => {
   const options = [
@@ -14,6 +15,12 @@ const ToolBar = ({
     { key: "topic", text: "topic", value: "topic" },
     { key: "author", text: "author", value: "author" }
   ];
+  const topicOptions = topics.map(topic => ({
+    key: topic.name,
+    text: topic.name,
+    value: topic.name,
+  }));
+
   return (
     <Segment style={{ width: '100%' }}>
       <Input
@@ -22,13 +29,19 @@ const ToolBar = ({
         placeholder='Filter quizzes by...'
         label={
           <Dropdown
-            onChange={handleFieldChange}
+            onChange={handleDropdownChange}
             defaultValue={field}
             options={options}
-            name='tag'
+            name='field'
           />}
         labelPosition='right'
         onChange={handleFilterChange}
+      />
+      <Dropdown
+        placeholder='Add topic...' fluid multiple search selection
+        name='selectedTopics'
+        options={topicOptions}
+        onChange={handleDropdownChange}
       />
     </Segment>
   );
@@ -37,7 +50,11 @@ const ToolBar = ({
 ToolBar.propTypes = {
   filterText: PropTypes.string.isRequired,
   field: PropTypes.string.isRequired,
-  handleFieldChange: PropTypes.func.isRequired,
+  topics: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  handleDropdownChange: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
 }
 

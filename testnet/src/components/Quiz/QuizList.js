@@ -6,30 +6,31 @@ import ToolBar from "./ToolBar";
 class QuizList extends React.Component {
   state = {
     filterText: "",
-    field: "title"
+    field: "title",
+    selectedTopics: [],
   };
 
   handleFilterChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleFieldChange = (e, data) => {
-    this.setState({ field: data.value });
+  handleDropdownChange = (e, data) => {
+    this.setState({ [data.name]: data.value });
   };
 
   render() {
-    const { quizzes, history, user } = this.props;
-    const { filterText } = this.state;
+    const { quizzes, topics, history, user } = this.props;
+    const { filterText, field } = this.state;
 
     const filteredQuizzes = quizzes.filter(quiz => {
-      if (this.state.field === "all") {
+      if (field === "all") {
         return (
           quiz.title.toLowerCase().includes(filterText.toLowerCase()) ||
           quiz.topic.toLowerCase().includes(filterText.toLowerCase()) ||
           quiz.author.toLowerCase().includes(filterText.toLowerCase())
         );
       }
-      return quiz[this.state.field]
+      return quiz[field]
         .toLowerCase()
         .includes(filterText.toLowerCase());
     });
@@ -39,9 +40,10 @@ class QuizList extends React.Component {
         <VoicePlayer play text="L O L this works" />
         <Grid.Row columns={2}>
           <ToolBar
-            filterText={this.state.filterText}
-            field={this.state.field}
-            handleFieldChange={this.handleFieldChange}
+            filterText={filterText}
+            field={field}
+            topics={topics}
+            handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
           />
         </Grid.Row>
