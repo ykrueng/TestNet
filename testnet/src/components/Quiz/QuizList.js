@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Grid, Icon } from "semantic-ui-react";
+import { Segment, Header, Grid, Icon } from "semantic-ui-react";
 
 const QuizList = props => {
   const { quizzes, history, user } = props;
@@ -12,6 +12,16 @@ const QuizList = props => {
           onClick={() => history.push(`/quizzes/${quiz.id}`)}
         >
           <Grid.Row stretched={true}>
+            <Segment circular floated='right'
+              style={{
+                width: '60px',
+                padding: '5px',
+                color: quiz.votes < 0 ? 'red' : 'inherit'
+              }}
+            >
+              <i className={`thumbs ${quiz.votes < 0 ? 'down' : 'up'} outline icon`} />
+              {quiz.votes}
+            </Segment>
             <Header
               as="h1"
               color={user && quiz.author !== user.username ? "teal" : null}
@@ -21,13 +31,14 @@ const QuizList = props => {
               {user && user.username === quiz.author && <Icon name="street view" />}
               <Header.Content>
                 {quiz.title}
-                <Header.Subheader
-                  content={
+                <Header.Subheader>
+                  <p>Topic: {quiz.topic}</p>
+                  {
                     user && user.username === quiz.author
-                      ? "submitted by: You"
-                      : `submitted by: ${quiz.author}`
+                      ? "Author: You"
+                      : `Author: ${quiz.author}`
                   }
-                />
+                </Header.Subheader>
               </Header.Content>
             </Header>
           </Grid.Row>
