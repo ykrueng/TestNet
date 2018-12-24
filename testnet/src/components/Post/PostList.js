@@ -1,9 +1,11 @@
 import React from "react";
 import { Header, Comment, Segment, Button, Card } from "semantic-ui-react";
+import { VoicePlayer } from "react-voice-components";
 
 const PostList = ({ posts, history, user }) => {
   return (
     <Segment>
+      <VoicePlayer play text="IT'S WORKING, IT'S WORKING, IT'S WORKING!" />
       {posts.map((post, index) => (
         <Segment
           key={index}
