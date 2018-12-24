@@ -7,7 +7,7 @@ class QuizList extends React.Component {
   state = {
     filterText: "",
     field: "title",
-    selectedTopics: [],
+    selectedTopics: []
   };
 
   handleFilterChange = e => {
@@ -20,19 +20,23 @@ class QuizList extends React.Component {
 
   render() {
     const { quizzes, topics, history, user } = this.props;
-    const { filterText, field } = this.state;
+    const { filterText, field, selectedTopics } = this.state;
 
     const filteredQuizzes = quizzes.filter(quiz => {
       if (field === "all") {
         return (
-          quiz.title.toLowerCase().includes(filterText.toLowerCase()) ||
-          quiz.topic.toLowerCase().includes(filterText.toLowerCase()) ||
-          quiz.author.toLowerCase().includes(filterText.toLowerCase())
+          (this.state.selectedTopics.length === 0 ||
+            this.state.selectedTopics.includes(quiz.topic)) &&
+          (quiz.title.toLowerCase().includes(filterText.toLowerCase()) ||
+            quiz.topic.toLowerCase().includes(filterText.toLowerCase()) ||
+            quiz.author.toLowerCase().includes(filterText.toLowerCase()))
         );
       }
-      return quiz[field]
-        .toLowerCase()
-        .includes(filterText.toLowerCase());
+      return (
+        (this.state.selectedTopics.length === 0 ||
+          this.state.selectedTopics.includes(quiz.topic)) &&
+        quiz[field].toLowerCase().includes(filterText.toLowerCase())
+      );
     });
 
     return (
@@ -43,6 +47,7 @@ class QuizList extends React.Component {
             filterText={filterText}
             field={field}
             topics={topics}
+            selectedTopics={selectedTopics}
             handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
           />

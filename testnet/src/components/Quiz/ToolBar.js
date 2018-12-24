@@ -6,6 +6,7 @@ const ToolBar = ({
   filterText,
   field,
   topics,
+  selectedTopics,
   handleDropdownChange,
   handleFilterChange
 }) => {
@@ -40,6 +41,7 @@ const ToolBar = ({
       <Dropdown
         placeholder='Add topic...' fluid multiple search selection
         name='selectedTopics'
+        value={selectedTopics}
         options={topicOptions}
         onChange={handleDropdownChange}
       />
@@ -54,6 +56,7 @@ ToolBar.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  selectedTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDropdownChange: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
 }
