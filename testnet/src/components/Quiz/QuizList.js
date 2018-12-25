@@ -1,7 +1,6 @@
 import React from "react";
 import { Segment, Header, Grid, Icon } from "semantic-ui-react";
-import { VoicePlayer } from "react-voice-components";
-
+import VoicePlayer from "../VoiceLibrary/VoicePlayer";
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
