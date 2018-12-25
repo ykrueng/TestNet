@@ -21,7 +21,6 @@ const QuestionDisplay = ({ play, playVoice, stopVoice, question, change, current
           key={index}
           label={ans}
           value={ans}
-          onClick={stopVoice}
           onChange={() => change(index, ans, question.quiz_id, questionId)}
           checked={current === ans}
         />

@@ -46,8 +46,8 @@ class VoicePlayer extends Component {
   }
 
   cancel() {
-    window.speechSynthesis.cancel();
     this.setState({ started: false, playing: false });
+    window.speechSynthesis.cancel();
   }
 
   pause() {
@@ -58,6 +58,11 @@ class VoicePlayer extends Component {
   resume() {
     window.speechSynthesis.resume();
     this.setState({ playing: true });
+  }
+
+  end = () => {
+    this.setState({ started: false });
+    this.props.onEnd();
   }
 
   componentWillReceiveProps({ pause }) {
@@ -86,10 +91,7 @@ class VoicePlayer extends Component {
       this.speech.addEventListener(e.name, e.action);
     });
 
-    this.speech.addEventListener("end", () => {
-      this.setState({ started: false });
-      this.props.onEnd();
-    });
+    this.speech.addEventListener("end", this.end);
 
     if (this.props.play) {
       this.speak();
@@ -97,6 +99,21 @@ class VoicePlayer extends Component {
   }
 
   componentWillUnmount() {
+    const events = [
+      { name: "start", action: this.props.onStart },
+      { name: "error", action: this.props.onError },
+      { name: "pause", action: this.props.onPause },
+      { name: "resume", action: this.props.onResume }
+    ];
+
+    events.forEach(e => {
+      this.speech.removeEventListener(e.name, e.action);
+    });
+
+    this.speech.removeEventListener("end", this.end);
+
+
+
     this.cancel();
   }
 

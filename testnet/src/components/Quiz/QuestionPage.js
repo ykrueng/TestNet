@@ -47,6 +47,7 @@ class QuestionPage extends React.PureComponent {
   };
 
   nextQuestion = (id, questionId) => {
+    this.stopVoice();
     const index = this.props.questions.findIndex(
       question => question.id === parseInt(questionId, 10)
     );
