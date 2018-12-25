@@ -13,7 +13,7 @@ const QuestionDisplay = ({ play, playVoice, stopVoice, question, change, current
         />
       }
       <Header as="h3" style={{ margin: "2.5rem 0" }}>
-        <Icon onClick={playVoice} className="volume up" />
+        <Icon style={{ cursor: 'pointer' }} onClick={playVoice} className="volume up" />
         {` ${question.question}`}
       </Header>
       {question.options.map((ans, index) => (
