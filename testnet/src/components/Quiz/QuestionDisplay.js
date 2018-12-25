@@ -2,14 +2,13 @@ import React from "react";
 import { Form, Header, Icon } from "semantic-ui-react";
 import VoicePlayer from '../VoiceLibrary/VoicePlayer';
 
-const QuestionDisplay = ({ play, pause, playVoice, stopVoice, pauseVoice, question, change, current, questionId }) => {
+const QuestionDisplay = ({ play, playVoice, stopVoice, question, change, current, questionId }) => {
   return (
     <Form style={{ padding: "1rem 0" }}>
       {
         play &&
-        <VoicePlayer play pause={pause}
+        <VoicePlayer play
           onEnd={stopVoice}
-          onPause={pauseVoice}
           text={`${question.question} ${question.options.join(". ")}`}
         />
       }
@@ -22,6 +21,7 @@ const QuestionDisplay = ({ play, pause, playVoice, stopVoice, pauseVoice, questi
           key={index}
           label={ans}
           value={ans}
+          onClick={stopVoice}
           onChange={() => change(index, ans, question.quiz_id, questionId)}
           checked={current === ans}
         />
