@@ -6,9 +6,12 @@ import QuestionDisplay from "./QuestionDisplay";
 import debounce from "lodash/debounce";
 import { Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
+import VoicePlayer from "../VoiceLibrary/VoicePlayer";
 
 class QuestionPage extends React.PureComponent {
   state = {
+    play: false,
+    pause: false,
     answers: [],
     current: "",
     question: {},
@@ -59,6 +62,18 @@ class QuestionPage extends React.PureComponent {
     }
   };
 
+  playVoice = () => {
+    this.setState({ play: true });
+  }
+
+  stopVoice = () => {
+    this.setState({ play: false, pause: false });
+  }
+
+  pauseVoice = () => {
+    this.setState({ pause: true });
+  }
+
   render() {
     const { id, questionId } = this.props.match.params;
     const { question, questions } = this.props;
@@ -81,6 +96,11 @@ class QuestionPage extends React.PureComponent {
       <Grid centered columns={3} style={{ margin: "0 auto" }}>
         <Grid.Column style={{ marginTop: "5rem" }}>
           <QuestionDisplay
+            play={this.state.play}
+            pause={this.state.pause}
+            playVoice={this.playVoice}
+            pauseVoice={this.pauseVoice}
+            stopVoice={this.stopVoice}
             question={question}
             change={this.handleChange}
             current={this.state.current}
