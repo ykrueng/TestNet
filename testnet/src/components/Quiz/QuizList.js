@@ -42,9 +42,11 @@ class QuizList extends React.Component {
     sort && filteredQuizzes.sort((quizA, quizB) => {
       if (sort === 'most') {
         if (quizA.votes < quizB.votes) return 1;
+        if (quizA.votes === quizB.votes) return 0;
         return -1;
       }
       if (quizA.votes < quizB.votes) return -1;
+      if (quizA.votes === quizB.votes) return 0;
       return 1;
     });
 
