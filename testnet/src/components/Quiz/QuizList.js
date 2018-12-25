@@ -5,6 +5,7 @@ import ToolBar from "./ToolBar";
 class QuizList extends React.Component {
   state = {
     filterText: "",
+    sort: "",
     field: "title",
     selectedTopics: []
   };
@@ -19,7 +20,7 @@ class QuizList extends React.Component {
 
   render() {
     const { quizzes, topics, history, user } = this.props;
-    const { filterText, field, selectedTopics } = this.state;
+    const { filterText, field, sort, selectedTopics } = this.state;
 
     const filteredQuizzes = quizzes.filter(quiz => {
       if (field === "all") {
@@ -36,6 +37,15 @@ class QuizList extends React.Component {
           this.state.selectedTopics.includes(quiz.topic)) &&
         quiz[field].toLowerCase().includes(filterText.toLowerCase())
       );
+    });
+
+    sort && filteredQuizzes.sort((quizA, quizB) => {
+      if (sort === 'most') {
+        if (quizA.votes < quizB.votes) return 1;
+        return -1;
+      }
+      if (quizA.votes < quizB.votes) return -1;
+      return 1;
     });
 
     return (
