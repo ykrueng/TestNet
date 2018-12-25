@@ -1,6 +1,5 @@
 import React from "react";
 import { Segment, Header, Grid, Icon } from "semantic-ui-react";
-import VoicePlayer from "../VoiceLibrary/VoicePlayer";
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
@@ -41,7 +40,6 @@ class QuizList extends React.Component {
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
-        <VoicePlayer play text="L O L this works" />
         <Grid.Row columns={2}>
           <ToolBar
             filterText={filterText}
