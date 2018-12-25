@@ -36,7 +36,7 @@ class QuizList extends React.Component {
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
-        <VoicePlayer play text="why is this working?" />
+        <VoicePlayer play text="L O L this works" />
         <Grid.Row columns={2}>
           <ToolBar
             filterText={this.state.filterText}
