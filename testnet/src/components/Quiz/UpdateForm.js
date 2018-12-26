@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Segment, Header, Form, Button, Icon } from 'semantic-ui-react';
+import { Segment, Header, Form, Button, Icon, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 import { getQuizz, updateQuizz, deleteQuizz } from '../../store/actions';
+import QuestionForm from './QuestionForm';
 
 class UpdateForm extends Component {
   state = {
@@ -77,7 +78,7 @@ class UpdateForm extends Component {
         <Button floated="right" onClick={this.handleDelete}>
           <Icon className="trash alternate outline" /> Delete
         </Button>
-        <Header as="h1">Update Quiz</Header>
+        <Header as="h2">Update Quiz</Header>
         <Form onSubmit={this.handleUpdate}>
           <Form.Group widths="equal">
             <Form.Input
@@ -100,6 +101,9 @@ class UpdateForm extends Component {
             />
           </Form.Group>
         </Form>
+        <Divider />
+        <Header as="h2">Add Question</Header>
+        <QuestionForm />
       </Segment>
     );
   }
