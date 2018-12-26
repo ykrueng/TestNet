@@ -135,7 +135,7 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuizz: false,
-        questionPosted: action.payload
+        quizzes: [ ...state.quizzes, action.payload]
       };
     case POST_QUIZZ_FAILURE:
       return {

@@ -1,8 +1,9 @@
 import React from "react";
-import { Segment, Input, Dropdown } from "semantic-ui-react";
+import { Segment, Input, Dropdown, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 const ToolBar = ({
+  history,
   filterText,
   field,
   topics,
@@ -73,6 +74,14 @@ const ToolBar = ({
         options={topicOptions}
         onChange={handleDropdownChange}
       />
+      <Segment textAlign='center'
+        style={{
+          margin: '0 auto',
+          border: 'none',
+          boxShadow: 'none',
+        }}>
+        <Button onClick={() => history.push('/quizzes/quiz/new/add')} primary>Add New Quiz</Button>
+      </Segment>
     </Segment>
   );
 };

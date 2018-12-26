@@ -103,20 +103,25 @@ export const getQuizz = (quizzId, token) => dispatch => {
   }
 };
 
-export const postQuizz = (quizz, token) => dispatch => {
+export const postQuizz = (quiz, author, token) => dispatch => {
   dispatch({ type: POST_QUIZZ_REQUEST });
 
   study({
     method: "post",
     url: "/quizzes",
-    data: quizz,
+    data: quiz,
     headers: { authorization: token }
   })
     .then(res => {
-      console.log(res);
       dispatch({
         type: POST_QUIZZ_SUCCESS,
-        payload: res.data
+        payload: {
+          ...quiz,
+          id: res.data[0],
+          author: author,
+          votes: 0,
+          description: null
+        }
       });
     })
     .catch(err => {

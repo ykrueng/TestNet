@@ -54,6 +54,7 @@ class QuizList extends React.Component {
       <Grid centered container columns={2} relaxed padded="vertically">
         <Grid.Row columns={2}>
           <ToolBar
+            history={history}
             filterText={filterText}
             field={field}
             topics={topics}
