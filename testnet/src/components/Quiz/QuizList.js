@@ -39,16 +39,17 @@ class QuizList extends React.Component {
       );
     });
 
-    sort && filteredQuizzes.sort((quizA, quizB) => {
-      if (sort === 'most') {
-        if (quizA.votes < quizB.votes) return 1;
+    sort &&
+      filteredQuizzes.sort((quizA, quizB) => {
+        if (sort === "most") {
+          if (quizA.votes < quizB.votes) return 1;
+          if (quizA.votes === quizB.votes) return 0;
+          return -1;
+        }
+        if (quizA.votes < quizB.votes) return -1;
         if (quizA.votes === quizB.votes) return 0;
-        return -1;
-      }
-      if (quizA.votes < quizB.votes) return -1;
-      if (quizA.votes === quizB.votes) return 0;
-      return 1;
-    });
+        return 1;
+      });
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
@@ -86,30 +87,25 @@ class QuizList extends React.Component {
                 />
                 {quiz.votes}
               </Segment>
-              {
-                user && user.username === quiz.author &&
+              {user && user.username === quiz.author && (
                 <Button
                   circular
-                  primary
+                  basic
+                  icon="edit icon"
+                  content="Edit"
+                  color="teal"
                   floated="right"
                   style={{
-                    cursor: 'pointer',
                     width: "60px",
-                    padding: "8px",
-                    margin: "0",
-                    color: quiz.votes < 0 ? "red" : "inherit"
+                    padding: "8px"
                   }}
                   onClick={e => {
                     e.preventDefault();
                     e.stopPropagation();
-                    history.push(`/quizzes/quiz/update/${quiz.id}`)
+                    history.push(`/quizzes/quiz/update/${quiz.id}`);
                   }}
-                >
-                  <i
-                    className={`edit icon`}
-                  />
-                </Button>
-              }
+                />
+              )}
               <Header
                 as="h1"
                 color={user && quiz.author !== user.username ? "teal" : null}

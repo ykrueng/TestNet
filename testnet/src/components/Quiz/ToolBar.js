@@ -27,10 +27,11 @@ const ToolBar = ({
     <Segment style={{ width: "100%" }} textAlign="left">
       <Dropdown
         style={{
-          width: '10rem',
-          marginRight: '1rem',
+          width: "10rem",
+          marginRight: "1rem"
         }}
-        placeholder="Sort by..." clearable
+        placeholder="Sort by..."
+        clearable
         selection
         name="sort"
         options={[
@@ -41,7 +42,7 @@ const ToolBar = ({
       />
       <Input
         style={{
-          width: '15rem',
+          width: "15rem"
         }}
         name="filterText"
         value={filterText}
@@ -49,7 +50,7 @@ const ToolBar = ({
         label={
           <Dropdown
             style={{
-              textAlign: 'right'
+              textAlign: "right"
             }}
             onChange={handleDropdownChange}
             defaultValue={field}
@@ -62,7 +63,7 @@ const ToolBar = ({
       />
       <Dropdown
         style={{
-          marginTop: '.5rem',
+          marginTop: ".5rem"
         }}
         placeholder="Add topic..."
         fluid
@@ -74,13 +75,20 @@ const ToolBar = ({
         options={topicOptions}
         onChange={handleDropdownChange}
       />
-      <Segment textAlign='center'
+      <Segment
+        textAlign="center"
         style={{
-          margin: '0 auto',
-          border: 'none',
-          boxShadow: 'none',
-        }}>
-        <Button onClick={() => history.push('/quizzes/quiz/new/add')} primary>Add New Quiz</Button>
+          margin: "0 auto",
+          border: "none",
+          boxShadow: "none"
+        }}
+      >
+        <Button
+          onClick={() => history.push("/quizzes/quiz/new/add")}
+          color="teal"
+        >
+          Add New Quiz
+        </Button>
       </Segment>
     </Segment>
   );
