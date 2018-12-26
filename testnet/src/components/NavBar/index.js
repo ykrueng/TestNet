@@ -25,7 +25,7 @@ class NavBar extends React.Component {
     const { active } = this.state;
     const { loggedIn, getRegistrationFrom, user } = this.props;
     return (
-      <Segment style={{ padding: "1.5rem 0" }}>
+      <Segment style={{ padding: "1rem 0" }}>
         <Menu pointing borderless fixed="top" fluid inverted>
           <Menu.Menu position="left">
             <Menu.Item
