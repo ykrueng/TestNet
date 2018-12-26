@@ -31,7 +31,10 @@ import {
   SINGLE_Q_FAILURE,
   RESULT_REQUEST,
   RESULT_SUCCESS,
-  RESULT_FAILURE
+  RESULT_FAILURE,
+  ANSWER_REQUEST,
+  ANSWER_SUCCESS,
+  ANSWER_FAILURE,
 } from "../actions";
 
 const initialState = {
@@ -248,6 +251,23 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingResult: false,
+        error: action.payload
+      };
+    case ANSWER_REQUEST:
+      return {
+        ...state,
+        checkingAnswer: true
+      };
+    case ANSWER_SUCCESS:
+      return {
+        ...state,
+        checkingAnswer: false,
+        answer: action.payload,
+      };
+    case ANSWER_FAILURE:
+      return {
+        ...state,
+        checkingAnswer: false,
         error: action.payload
       };
     default:

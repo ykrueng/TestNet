@@ -51,6 +51,10 @@ export const RESULT_REQUEST = "RESULT_REQUEST";
 export const RESULT_SUCCESS = "RESULT_SUCCESS";
 export const RESULT_FAILURE = "RESULT_FAILURE";
 
+export const ANSWER_REQUEST = "ANSWER_REQUEST";
+export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
+export const ANSWER_FAILURE = "ANSWER_FAILURE";
+
 /*
   Quizz Action Creators
 */
@@ -247,7 +251,7 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
 // don't need token to checkAnswer
 
 export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
-  dispatch({ type: PATCH_QUIZZ_REQUEST });
+  dispatch({ type: ANSWER_REQUEST });
 
   study({
     method: "get",
@@ -256,13 +260,13 @@ export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
   })
     .then(res => {
       dispatch({
-        type: PATCH_QUIZZ_SUCCESS,
+        type: ANSWER_SUCCESS,
         payload: res.data
       });
     })
     .catch(err => {
       dispatch({
-        type: PATCH_QUIZZ_FAILURE,
+        type: ANSWER_FAILURE,
         payload: { err }
       });
     });
