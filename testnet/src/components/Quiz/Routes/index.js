@@ -5,6 +5,7 @@ import QuizList from "../QuizList";
 import Quiz from "../Quiz";
 import QuestionPage from "../QuestionPage";
 import QuizForm from "../QuizForm";
+import UpdateForm from "../UpdateForm";
 
 const QuizRoutes = ({ quizzes, topics, loggedIn, user }) => {
   return (
@@ -30,6 +31,12 @@ const QuizRoutes = ({ quizzes, topics, loggedIn, user }) => {
         path="/quizzes/quiz/new/add"
         render={props => <QuizForm {...props} />}
       />
+      <Route
+        exact
+        path="/quizzes/quiz/update/:id"
+        render={props => <UpdateForm {...props} />}
+      />
+      
     </Fragment>
   );
 };

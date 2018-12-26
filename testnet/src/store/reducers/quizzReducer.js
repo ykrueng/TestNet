@@ -154,7 +154,13 @@ export const quizzReducer = (state = initialState, action) => {
         ...state,
         checkingAnswer: false,
         checkDone: true,
-        answer: action.payload
+        quizzes: state.quizzes.map(quiz => {
+          if (quiz.id === action.payload.id) {
+            return ({ ...quiz, ...action.payload.quiz });
+          }
+          return quiz;
+        }),
+        quizz: {...state.quiz, ...action.payload.quiz}
       };
     case PATCH_QUIZZ_FAILURE:
       return {

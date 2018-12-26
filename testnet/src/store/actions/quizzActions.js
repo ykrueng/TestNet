@@ -132,20 +132,23 @@ export const postQuizz = (quiz, author, token) => dispatch => {
     });
 };
 
-export const updateQuizz = (quizzId, quizz, token) => dispatch => {
+export const updateQuizz = (quizId, quiz, token) => dispatch => {
   dispatch({ type: PATCH_QUIZZ_REQUEST });
 
   study({
     method: "patch",
-    url: `/quizzes/${quizzId}/edit`,
-    data: quizz,
+    url: `/quizzes/${quizId}/edit`,
+    data: quiz,
     headers: { authorization: token }
   })
     .then(res => {
       console.log(res);
       dispatch({
         type: PATCH_QUIZZ_SUCCESS,
-        payload: res.data
+        payload: {
+          id: quizId,
+          quiz,
+        }
       });
     })
     .catch(err => {

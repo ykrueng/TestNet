@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Header, Grid, Icon } from "semantic-ui-react";
+import { Segment, Header, Button, Grid, Icon } from "semantic-ui-react";
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
@@ -86,6 +86,30 @@ class QuizList extends React.Component {
                 />
                 {quiz.votes}
               </Segment>
+              {
+                user && user.username === quiz.author &&
+                <Button
+                  circular
+                  primary
+                  floated="right"
+                  style={{
+                    cursor: 'pointer',
+                    width: "60px",
+                    padding: "8px",
+                    margin: "0",
+                    color: quiz.votes < 0 ? "red" : "inherit"
+                  }}
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    history.push(`/quizzes/quiz/update/${quiz.id}`)
+                  }}
+                >
+                  <i
+                    className={`edit icon`}
+                  />
+                </Button>
+              }
               <Header
                 as="h1"
                 color={user && quiz.author !== user.username ? "teal" : null}
