@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Header,
-  Form,
-  Button,
-  Icon,
-  Divider
-} from "semantic-ui-react";
+import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import { getQuizz, updateQuizz, deleteQuizz } from "../../store/actions";
@@ -70,16 +63,31 @@ class UpdateForm extends Component {
         }}
       >
         {(quiz.title !== title || quiz.topic !== topic) && (
-          <Button floated="right" primary onClick={this.handleUpdate}>
-            <Icon className="save outline" /> Save
-          </Button>
+          <Button
+            basic
+            floated="right"
+            color="teal"
+            icon="save outline"
+            content="Save"
+            onClick={this.handleUpdate}
+          />
         )}
-        <Button floated="right" onClick={() => history.push("/quizzes")}>
-          <Icon className="cancel" /> Cancel
-        </Button>
-        <Button floated="right" onClick={this.handleDelete}>
-          <Icon className="trash alternate outline" /> Delete
-        </Button>
+        <Button
+          basic
+          color="grey"
+          floated="right"
+          icon="cancel"
+          content="Cancel"
+          onClick={() => history.push("/quizzes")}
+        />
+        <Button
+          basic
+          color="red"
+          floated="right"
+          icon="trash alternate outline"
+          content="Delete"
+          onClick={this.handleDelete}
+        />
         <Header as="h2">Update Quiz</Header>
         <Form onSubmit={this.handleUpdate}>
           <Form.Group widths="equal">
@@ -88,24 +96,20 @@ class UpdateForm extends Component {
               name="title"
               value={title}
               onChange={this.handleChange}
-              style={{
-                border: "none"
-              }}
+              style={{ border: "none" }}
             />
             <Form.Input
               label="Topic"
               name="topic"
               value={topic}
               onChange={this.handleChange}
-              style={{
-                border: "none"
-              }}
+              style={{ border: "none" }}
             />
           </Form.Group>
         </Form>
         <Divider />
         <Header as="h2">Add Question</Header>
-        <QuestionForm history={history} match={match}/>
+        <QuestionForm history={history} match={match} />
       </Segment>
     );
   }
