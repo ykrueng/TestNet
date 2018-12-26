@@ -61,7 +61,7 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic } = this.state;
-    const { history, quiz } = this.props;
+    const { history, match, quiz } = this.props;
     return (
       <Segment
         style={{
@@ -105,7 +105,7 @@ class UpdateForm extends Component {
         </Form>
         <Divider />
         <Header as="h2">Add Question</Header>
-        <QuestionForm />
+        <QuestionForm history={history} match={match}/>
       </Segment>
     );
   }

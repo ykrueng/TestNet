@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Segment, Form, Dropdown } from 'semantic-ui-react';
+import { Segment, Form, Dropdown, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+
+import { postQuestion } from '../../store/actions';
 
 class QuestionForm extends Component {
   state = {
@@ -17,12 +20,45 @@ class QuestionForm extends Component {
     })
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const {
+      question,
+      option1,
+      option2,
+      option3,
+      option4,
+      answer } = this.state;
+    
+    const { postQuestion, match, token } = this.props;
+    const id = match.params.id;
+    const quiz = {
+      question,
+      option1,
+      option2,
+      answer
+    }
+    if (option3) quiz.option3 = option3;
+    if (option4) quiz.option4 = option4;
+
+    postQuestion(id, quiz, token);
+
+    this.setState({
+      question: '',
+      option1: '',
+      option2: '',
+      option3: '',
+      option4: '',
+      answer: null,
+    });
+  }
+
   render() {
-    const { question, option1, option2, option3, option4, answer } = this.state;
+    const { question, option1, option2, option3, option4 } = this.state;
 
     return (
       <Segment>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label="Question"
             name="question"
@@ -67,15 +103,16 @@ class QuestionForm extends Component {
             selection
             name="answer"
             options={[
-              { key: "option1", value: "option1", text: "Option 1" },
-              { key: "option2", value: "option2", text: "Option 2" },
-              { key: "option3", value: "option3", text: "Option 3" },
-              { key: "option4", value: "option4", text: "Option 4" },
+              { key: "option1", value: 1, text: "Option 1" },
+              { key: "option2", value: 2, text: "Option 2" },
+              { key: "option3", value: 3, text: "Option 3" },
+              { key: "option4", value: 4, text: "Option 4" },
             ]}
             onChange={
               (e, data) => this.setState({ [data.name]: data.value })
             }
           />
+          <Button primary type="submit">Save</Button>
 
         </Form>
       </Segment>
@@ -83,4 +120,11 @@ class QuestionForm extends Component {
   }
 }
 
-export default QuestionForm;
+export default connect(
+  state => ({
+    token: state.loginReducer.token,
+  }),
+  {
+    postQuestion,
+  }
+)(QuestionForm);
