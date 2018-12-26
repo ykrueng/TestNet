@@ -225,7 +225,7 @@ export const getQuestions = id => dispatch => {
 };
 
 export const postQuestion = (quizzId, question, token) => dispatch => {
-  dispatch({ type: POST_QUIZZ_REQUEST });
+  dispatch({ type: POST_QUESTION_REQUEST });
 
   study({
     method: "post",
@@ -236,13 +236,13 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
     .then(res => {
       console.log(res);
       dispatch({
-        type: POST_QUIZZ_SUCCESS,
+        type: POST_QUESTION_SUCCESS,
         payload: res.data
       });
     })
     .catch(err => {
       dispatch({
-        type: POST_QUIZZ_FAILURE,
+        type: POST_QUESTION_FAILURE,
         payload: { err }
       });
     });
