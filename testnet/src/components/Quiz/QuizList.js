@@ -91,7 +91,7 @@ class QuizList extends React.Component {
                 <Button
                   circular
                   basic
-                  icon="edit icon"
+                  icon="edit"
                   content="Edit"
                   color="teal"
                   floated="right"
