@@ -8,7 +8,12 @@ const Welcome = () => {
         Welcome to TestNet
         <Header.Subheader content="the best tests on the net" />
       </Header>
-      <Image src="https://i.imgur.com/DnK3GYI.jpg" alt="pretty mountains" />
+      <Image
+        src="https://i.imgur.com/DnK3GYI.jpg"
+        alt="pretty mountains"
+        size="huge"
+        centered
+      />
     </Segment>
   );
 };
