@@ -176,7 +176,8 @@ export const quizzReducer = (state = initialState, action) => {
     case DELETE_QUIZZ_SUCCESS:
       return {
         ...state,
-        deletingQuizz: false
+        deletingQuizz: false,
+        quizzes: state.quizzes.filter( quiz => quiz.id !== action.payload),
       };
     case DELETE_QUIZZ_FAILURE:
       return {

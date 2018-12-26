@@ -171,7 +171,7 @@ export const deleteQuizz = (quizzId, token) => dispatch => {
       console.log(res);
       dispatch({
         type: DELETE_QUIZZ_SUCCESS,
-        payload: res.data
+        payload: quizzId, // cannot use res.data because it's not returning quizId
       });
     })
     .catch(err => {

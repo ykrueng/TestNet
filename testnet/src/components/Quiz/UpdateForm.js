@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Segment, Header, Form, Button } from 'semantic-ui-react';
+import { Segment, Header, Form, Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-import { getQuizz, updateQuizz } from '../../store/actions';
+import { getQuizz, updateQuizz, deleteQuizz } from '../../store/actions';
 
 class UpdateForm extends Component {
   state = {
@@ -34,7 +34,7 @@ class UpdateForm extends Component {
     e.preventDefault();
 
     const { title, topic } = this.state;
-    const { match, token } = this.props;
+    const { match, token, updateQuizz } = this.props;
 
     const quiz = {
       title,
@@ -42,7 +42,17 @@ class UpdateForm extends Component {
     }
 
     const id = Number(match.params.id);
-    this.props.updateQuizz(id, quiz, token);
+    updateQuizz(id, quiz, token);
+  }
+
+  handleDelete = () => {
+    const { match, token, history, deleteQuizz } = this.props;
+
+    const id = Number(match.params.id);
+    deleteQuizz(id, token);
+
+    console.log('deleted');
+    history.push('/quizzes');
   }
 
   render() {
@@ -55,7 +65,19 @@ class UpdateForm extends Component {
           margin: '2rem auto',
         }}
       >
-        <Header textAlign="center" as="h1">Update Form</Header>
+        {
+          (quiz.title !== title || quiz.topic !== topic) &&
+          <Button floated="right" primary onClick={this.handleUpdate}>
+          <Icon className="save outline" /> Save
+          </Button>
+        }
+        <Button floated="right" onClick={() => history.push('/quizzes')}>
+          <Icon className="cancel" /> Cancel
+        </Button>
+        <Button floated="right" onClick={this.handleDelete}>
+          <Icon className="trash alternate outline" /> Delete
+        </Button>
+        <Header as="h1">Update Quiz</Header>
         <Form onSubmit={this.handleUpdate}>
           <Form.Group widths="equal">
             <Form.Input
@@ -77,13 +99,6 @@ class UpdateForm extends Component {
               }}
             />
           </Form.Group>
-          {
-            (quiz.title !== title || quiz.topic !== topic) &&
-            <>
-              <Button primary type="submit">Update</Button>
-              <Button onClick={() => history.push('/quizzes')}>Cancel</Button>
-            </>
-          }
         </Form>
       </Segment>
     );
@@ -98,6 +113,6 @@ export default connect(
     fetchingQuizz: state.quizzReducer.fetchingQuizz,
   }),
   {
-    getQuizz, updateQuizz
+    getQuizz, updateQuizz, deleteQuizz,
   }
 )(UpdateForm);
