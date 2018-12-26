@@ -85,15 +85,13 @@ class CommentSection extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ loginReducer, postReducer }) => ({
-  token: loginReducer.token,
-  comments: postReducer.comments,
-  updating: postReducer.updatingComment,
-  adding: postReducer.addingComment,
-  deleting: postReducer.deletingComment
-});
-
 export default connect(
-  mapStateToProps,
+  ({ loginReducer, postReducer }) => ({
+    token: loginReducer.token,
+    comments: postReducer.comments,
+    adding: postReducer.addingComment,
+    updating: postReducer.updatingComment,
+    deleting: postReducer.deletingComment
+  }),
   { getComments, postComment }
 )(CommentSection);

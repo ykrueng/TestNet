@@ -61,12 +61,10 @@ class Review extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ loginReducer, quizzReducer }) => ({
-  token: loginReducer.token,
-  questions: quizzReducer.questions
-});
-
 export default connect(
-  mapStateToProps,
+  ({ loginReducer, quizzReducer }) => ({
+    token: loginReducer.token,
+    questions: quizzReducer.questions
+  }),
   { getQuestions }
 )(Review);

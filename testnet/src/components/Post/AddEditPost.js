@@ -86,13 +86,12 @@ class AddEditPost extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ loginReducer, postReducer }) => ({
-  token: loginReducer.token,
-  updating: postReducer.updatingPost,
-  adding: postReducer.addingPost
-});
 
 export default connect(
-  mapStateToProps,
-  { updatePost, postPost, deletePost }
+  ({ loginReducer, postReducer }) => ({
+    token: loginReducer.token,
+    adding: postReducer.addingPost,
+    updating: postReducer.updatingPost
+  }),
+  { postPost, updatePost, deletePost }
 )(AddEditPost);

@@ -15,9 +15,8 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    const { post, history, user } = this.props;
+    const { post, history, user, location } = this.props;
     const { id } = this.props.match.params;
-    // console.log(this.props.location.pathname.length);
     return (
       post && (
         <Fragment>
@@ -40,7 +39,7 @@ class SinglePost extends React.Component {
             </Container>
           </div>
 
-          {this.props.location.pathname.length < 11 && (
+          {location.pathname.length < 11 && (
             <Fragment>
               {user && post.author.id === user.id && (
                 <Segment basic textAlign="center">
@@ -70,13 +69,12 @@ class SinglePost extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ postReducer, loginReducer }) => ({
-  post: postReducer.post,
-  token: loginReducer.token,
-  updatingPost: postReducer.updatingPost
-});
 
 export default connect(
-  mapStateToProps,
+  ({ postReducer, loginReducer }) => ({
+    token: loginReducer.token,
+    post: postReducer.post,
+    updating: postReducer.updatingPost
+  }),
   { getPost }
 )(SinglePost);

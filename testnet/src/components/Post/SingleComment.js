@@ -2,16 +2,15 @@ import React from "react";
 import { Comment, Form, Button, Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
 import debounce from "lodash/debounce";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import {
   getComment,
   updateComment,
   deleteComment
 } from "../../store/actions/postActions";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const SITE_KEY = "6LeP1YMUAAAAAP3dZkGkycis0iE0IhxMe3iEXXUe";
-
-// window.debounce = debounce;
 
 class SingleComment extends React.Component {
   state = {
@@ -118,12 +117,10 @@ class SingleComment extends React.Component {
   }
 }
 
-const mapStateToProps = ({ postReducer, loginReducer }) => ({
-  comment: postReducer.comment,
-  token: loginReducer.token
-});
-
 export default connect(
-  mapStateToProps,
+  ({ postReducer, loginReducer }) => ({
+    comment: postReducer.comment,
+    token: loginReducer.token
+  }),
   { getComment, updateComment, deleteComment }
 )(SingleComment);

@@ -29,13 +29,11 @@ class Forum extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ postReducer }) => ({
-  posts: postReducer.posts,
-  adding: postReducer.addingPost,
-  deleting: postReducer.deletingPost
-});
-
 export default connect(
-  mapStateToProps,
+  ({ postReducer }) => ({
+    posts: postReducer.posts,
+    adding: postReducer.addingPost,
+    deleting: postReducer.deletingPost
+  }),
   { getPosts }
 )(Forum);

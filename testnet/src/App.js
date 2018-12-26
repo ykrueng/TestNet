@@ -52,12 +52,12 @@ class App extends React.Component {
         />
       );
     }
+
     return (
       <div>
         <QuizView
           {...this.props}
           click={this.handleClick}
-//          user={user}
           getRegistrationFrom={this.getRegistrationFrom}
         />
 

@@ -1,50 +1,53 @@
-import React, { Component } from 'react';
-import { Segment, Header, Form, Button, Icon, Divider } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import {
+  Segment,
+  Header,
+  Form,
+  Button,
+  Icon,
+  Divider
+} from "semantic-ui-react";
+import { connect } from "react-redux";
 
-import { getQuizz, updateQuizz, deleteQuizz } from '../../store/actions';
-import QuestionForm from './QuestionForm';
+import { getQuizz, updateQuizz, deleteQuizz } from "../../store/actions";
+import QuestionForm from "./QuestionForm";
 
 class UpdateForm extends Component {
   state = {
-    title: '',
-    topic: '',
-  }
+    title: "",
+    topic: ""
+  };
 
   componentDidMount() {
     const { getQuizz, match, token } = this.props;
     getQuizz(match.params.id, token);
   }
 
-  componentWillReceiveProps(props) {
-    if (props.quiz.id === Number(this.props.match.params.id)) {
+  componentWillReceiveProps({ quiz }) {
+    if (quiz.id === Number(this.props.match.params.id)) {
       this.setState({
-        title: props.quiz.title,
-        topic: props.quiz.topic,
-      })
+        title: quiz.title,
+        topic: quiz.topic
+      });
     }
   }
 
-  handleChange = e => {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({
-      [e.target.name]: e.target.value,
-    })
-  }
+      [name]: value
+    });
+  };
 
   handleUpdate = e => {
     e.preventDefault();
 
     const { title, topic } = this.state;
     const { match, token, updateQuizz } = this.props;
-
-    const quiz = {
-      title,
-      topic,
-    }
-
+    const quiz = { title, topic };
     const id = Number(match.params.id);
+
     updateQuizz(id, quiz, token);
-  }
+  };
 
   handleDelete = () => {
     const { match, token, history, deleteQuizz } = this.props;
@@ -52,9 +55,9 @@ class UpdateForm extends Component {
     const id = Number(match.params.id);
     deleteQuizz(id, token);
 
-    console.log('deleted');
-    history.push('/quizzes');
-  }
+    console.log("deleted");
+    history.push("/quizzes");
+  };
 
   render() {
     const { title, topic } = this.state;
@@ -62,17 +65,16 @@ class UpdateForm extends Component {
     return (
       <Segment
         style={{
-          maxWidth: '60rem',
-          margin: '2rem auto',
+          maxWidth: "60rem",
+          margin: "2rem auto"
         }}
       >
-        {
-          (quiz.title !== title || quiz.topic !== topic) &&
+        {(quiz.title !== title || quiz.topic !== topic) && (
           <Button floated="right" primary onClick={this.handleUpdate}>
-          <Icon className="save outline" /> Save
+            <Icon className="save outline" /> Save
           </Button>
-        }
-        <Button floated="right" onClick={() => history.push('/quizzes')}>
+        )}
+        <Button floated="right" onClick={() => history.push("/quizzes")}>
           <Icon className="cancel" /> Cancel
         </Button>
         <Button floated="right" onClick={this.handleDelete}>
@@ -87,7 +89,7 @@ class UpdateForm extends Component {
               value={title}
               onChange={this.handleChange}
               style={{
-                border: 'none'
+                border: "none"
               }}
             />
             <Form.Input
@@ -96,7 +98,7 @@ class UpdateForm extends Component {
               value={topic}
               onChange={this.handleChange}
               style={{
-                border: 'none'
+                border: "none"
               }}
             />
           </Form.Group>
@@ -110,13 +112,11 @@ class UpdateForm extends Component {
 }
 
 export default connect(
-  state => ({
-    token: state.loginReducer.token,
-    user: state.loginReducer.user,
-    quiz: state.quizzReducer.quizz,
-    fetchingQuizz: state.quizzReducer.fetchingQuizz,
+  ({ loginReducer, quizzReducer }) => ({
+    token: loginReducer.token,
+    user: loginReducer.user,
+    quiz: quizzReducer.quizz,
+    fetchingQuizz: quizzReducer.fetchingQuizz
   }),
-  {
-    getQuizz, updateQuizz, deleteQuizz,
-  }
+  { getQuizz, updateQuizz, deleteQuizz }
 )(UpdateForm);

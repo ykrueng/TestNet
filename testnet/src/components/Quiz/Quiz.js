@@ -63,14 +63,12 @@ class Quiz extends React.Component {
   }
 }
 
-const mapStateToProps = ({ quizzReducer, loginReducer }) => ({
-  quiz: quizzReducer.quizz,
-  questions: quizzReducer.questions,
-  fetching: quizzReducer.fetchingQuizz,
-  token: loginReducer.token
-});
-
 export default connect(
-  mapStateToProps,
+  ({ quizzReducer, loginReducer }) => ({
+    quiz: quizzReducer.quizz,
+    questions: quizzReducer.questions,
+    fetching: quizzReducer.fetchingQuizz,
+    token: loginReducer.token
+  }),
   { getQuizz, getQuestions }
 )(Quiz);

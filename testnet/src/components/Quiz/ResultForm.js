@@ -81,14 +81,9 @@ class ResultForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { loginReducer } = state;
-  return {
-    token: loginReducer.token
-  };
-};
-
 export default connect(
-  mapStateToProps,
+  ({ loginReducer }) => ({
+    token: loginReducer.token
+  }),
   { userResults }
 )(ResultForm);

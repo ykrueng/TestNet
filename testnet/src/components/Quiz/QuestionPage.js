@@ -63,11 +63,11 @@ class QuestionPage extends React.PureComponent {
 
   playVoice = () => {
     this.setState({ play: true });
-  }
+  };
 
   stopVoice = () => {
     this.setState({ play: false });
-  }
+  };
 
   render() {
     const { id, questionId } = this.props.match.params;
@@ -113,14 +113,12 @@ class QuestionPage extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ quizzReducer }) => ({
-  questions: quizzReducer.questions,
-  question: quizzReducer.question,
-  answer: quizzReducer.answer,
-  error: quizzReducer.error
-});
-
 export default connect(
-  mapStateToProps,
+  ({ quizzReducer }) => ({
+    question: quizzReducer.question,
+    questions: quizzReducer.questions,
+    answer: quizzReducer.answer,
+    error: quizzReducer.error
+  }),
   { checkAnswer, getQuestion }
 )(QuestionPage);
