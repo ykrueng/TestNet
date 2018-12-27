@@ -151,6 +151,7 @@ class QuestionForm extends Component {
           <Button
             color="teal"
             type="submit"
+            icon={add ? "add" : "save"}
             content={add ? "Add" : "Save"}
             disabled={this.state.answer === null}
           />
@@ -158,6 +159,7 @@ class QuestionForm extends Component {
             <Button
               inverted
               color="red"
+              icon="trash alternate outline"
               content="Delete"
               onClick={this.handleDelete}
             />
