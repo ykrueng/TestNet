@@ -25,7 +25,7 @@ class NavBar extends React.Component {
     const { active } = this.state;
     const { loggedIn, getRegistrationFrom, user } = this.props;
     return (
-      <Segment style={{ padding: "1rem 0" }}>
+      <Segment>
         <Menu borderless inverted fixed="top">
           <Menu.Menu position="left">
             <Menu.Item
@@ -74,18 +74,19 @@ class NavBar extends React.Component {
             <Menu.Item>
               <Button
                 primary
-                content={loggedIn ? "Logout" : "Login"}
+                icon={loggedIn ? "sign out" : "sign in"}
+                content={loggedIn ? "Sign Out" : "Sign In"}
                 onClick={this.handleClick}
               />
               {!loggedIn && (
                 <Button
                   inverted
                   primary
+                  icon="add user"
+                  content="Sign Up!"
                   style={{ marginLeft: ".75rem" }}
                   onClick={getRegistrationFrom}
-                >
-                  Sign Up!
-                </Button>
+                />
               )}
             </Menu.Item>
           </Menu.Menu>

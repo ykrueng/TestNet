@@ -113,12 +113,11 @@ class LoginForm extends React.Component {
                     onChange={this.handleChange}
                   />
                 )}
-                <Button color="teal" size="large" type="submit">
-                  {signin ? "Sign In" : "Sign Up"}
-                </Button>
-                <Button color="grey" size="large" onClick={handleCancel}>
-                  Cancel
-                </Button>
+                <Button color="teal" size="large" type="submit"
+                  content={signin ? "Sign In" : "Sign Up"}
+                  icon={signin ? "sign in" : "add user"}
+                />
+                <Button icon="cancel" content="Cancel" color="grey" size="large" onClick={handleCancel} />
               </Segment>
             </Form>
             {loginError && (
@@ -131,9 +130,10 @@ class LoginForm extends React.Component {
             )}
             <Message>
               {signin ? "New to TestNet? " : "Already have an account? "}
-              <Button inverted secondary onClick={handleFormSwitch}>
-                {signin ? "Sign Up" : "Sign In"}
-              </Button>
+              <Button inverted secondary onClick={handleFormSwitch}
+                content={signin ? "Sign Up" : "Sign In"}
+                icon={signin ? "add user" : "sign in"}
+              />
             </Message>
           </Grid.Column>
         </Grid>
