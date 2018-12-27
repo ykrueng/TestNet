@@ -19,6 +19,7 @@ class QuestionForm extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { add, question } = this.props;
 
     !add &&
@@ -113,13 +114,13 @@ class QuestionForm extends Component {
           </Form.Group>
           <Form.Group widths="equal">
             <Form.Input
-              label="Option 3 - optional"
+              label="Option 3"
               name="option3"
               value={option3}
               onChange={this.handleChange}
             />
             <Form.Input
-              label="Option 4 - optional"
+              label="Option 4"
               name="option4"
               value={option4}
               onChange={this.handleChange}
@@ -131,7 +132,7 @@ class QuestionForm extends Component {
             selection
             placeholder="Answer Key"
             icon="key"
-            className="icon required"
+            className="icon"
             name="answer"
             value={this.state.answer}
             options={[
@@ -150,8 +151,9 @@ class QuestionForm extends Component {
           />
           {!add && (
             <Button
+              inverted
               color="red"
-              content={"Delete"}
+              content="Delete"
               onClick={this.handleDelete}
             />
           )}

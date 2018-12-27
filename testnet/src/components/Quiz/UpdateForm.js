@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import { getQuizz, getQuestions, updateQuizz, deleteQuizz } from "../../store/actions";
+import {
+  getQuizz,
+  getQuestions,
+  updateQuizz,
+  deleteQuizz
+} from "../../store/actions";
 import QuestionForm from "./QuestionForm";
 
 class UpdateForm extends Component {
@@ -45,11 +50,10 @@ class UpdateForm extends Component {
 
   handleDelete = () => {
     const { match, token, history, deleteQuizz } = this.props;
-
     const id = Number(match.params.id);
     deleteQuizz(id, token);
 
-    console.log("deleted");
+    // console.log("deleted");
     history.push("/quizzes");
   };
 
@@ -109,15 +113,18 @@ class UpdateForm extends Component {
           </Form.Group>
         </Form>
         <Divider />
-        <Header as="h2">Add Question</Header>
+        <Header as="h2" content="Add Question" />
         <QuestionForm add history={history} match={match} />
         <Divider />
-        <Header as="h2">Update Question</Header>
-        {
-          questions.map(question => (
-            <QuestionForm key={question.id} question={question} history={history} match={match} />
-          ))
-        }
+        <Header as="h2" content="Update Question" />
+        {questions.map(question => (
+          <QuestionForm
+            key={question.id}
+            question={question}
+            history={history}
+            match={match}
+          />
+        ))}
       </Segment>
     );
   }
