@@ -134,6 +134,7 @@ class QuestionForm extends Component {
             icon="key"
             className="icon"
             name="answer"
+            value={this.state.answer}
             options={[
               { key: "option1", value: 1, text: "Option 1" },
               { key: "option2", value: 2, text: "Option 2" },
