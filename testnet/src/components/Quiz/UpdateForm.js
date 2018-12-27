@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
+import { Segment, Header, Form, Button, Divider, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import {
@@ -59,7 +59,23 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic } = this.state;
-    const { history, match, quiz, questions } = this.props;
+    const { history, match, quiz, questions, token, user } = this.props;
+    if (!token || (quiz.author && user.id !== quiz.author.id)) {
+      return (
+        <Segment
+          style={{
+            maxWidth: "60rem",
+            margin: "2rem auto"
+          }}
+          textAlign="center"
+        >
+          <Header as="h2">This Quiz is not Yours</Header>
+          <Button onClick={() => history.push("/quizzes")}>
+            <Icon className="arrow left" />Back To Quiz List
+          </Button>
+        </Segment>
+      );
+    }
     return (
       <Segment
         style={{
@@ -117,10 +133,9 @@ class UpdateForm extends Component {
         <QuestionForm add history={history} match={match} />
         <Divider />
         <Header as="h2" content="Update Question" />
-        {
-          questions.length === 0 &&
+        {questions.length === 0 && (
           <Segment textAlign="center">No question have been added.</Segment>
-        }
+        )}
         {questions.map(question => (
           <QuestionForm
             key={question.id}
