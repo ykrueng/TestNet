@@ -55,6 +55,7 @@ export {
   ANSWER_REQUEST,
   ANSWER_SUCCESS,
   ANSWER_FAILURE,
+  CLEAR_QUIZ,
   getQuizzes,
   getQuizz,
   getTopics,
@@ -66,7 +67,8 @@ export {
   updateQuestion,
   checkAnswer,
   deleteQuestion,
-  userResults
+  userResults,
+  clearQuiz,
 } from "./quizzActions";
 
 export {

@@ -7,14 +7,14 @@ import QuestionPage from "../QuestionPage";
 import QuizForm from "../QuizForm";
 import UpdateForm from "../UpdateForm";
 
-const QuizRoutes = ({ quizzes, topics, loggedIn, user, getLoginForm }) => {
+const QuizRoutes = ({ quizzes, topics, loggedIn, user, getLoginForm, clearQuiz }) => {
   return (
     <Fragment>
       <Route exact path="/" component={Welcome} />
       <Route
         exact
         path="/quizzes"
-        render={props => <QuizList {...props} quizzes={quizzes} topics={topics} user={user} getLoginForm={getLoginForm} loggedIn={loggedIn} />}
+        render={props => <QuizList {...props} quizzes={quizzes} topics={topics} user={user} getLoginForm={getLoginForm} loggedIn={loggedIn} clearQuiz={clearQuiz}/>}
       />
       <Route
         exact

@@ -14,6 +14,11 @@ class QuizList extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  componentDidMount() {
+    console.log('didmount');
+    this.props.clearQuiz();
+  }
+
   handleDropdownChange = (e, data) => {
     this.setState({ [data.name]: data.value });
   };

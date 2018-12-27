@@ -38,6 +38,7 @@ import {
   ANSWER_REQUEST,
   ANSWER_SUCCESS,
   ANSWER_FAILURE,
+  CLEAR_QUIZ,
 } from "../actions";
 
 const initialState = {
@@ -141,7 +142,8 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuizz: false,
-        quizzes: [...state.quizzes, action.payload]
+        quizzes: [...state.quizzes, action.payload],
+        quizz: action.payload,
       };
     case POST_QUIZZ_FAILURE:
       return {
@@ -297,6 +299,11 @@ export const quizzReducer = (state = initialState, action) => {
         checkingAnswer: false,
         error: action.payload
       };
+    case CLEAR_QUIZ:
+      return {
+        ...state,
+        quizz: {}
+      }
     default:
       return state;
   }

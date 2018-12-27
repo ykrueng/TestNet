@@ -55,6 +55,8 @@ export const ANSWER_REQUEST = "ANSWER_REQUEST";
 export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
 export const ANSWER_FAILURE = "ANSWER_FAILURE";
 
+export const CLEAR_QUIZ = "CLEAR_QUIZ";
+
 /*
   Quizz Action Creators
 */
@@ -353,3 +355,7 @@ export const userResults = (quizId, info, token) => dispatch => {
     })
     .catch(err => dispatch({ type: RESULT_FAILURE, payload: err }));
 };
+
+export const clearQuiz = () => {
+  return ({ type: CLEAR_QUIZ });
+}

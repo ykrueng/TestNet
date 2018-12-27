@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import QuizRoutes from "../components/Quiz/Routes";
-import { getQuizzes, getTopics, logout } from "../store/actions";
+import { getQuizzes, getTopics, logout, clearQuiz } from "../store/actions";
 import { connect } from "react-redux";
 
 class QuizView extends React.PureComponent {
@@ -11,7 +11,7 @@ class QuizView extends React.PureComponent {
   }
 
   render() {
-    const { loggedIn, click, quizzes, topics, logout, user } = this.props;
+    const { loggedIn, click, quizzes, topics, logout, user,clearQuiz } = this.props;
     return (
       <div>
         <NavBar
@@ -27,6 +27,7 @@ class QuizView extends React.PureComponent {
           loggedIn={loggedIn}
           user={user}
           getLoginForm={click}
+          clearQuiz={clearQuiz}
         />
       </div>
     );
@@ -40,5 +41,5 @@ export default connect(
     loggedIn: loginReducer.loggedIn,
     user: loginReducer.user
   }),
-  { getQuizzes, getTopics, logout }
+  { getQuizzes, getTopics, logout, clearQuiz }
 )(QuizView);
