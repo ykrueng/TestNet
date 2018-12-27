@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Segment, Form, Dropdown, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import { postQuestion, updateQuestion } from '../../store/actions';
+import { postQuestion, updateQuestion, deleteQuestion } from '../../store/actions';
 
 class QuestionForm extends Component {
   state = {
@@ -75,6 +75,13 @@ class QuestionForm extends Component {
     });
   };
 
+  handleDelete = e => {
+    e.preventDefault();
+    const { deleteQuestion, question, match, token } = this.props;
+
+    deleteQuestion(match.params.id, question.id, token);
+  }
+
   render() {
     const { question, option1, option2, option3, option4 } = this.state;
     const { add } = this.props;
@@ -136,6 +143,9 @@ class QuestionForm extends Component {
             onChange={(e, data) => this.setState({ [data.name]: data.value })}
           />
           <Button color="teal" type="submit" content={add ? "Add" : "Save"} />
+          {
+            !add && <Button color="red" content={"Delete"} onClick={this.handleDelete} />
+          }
         </Form>
       </Segment>
     );
@@ -147,6 +157,6 @@ export default connect(
     token: loginReducer.token
   }),
   {
-    postQuestion, updateQuestion,
+    postQuestion, updateQuestion, deleteQuestion,
   }
 )(QuestionForm);

@@ -141,7 +141,7 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuizz: false,
-        quizzes: [ ...state.quizzes, action.payload]
+        quizzes: [...state.quizzes, action.payload]
       };
     case POST_QUIZZ_FAILURE:
       return {
@@ -166,7 +166,7 @@ export const quizzReducer = (state = initialState, action) => {
           }
           return quiz;
         }),
-        quizz: {...state.quiz, ...action.payload.quiz}
+        quizz: { ...state.quiz, ...action.payload.quiz }
       };
     case PATCH_QUIZZ_FAILURE:
       return {
@@ -183,7 +183,7 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingQuizz: false,
-        quizzes: state.quizzes.filter( quiz => quiz.id !== action.payload),
+        quizzes: state.quizzes.filter(quiz => quiz.id !== action.payload),
       };
     case DELETE_QUIZZ_FAILURE:
       return {
@@ -236,7 +236,10 @@ export const quizzReducer = (state = initialState, action) => {
     case DELETE_QUESTION_SUCCESS:
       return {
         ...state,
-        deletingQuestion: false
+        deletingQuestion: false,
+        questions: state.questions.filter(question => (
+          question.id !== action.payload
+        ))
       };
     case DELETE_QUESTION_FAILURE:
       return {

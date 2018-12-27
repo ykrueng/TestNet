@@ -307,7 +307,7 @@ export const checkAnswer = (quizzId, questionId, answer) => dispatch => {
 };
 
 export const deleteQuestion = (quizzId, questionId, token) => dispatch => {
-  dispatch({ type: DELETE_QUIZZ_REQUEST });
+  dispatch({ type: DELETE_QUESTION_REQUEST });
 
   study({
     method: "delete",
@@ -317,13 +317,13 @@ export const deleteQuestion = (quizzId, questionId, token) => dispatch => {
     .then(res => {
       console.log(res);
       dispatch({
-        type: DELETE_QUIZZ_SUCCESS,
-        payload: res.data
+        type: DELETE_QUESTION_SUCCESS,
+        payload: questionId, // cannot use res.data coz its not returning questionId
       });
     })
     .catch(err => {
       dispatch({
-        type: DELETE_QUIZZ_FAILURE,
+        type: DELETE_QUESTION_FAILURE,
         payload: { err }
       });
     });
