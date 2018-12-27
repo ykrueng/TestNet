@@ -9,6 +9,10 @@ class QuizForm extends React.Component {
     topic: ""
   };
 
+  componentWillReceiveProps(props) {
+    if (props.quiz.id) this.props.history.push(`/quizzes/quiz/update/${props.quiz.id}`);
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
@@ -22,7 +26,7 @@ class QuizForm extends React.Component {
       topic: this.state.topic
     };
     this.props.postQuizz(quiz, this.props.user.username, this.props.token);
-    this.props.history.push("/quizzes");
+    // this.props.history.push("/quizzes");
   };
   render() {
     if (!this.props.token) return (
@@ -53,12 +57,14 @@ class QuizForm extends React.Component {
         <Header as="h2">Create A New Quiz</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
+            required
             name="title"
             value={this.state.title}
             onChange={this.handleChange}
             placeholder="Quiz title.."
           />
           <Form.Input
+            required
             name="topic"
             value={this.state.topic}
             onChange={this.handleChange}
@@ -81,9 +87,10 @@ class QuizForm extends React.Component {
 }
 
 export default connect(
-  ({ loginReducer }) => ({
+  ({ loginReducer, quizzReducer }) => ({
     token: loginReducer.token,
-    user: loginReducer.user
+    user: loginReducer.user,
+    quiz: quizzReducer.quizz,
   }),
   { postQuizz }
 )(QuizForm);

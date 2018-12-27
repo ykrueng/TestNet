@@ -15,7 +15,6 @@ class QuizList extends React.Component {
   };
 
   componentDidMount() {
-    console.log('didmount');
     this.props.clearQuiz();
   }
 

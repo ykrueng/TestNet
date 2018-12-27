@@ -97,8 +97,8 @@ class UpdateForm extends Component {
           basic
           color="grey"
           floated="right"
-          icon="cancel"
-          content="Cancel"
+          icon="arrow left"
+          content="Quiz List"
           onClick={() => history.push("/quizzes")}
         />
         <Button
