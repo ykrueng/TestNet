@@ -26,7 +26,7 @@ class Quiz extends React.Component {
       return <div />;
     }
     return (
-      <Segment clearing>
+      <Segment style={{ maxWidth: "60rem", margin: "0 auto"}} clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
           {quiz.favorite && <Icon name="star outline" />}
           {quiz.title}
