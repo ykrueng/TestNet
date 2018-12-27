@@ -117,6 +117,10 @@ class UpdateForm extends Component {
         <QuestionForm add history={history} match={match} />
         <Divider />
         <Header as="h2" content="Update Question" />
+        {
+          questions.length === 0 &&
+          <Segment textAlign="center">No question have been added.</Segment>
+        }
         {questions.map(question => (
           <QuestionForm
             key={question.id}

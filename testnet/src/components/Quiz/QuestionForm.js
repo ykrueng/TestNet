@@ -86,6 +86,15 @@ class QuestionForm extends Component {
     const { question, option1, option2, option3, option4 } = this.state;
     const { add } = this.props;
 
+    const options = [
+      { key: "option1", value: 1, text: "Option 1" },
+      { key: "option2", value: 2, text: "Option 2" },
+    ];
+
+    if (option3) options.push({ key: "option3", value: 3, text: "Option 3" });
+    if (option4) options.push({ key: "option4", value: 4, text: "Option 4" });
+
+
     return (
       <Segment>
         <Form onSubmit={this.handleSubmit}>
@@ -121,6 +130,7 @@ class QuestionForm extends Component {
             />
             <Form.Input
               label="Option 4"
+              disabled={!option3}
               name="option4"
               value={option4}
               onChange={this.handleChange}
@@ -135,19 +145,14 @@ class QuestionForm extends Component {
             className="icon"
             name="answer"
             value={this.state.answer}
-            options={[
-              { key: "option1", value: 1, text: "Option 1" },
-              { key: "option2", value: 2, text: "Option 2" },
-              { key: "option3", value: 3, text: "Option 3" },
-              { key: "option4", value: 4, text: "Option 4" }
-            ]}
+            options={options}
             onChange={(e, data) => this.setState({ [data.name]: data.value })}
           />
           <Button
             color="teal"
             type="submit"
             content={add ? "Add" : "Save"}
-            disabled={add && this.state.answer === null}
+            disabled={this.state.answer === null}
           />
           {!add && (
             <Button
