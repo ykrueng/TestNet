@@ -53,11 +53,10 @@ class QuestionForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { question, option1, option2, option3, option4, answer } = this.state;
-
     const { add, postQuestion, updateQuestion, match, token } = this.props;
     const id = match.params.id;
-    const quiz = { question, option1, option2, answer };
 
+    const quiz = { question, option1, option2, answer };
     if (option3) quiz.option3 = option3;
     if (option4) quiz.option4 = option4;
 
@@ -85,7 +84,6 @@ class QuestionForm extends Component {
   render() {
     const { question, option1, option2, option3, option4 } = this.state;
     const { add } = this.props;
-    console.log(this.state);
 
     return (
       <Segment>
