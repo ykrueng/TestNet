@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Segment, Form, Dropdown, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import { postQuestion, updateQuestion, deleteQuestion } from '../../store/actions';
+import {
+  postQuestion,
+  updateQuestion,
+  deleteQuestion
+} from "../../store/actions";
 
 class QuestionForm extends Component {
   state = {
@@ -16,44 +20,40 @@ class QuestionForm extends Component {
 
   componentDidMount() {
     const { add, question } = this.props;
-    
-    !add && this.setState({
-      question: question.question,
-      option1: question.options[0],
-      option2: question.options[1],
-      option3: question.options.length > 2 ? question.options[2] : '',
-      option4: question.options.length > 3 ? question.options[3] : '',
-    })
+
+    !add &&
+      this.setState({
+        question: question.question,
+        option1: question.options[0],
+        option2: question.options[1],
+        option3: question.options.length > 2 ? question.options[2] : "",
+        option4: question.options.length > 3 ? question.options[3] : ""
+      });
   }
-  
+
   componentWillReceiveProps(props) {
     const { add, question } = props;
-    
-    !add && this.setState({
-      question: question.question,
-      option1: question.options[0],
-      option2: question.options[1],
-      option3: question.options.length > 2 ? question.options[2] : '',
-      option4: question.options.length > 3 ? question.options[3] : '',
-    })
+
+    !add &&
+      this.setState({
+        question: question.question,
+        option1: question.options[0],
+        option2: question.options[1],
+        option3: question.options.length > 2 ? question.options[2] : "",
+        option4: question.options.length > 3 ? question.options[3] : ""
+      });
   }
-  
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
     });
   };
-  
+
   handleSubmit = e => {
     e.preventDefault();
-    const {
-      question,
-      option1,
-      option2,
-      option3,
-      option4,
-      answer } = this.state;
-    
+    const { question, option1, option2, option3, option4, answer } = this.state;
+
     const { add, postQuestion, updateQuestion, match, token } = this.props;
     const id = match.params.id;
     const quiz = { question, option1, option2, answer };
@@ -80,11 +80,12 @@ class QuestionForm extends Component {
     const { deleteQuestion, question, match, token } = this.props;
 
     deleteQuestion(match.params.id, question.id, token);
-  }
+  };
 
   render() {
     const { question, option1, option2, option3, option4 } = this.state;
     const { add } = this.props;
+    console.log(this.state);
 
     return (
       <Segment>
@@ -132,7 +133,7 @@ class QuestionForm extends Component {
             selection
             placeholder="Answer Key"
             icon="key"
-            className="icon"
+            className="icon required"
             name="answer"
             value={this.state.answer}
             options={[
@@ -143,10 +144,19 @@ class QuestionForm extends Component {
             ]}
             onChange={(e, data) => this.setState({ [data.name]: data.value })}
           />
-          <Button color="teal" type="submit" content={add ? "Add" : "Save"} />
-          {
-            !add && <Button color="red" content={"Delete"} onClick={this.handleDelete} />
-          }
+          <Button
+            color="teal"
+            type="submit"
+            content={add ? "Add" : "Save"}
+            disabled={add && this.state.answer === null}
+          />
+          {!add && (
+            <Button
+              color="red"
+              content={"Delete"}
+              onClick={this.handleDelete}
+            />
+          )}
         </Form>
       </Segment>
     );
@@ -158,6 +168,8 @@ export default connect(
     token: loginReducer.token
   }),
   {
-    postQuestion, updateQuestion, deleteQuestion,
+    postQuestion,
+    updateQuestion,
+    deleteQuestion
   }
 )(QuestionForm);
