@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Header, Form, Button } from "semantic-ui-react";
+import { Segment, Header, Form, Button, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { postQuizz } from "../../store/actions";
 
@@ -25,6 +25,23 @@ class QuizForm extends React.Component {
     this.props.history.push("/quizzes");
   };
   render() {
+    if (!this.props.token) return (
+      <Segment
+          style={{
+            maxWidth: "60rem",
+            margin: "2rem auto"
+          }}
+          textAlign="center"
+        >
+          <Header as="h2">Sign In to Add New Quiz</Header>
+          <Button onClick={() => this.props.history.push("/quizzes")}>
+            <Icon className="arrow left" />Back To Quiz List
+          </Button>
+          <Button color="teal" onClick={this.props.getLoginForm}>
+            <Icon className="sign in" />Sign In
+          </Button>
+        </Segment>
+    )
     return (
       <Segment
         style={{

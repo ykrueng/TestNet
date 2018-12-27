@@ -29,7 +29,7 @@ const QuizRoutes = ({ quizzes, topics, loggedIn, user, getLoginForm }) => {
       <Route
         exact
         path="/quizzes/quiz/new/add"
-        render={props => <QuizForm {...props} />}
+        render={props => <QuizForm getLoginForm={getLoginForm} {...props} />}
       />
       <Route
         exact
