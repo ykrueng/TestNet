@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Header, Form, Button, Icon } from "semantic-ui-react";
+import { Segment, Header, Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { postQuizz } from "../../store/actions";
 
@@ -47,19 +47,16 @@ class QuizForm extends React.Component {
             onChange={this.handleChange}
             placeholder="Quiz topic.."
           />
-          <Button color="teal" >
-            <Icon className="add" /> Create
-          </Button>
+          <Button icon="add" content="Create" color="teal" />
 
           <Button
             basic
             content="Cancel"
+            icon="cancel"
             onClick={() => {
               this.props.history.push("/quizzes");
             }}
-          >
-            <Icon className="cancel" /> Cancel
-          </Button>
+          />
         </Form>
       </Segment>
     );
