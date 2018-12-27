@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 
 const ToolBar = ({
   history,
+  loggedIn,
   filterText,
   field,
   topics,
   selectedTopics,
   handleDropdownChange,
-  handleFilterChange
+  handleFilterChange,
+  getLoginForm,
 }) => {
   const options = [
     { key: "all", text: "all", value: "all" },
@@ -22,6 +24,12 @@ const ToolBar = ({
     text: topic.name,
     value: topic.name
   }));
+
+  const handleButtonClick = () => {
+    loggedIn
+      ? history.push("/quizzes/quiz/new/add")
+      : getLoginForm()
+  }
 
   return (
     <Segment style={{ width: "100%" }} textAlign="left">
@@ -84,10 +92,11 @@ const ToolBar = ({
         }}
       >
         <Button
-          onClick={() => history.push("/quizzes/quiz/new/add")}
+          onClick={handleButtonClick}
           color="teal"
+          icon={loggedIn ? "add" : "sign in"}
+          content={loggedIn ? "Add New Quiz" : "Sign In to Add New Quiz"}
         >
-          Add New Quiz
         </Button>
       </Segment>
     </Segment>
@@ -96,6 +105,7 @@ const ToolBar = ({
 
 ToolBar.propTypes = {
   filterText: PropTypes.string.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   field: PropTypes.string.isRequired,
   topics: PropTypes.arrayOf(
     PropTypes.shape({
@@ -105,7 +115,8 @@ ToolBar.propTypes = {
   ).isRequired,
   selectedTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDropdownChange: PropTypes.func.isRequired,
-  handleFilterChange: PropTypes.func.isRequired
+  handleFilterChange: PropTypes.func.isRequired,
+  getLoginForm: PropTypes.func.isRequired,
 };
 
 export default ToolBar;

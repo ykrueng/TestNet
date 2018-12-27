@@ -19,7 +19,7 @@ class QuizList extends React.Component {
   };
 
   render() {
-    const { quizzes, topics, history, user } = this.props;
+    const { quizzes, topics, history, user, getLoginForm, loggedIn } = this.props;
     const { filterText, field, sort, selectedTopics } = this.state;
 
     const filteredQuizzes = quizzes.filter(quiz => {
@@ -56,12 +56,14 @@ class QuizList extends React.Component {
         <Grid.Row columns={2}>
           <ToolBar
             history={history}
+            loggedIn={loggedIn}
             filterText={filterText}
             field={field}
             topics={topics}
             selectedTopics={selectedTopics}
             handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
+            getLoginForm={getLoginForm}
           />
         </Grid.Row>
         {filteredQuizzes.map(quiz => (

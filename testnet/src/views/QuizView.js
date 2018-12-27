@@ -26,6 +26,7 @@ class QuizView extends React.PureComponent {
           topics={topics}
           loggedIn={loggedIn}
           user={user}
+          getLoginForm={click}
         />
       </div>
     );
