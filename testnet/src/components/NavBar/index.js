@@ -26,7 +26,7 @@ class NavBar extends React.Component {
     const { loggedIn, getRegistrationFrom, user } = this.props;
     return (
       <Segment style={{ padding: "1rem 0" }}>
-        <Menu pointing borderless fixed="top" fluid inverted>
+        <Menu borderless inverted fixed="top">
           <Menu.Menu position="left">
             <Menu.Item
               name="home"
@@ -34,6 +34,7 @@ class NavBar extends React.Component {
               exact
               to="/"
               active={active === "home"}
+              color="teal"
               onClick={this.handleChange}
             />
             <Menu.Item
@@ -41,6 +42,7 @@ class NavBar extends React.Component {
               as={NavLink}
               to="/quizzes"
               active={active === "quizzes"}
+              color="teal"
               onClick={this.handleChange}
             />
             <Menu.Item
@@ -48,6 +50,7 @@ class NavBar extends React.Component {
               as={NavLink}
               to="/forum"
               active={active === "posts"}
+              color="teal"
               onClick={this.handleChange}
             />
           </Menu.Menu>
