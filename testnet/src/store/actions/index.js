@@ -63,6 +63,7 @@ export {
   deleteQuizz,
   getQuestions,
   postQuestion,
+  updateQuestion,
   checkAnswer,
   deleteQuestion,
   userResults

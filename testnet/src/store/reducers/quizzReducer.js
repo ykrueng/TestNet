@@ -23,6 +23,9 @@ import {
   POST_QUESTION_REQUEST,
   POST_QUESTION_SUCCESS,
   POST_QUESTION_FAILURE,
+  PATCH_QUESTION_REQUEST,
+  PATCH_QUESTION_SUCCESS,
+  PATCH_QUESTION_FAILURE,
   DELETE_QUESTION_REQUEST,
   DELETE_QUESTION_SUCCESS,
   DELETE_QUESTION_FAILURE,
@@ -196,9 +199,30 @@ export const quizzReducer = (state = initialState, action) => {
     case POST_QUESTION_SUCCESS:
       return {
         ...state,
-        postingQuestion: false
+        postingQuestion: false,
+        questions: [...state.questions, action.payload],
       };
     case POST_QUESTION_FAILURE:
+      return {
+        ...state,
+        postingQuestion: false,
+        error: action.payload
+      };
+    case PATCH_QUESTION_REQUEST:
+      return {
+        ...state,
+        postingQuestion: true
+      };
+    case PATCH_QUESTION_SUCCESS:
+      return {
+        ...state,
+        postingQuestion: false,
+        questions: state.questions.map(question => {
+          if (question.id === action.payload.id) return action.payload;
+          return question;
+        }),
+      };
+    case PATCH_QUESTION_FAILURE:
       return {
         ...state,
         postingQuestion: false,

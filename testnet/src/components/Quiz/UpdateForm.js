@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import { getQuizz, updateQuizz, deleteQuizz } from "../../store/actions";
+import { getQuizz, getQuestions, updateQuizz, deleteQuizz } from "../../store/actions";
 import QuestionForm from "./QuestionForm";
 
 class UpdateForm extends Component {
@@ -12,8 +12,9 @@ class UpdateForm extends Component {
   };
 
   componentDidMount() {
-    const { getQuizz, match, token } = this.props;
+    const { getQuizz, getQuestions, match, token } = this.props;
     getQuizz(match.params.id, token);
+    getQuestions(match.params.id);
   }
 
   componentWillReceiveProps({ quiz }) {
@@ -54,7 +55,7 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic } = this.state;
-    const { history, match, quiz } = this.props;
+    const { history, match, quiz, questions } = this.props;
     return (
       <Segment
         style={{
@@ -109,7 +110,14 @@ class UpdateForm extends Component {
         </Form>
         <Divider />
         <Header as="h2">Add Question</Header>
-        <QuestionForm history={history} match={match} />
+        <QuestionForm add history={history} match={match} />
+        <Divider />
+        <Header as="h2">Update Question</Header>
+        {
+          questions.map(question => (
+            <QuestionForm key={question.id} question={question} history={history} match={match} />
+          ))
+        }
       </Segment>
     );
   }
@@ -120,7 +128,8 @@ export default connect(
     token: loginReducer.token,
     user: loginReducer.user,
     quiz: quizzReducer.quizz,
+    questions: quizzReducer.questions,
     fetchingQuizz: quizzReducer.fetchingQuizz
   }),
-  { getQuizz, updateQuizz, deleteQuizz }
+  { getQuizz, updateQuizz, deleteQuizz, getQuestions }
 )(UpdateForm);

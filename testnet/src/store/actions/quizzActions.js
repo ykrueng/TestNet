@@ -234,15 +234,49 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
     headers: { authorization: token }
   })
     .then(res => {
-      console.log(res);
+      const newQuestion = {
+        id: res.data[0],
+        question: question.question,
+        options: [question.option1, question.option2],
+      }
+      if (question.option3) newQuestion.options.push(question.option3);
+      if (question.option4) newQuestion.options.push(question.option4);
       dispatch({
         type: POST_QUESTION_SUCCESS,
-        payload: res.data
+        payload: newQuestion,
       });
     })
     .catch(err => {
       dispatch({
         type: POST_QUESTION_FAILURE,
+        payload: { err }
+      });
+    });
+};
+export const updateQuestion = (quizId, questionId, question, token) => dispatch => {
+  dispatch({ type: PATCH_QUESTION_REQUEST });
+  study({
+    method: "patch",
+    url: `/quizzes/${quizId}/questions/${questionId}`,
+    data: question,
+    headers: { authorization: token }
+  })
+    .then(res => {
+      const newQuestion = {
+        id: res.data[0],
+        question: question.question,
+        options: [question.option1, question.option2],
+      }
+      if (question.option3) newQuestion.options.push(question.option3);
+      if (question.option4) newQuestion.options.push(question.option4);
+      dispatch({
+        type: PATCH_QUESTION_SUCCESS,
+        payload: newQuestion,
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PATCH_QUESTION_FAILURE,
         payload: { err }
       });
     });
