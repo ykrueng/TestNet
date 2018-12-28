@@ -11,12 +11,13 @@ class QuizView extends React.PureComponent {
   }
 
   render() {
-    const { loggedIn, click, quizzes, topics, logout, user,clearQuiz } = this.props;
+    const { loggedIn, click, quizzes, topics, logout, user,clearQuiz, history } = this.props;
     return (
       <div>
         <NavBar
           logout={logout}
           loggedIn={loggedIn}
+          history={history}
           click={click}
           user={user}
           getRegistrationFrom={this.props.getRegistrationFrom}

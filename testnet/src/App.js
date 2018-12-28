@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { login, register, checkStatus } from "./store/actions";
@@ -66,7 +66,8 @@ class App extends React.Component {
 
         <PostRoutes user={user} />
 
-        <UserView />
+        <Route exact path="/user" render={props => (<UserView {...props} />)} />
+
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Segment, Button } from "semantic-ui-react";
+import { Menu, Segment, Button, Dropdown } from "semantic-ui-react";
 
 class NavBar extends React.Component {
   state = {
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
 
   render() {
     const { active } = this.state;
-    const { loggedIn, getRegistrationFrom, user } = this.props;
+    const { loggedIn, getRegistrationFrom, user, history } = this.props;
     return (
       <Segment>
         <Menu borderless inverted fixed="top">
@@ -55,7 +55,7 @@ class NavBar extends React.Component {
             />
           </Menu.Menu>
 
-          {user && user.username && (
+          {/* {user && user.username && (
             <div
               position="right"
               style={{
@@ -63,17 +63,30 @@ class NavBar extends React.Component {
                 color: "white",
                 justifyContent: "flex-end",
                 alignItems: "center",
-                width: "100%"
+                width: "50%",
+                border: "1px solid red"
               }}
             >
               Logged in as: {user.username}
             </div>
-          )}
+          )} */}
 
           <Menu.Menu position="right">
-            <Menu.Item>
+            <Menu.Item >
+              {
+                loggedIn && (
+                  <Dropdown text={user.username} icon='user' floating labeled button className='icon'>
+                    <Dropdown.Menu >
+                      <Dropdown.Item onClick={() => history.push('/user')} value="setting" icon="setting" text='Account Setting' />
+                      <Dropdown.Item disabled value="quiz" icon="edit outline" text='Quizzes' />
+                      <Dropdown.Item disabled values="post" icon="edit outline" text='Posts' />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )
+              }
               <Button
                 primary
+                style={{marginLeft: "1rem", marginRight: "1rem"}}
                 icon={loggedIn ? "sign out" : "sign in"}
                 content={loggedIn ? "Sign Out" : "Sign In"}
                 onClick={this.handleClick}
