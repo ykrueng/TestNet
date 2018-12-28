@@ -24,6 +24,7 @@ class Review extends React.PureComponent {
       return (
         <Grid centered columns={3} style={{ marginTop: "5rem" }}>
           <Summary
+            history={history}
             auth={token}
             questions={questions}
             answer={answers}

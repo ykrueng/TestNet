@@ -1,8 +1,10 @@
 import React from "react";
 import { Header, Form, Grid } from "semantic-ui-react";
-import ResultForm from "./ResultForm";
 
-const Summary = ({ questions, answers, rubric, auth, quizId }) => {
+import ResultForm from "./ResultForm";
+import Unauthorized from '../Login/Unauthorized'
+
+const Summary = ({ questions, answers, rubric, auth, quizId, history }) => {
   if (rubric) {
     const score = rubric.filter(item => item.correct === true).length;
     return (
@@ -22,6 +24,14 @@ const Summary = ({ questions, answers, rubric, auth, quizId }) => {
             rubric.filter(item => item.correct === true).length
           } / ${rubric.length}`}
         </Header>
+        {!auth && (
+          <Unauthorized
+            headerText="Sign In to Save Future Score"
+            cancelText="Back to Quiz List"
+            onCancel={() => { history.push("/quizzes") }}
+          />
+        )
+        }
         {auth && (
           <Header block>
             <ResultForm score={score} id={quizId} />
