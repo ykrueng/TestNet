@@ -1,10 +1,13 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+
+import { login, register, checkStatus } from "./store/actions";
+
 import QuizView from "./views/QuizView";
 import LoginForm from "./components/Login";
 import PostRoutes from "./components/Post/routes";
-import { login, register, checkStatus } from "./store/actions";
+import UserView from "./views/UserView";
 
 // this is being moved to the loginReducer
 // const user = JSON.parse(localStorage.getItem("testnet-user"));
@@ -62,6 +65,8 @@ class App extends React.Component {
         />
 
         <PostRoutes user={user} />
+
+        <UserView />
       </div>
     );
   }
