@@ -21,6 +21,10 @@ export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 
 export const LOGOUT = "LOGOUT";
 
+export const HIDE_AUTH_FORM = "HIDE_AUTH_FORM";
+export const SHOW_SIGNIN_FORM = "SHOW_SIGNIN_FORM";
+export const SHOW_SIGNUP_FORM = "SHOW_SIGNUP_FORM";
+
 /*
   Authentication Action Creators
 */
@@ -120,4 +124,10 @@ export const updateUser = (update, token) => dispatch => {
         payload: { err }
       });
     });
+}
+
+export const toggleAuthForm= (type) => {
+  if (type === 'cancel') return { type: HIDE_AUTH_FORM };
+  if (type === 'signin') return { type: SHOW_SIGNIN_FORM };
+  return { type: SHOW_SIGNUP_FORM };
 }

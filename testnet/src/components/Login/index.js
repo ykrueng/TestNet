@@ -44,8 +44,7 @@ class LoginForm extends React.Component {
       signin,
       loginError,
       registrationError,
-      handleCancel,
-      handleFormSwitch
+      toggleAuthForm,
     } = this.props;
     return (
       <div className="login-form">
@@ -74,6 +73,7 @@ class LoginForm extends React.Component {
               <Segment stacked>
                 <Form.Input
                   fluid
+                  required
                   icon="mail"
                   name="email"
                   iconPosition="left"
@@ -84,6 +84,7 @@ class LoginForm extends React.Component {
                 {!signin && (
                   <Form.Input
                     fluid
+                    required
                     icon="user"
                     name="username"
                     iconPosition="left"
@@ -94,6 +95,7 @@ class LoginForm extends React.Component {
                 )}
                 <Form.Input
                   fluid
+                  required
                   icon="lock"
                   iconPosition="left"
                   placeholder="Password"
@@ -117,7 +119,7 @@ class LoginForm extends React.Component {
                   content={signin ? "Sign In" : "Sign Up"}
                   icon={signin ? "sign in" : "add user"}
                 />
-                <Button icon="cancel" content="Cancel" color="grey" size="large" onClick={handleCancel} />
+                <Button icon="cancel" content="Cancel" color="grey" size="large" onClick={() => toggleAuthForm('cancel')} />
               </Segment>
             </Form>
             {loginError && (
@@ -130,7 +132,10 @@ class LoginForm extends React.Component {
             )}
             <Message>
               {signin ? "New to TestNet? " : "Already have an account? "}
-              <Button inverted secondary onClick={handleFormSwitch}
+              <Button inverted secondary onClick={() => {
+                const type = signin ? 'signup' : 'signin';
+                toggleAuthForm(type)
+              }}
                 content={signin ? "Sign Up" : "Sign In"}
                 icon={signin ? "add user" : "sign in"}
               />

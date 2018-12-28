@@ -12,10 +12,15 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
+  HIDE_AUTH_FORM,
+  SHOW_SIGNIN_FORM,
+  SHOW_SIGNUP_FORM,
 } from "../actions";
 
 const initialState = {
   user: {},
+  modal: false,
+  signInModal: true,
   loggedIn: false,
   token: null,
   registering: false,
@@ -42,6 +47,8 @@ export const loginReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        modal: false,
+        signInModal: true,
         registering: false,
         loggedIn: true,
         loginError: false,
@@ -52,6 +59,8 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        modal: false,
+        signInModal: true,
         loggingIn: false,
         loggedIn: true,
         loginError: false,
@@ -95,7 +104,9 @@ export const loginReducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         loggedIn: false,
-        token: null
+        token: null,
+        modal: false,
+        signInModal: true,
       };
     case UPDATE_USER_REQUEST:
       return {
@@ -116,6 +127,24 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         updatingUser: false,
         updateError: action.payload,
+      }
+    case HIDE_AUTH_FORM:
+      return {
+        ...state,
+        modal: false,
+        signInModal: true,
+      }
+    case SHOW_SIGNIN_FORM:
+      return {
+        ...state,
+        modal: true,
+        signInModal: true,
+      }
+    case SHOW_SIGNUP_FORM:
+      return {
+        ...state,
+        modal: true,
+        signInModal: false,
       }
     default:
       return state;

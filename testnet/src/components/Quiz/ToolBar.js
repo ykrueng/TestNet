@@ -2,6 +2,8 @@ import React from "react";
 import { Segment, Input, Dropdown, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
+import SignInButton from '../Login/SignInButton';
+
 const ToolBar = ({
   history,
   loggedIn,
@@ -11,7 +13,6 @@ const ToolBar = ({
   selectedTopics,
   handleDropdownChange,
   handleFilterChange,
-  getLoginForm,
 }) => {
   const options = [
     { key: "all", text: "all", value: "all" },
@@ -24,12 +25,6 @@ const ToolBar = ({
     text: topic.name,
     value: topic.name
   }));
-
-  const handleButtonClick = () => {
-    loggedIn
-      ? history.push("/quizzes/quiz/new/add")
-      : getLoginForm()
-  }
 
   return (
     <Segment style={{ width: "100%" }} textAlign="left">
@@ -91,13 +86,17 @@ const ToolBar = ({
           boxShadow: "none"
         }}
       >
-        <Button
-          onClick={handleButtonClick}
-          color="teal"
-          icon={loggedIn ? "add" : "sign in"}
-          content={loggedIn ? "Add New Quiz" : "Sign In to Add New Quiz"}
-        >
-        </Button>
+        {
+          !loggedIn && <SignInButton text="Sign In to Add New Quiz" />
+        }
+        {
+          loggedIn && <Button
+            onClick={() => history.push("/quizzes/quiz/new/add")}
+            color="teal"
+            icon="add"
+            content="Add New Quiz"
+          />
+        }
       </Segment>
     </Segment>
   );
@@ -116,7 +115,6 @@ ToolBar.propTypes = {
   selectedTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDropdownChange: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
-  getLoginForm: PropTypes.func.isRequired,
 };
 
 export default ToolBar;

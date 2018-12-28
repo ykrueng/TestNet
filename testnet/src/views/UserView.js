@@ -8,10 +8,10 @@ import UserDetail from '../components/User/UserDetail';
 class UserView extends Component {
   state = {  }
   render() {
-    const { loggedIn, user, updateUser, token, history, getSignInForm } = this.props;
+    const { loggedIn, user, updateUser, token, history } = this.props;
 
     return (
-      <UserDetail getSignInForm={getSignInForm} history={history} loggedIn={loggedIn} updateUser={updateUser} user={user} token={token} />
+      <UserDetail history={history} loggedIn={loggedIn} updateUser={updateUser} user={user} token={token} />
     );
   }
 }

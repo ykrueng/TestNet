@@ -12,18 +12,18 @@ class NavBar extends React.Component {
   };
 
   handleClick = () => {
-    const { loggedIn, click, logout } = this.props;
+    const { loggedIn, logout, toggleAuthForm } = this.props;
 
     if (loggedIn) {
       logout();
     } else {
-      click();
+      toggleAuthForm('signin');
     }
   };
 
   render() {
     const { active } = this.state;
-    const { loggedIn, getRegistrationFrom, user, history } = this.props;
+    const { loggedIn, user, history, toggleAuthForm } = this.props;
     return (
       <Segment>
         <Menu borderless inverted fixed="top">
@@ -98,7 +98,7 @@ class NavBar extends React.Component {
                   icon="add user"
                   content="Sign Up!"
                   style={{ marginLeft: ".75rem" }}
-                  onClick={getRegistrationFrom}
+                  onClick={() => toggleAuthForm('signup')}
                 />
               )}
             </Menu.Item>

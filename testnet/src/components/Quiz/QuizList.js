@@ -23,7 +23,7 @@ class QuizList extends React.Component {
   };
 
   render() {
-    const { quizzes, topics, history, user, getLoginForm, loggedIn } = this.props;
+    const { quizzes, topics, history, user, loggedIn } = this.props;
     const { filterText, field, sort, selectedTopics } = this.state;
 
     const filteredQuizzes = quizzes.filter(quiz => {
@@ -67,7 +67,6 @@ class QuizList extends React.Component {
             selectedTopics={selectedTopics}
             handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
-            getLoginForm={getLoginForm}
           />
         </Grid.Row>
         {filteredQuizzes.map(quiz => (

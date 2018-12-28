@@ -73,7 +73,6 @@ class UpdateForm extends Component {
       questions,
       token,
       user,
-      getLoginForm
     } = this.props;
 
     // user not logged in
@@ -81,7 +80,6 @@ class UpdateForm extends Component {
       return (
         <Unauthorized
           onCancel={() => history.push("/quizzes")}
-          onSubmit={getLoginForm}
           headerText="Sign In to Edit Quiz"
           cancelText="Back to Quiz List"
         />

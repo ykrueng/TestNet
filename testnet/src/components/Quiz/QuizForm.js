@@ -36,7 +36,6 @@ class QuizForm extends React.Component {
         headerText="Sign In to Add New Quiz"
         cancelText="Back to Quiz List"
         onCancel={() => this.props.history.push("/quizzes")}
-        onSubmit={this.props.getLoginForm}
       />
     )
     return (

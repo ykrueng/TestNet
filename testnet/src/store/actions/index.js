@@ -11,12 +11,16 @@ export {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
+  HIDE_AUTH_FORM,
+  SHOW_SIGNIN_FORM,
+  SHOW_SIGNUP_FORM,
   LOGOUT,
   register,
   login,
   checkStatus,
   logout,
   updateUser,
+  toggleAuthForm,
 } from "./loginActions";
 
 export {

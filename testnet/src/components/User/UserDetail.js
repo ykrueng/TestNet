@@ -64,7 +64,7 @@ class UserDetail extends React.Component {
   };
 
   render() {
-    const { getSignInForm, loggedIn, user, history } = this.props;
+    const { loggedIn, user, history } = this.props;
     const {
       update,
       updateUsername,
@@ -80,7 +80,6 @@ class UserDetail extends React.Component {
           onCancel={() => history.push("/quizzes")}
           headerText="Sign in to access Setting"
           cancelText="Back to Quiz List"
-          onSubmit={getSignInForm}
         />
       );
     
@@ -188,5 +187,4 @@ UserDetail.propTypes = {
   }),
   token: PropTypes.string,
   updateUser: PropTypes.func.isRequired,
-  getSignInForm: PropTypes.func.isRequired
 };
