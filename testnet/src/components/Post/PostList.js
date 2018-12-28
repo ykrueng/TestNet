@@ -1,5 +1,6 @@
 import React from "react";
 import { Header, Comment, Segment, Button, Card } from "semantic-ui-react";
+import moment from "moment";
 
 const PostList = ({ posts, history, user }) => {
   return (
@@ -24,7 +25,9 @@ const PostList = ({ posts, history, user }) => {
           </Header>
           <Comment>
             {post.body}
-            <Comment.Metadata>{post.created_at}</Comment.Metadata>
+            <Comment.Metadata>
+              {moment(post.created_at).fromNow()}
+            </Comment.Metadata>
           </Comment>
         </Segment>
       ))}

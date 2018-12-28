@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import moment from "moment";
 import {
   Button,
   Comment,
@@ -56,7 +57,7 @@ class CommentSection extends React.PureComponent {
                   <Comment.Content>
                     <Comment.Author>{comment.author}</Comment.Author>
                     <Comment.Metadata>
-                      <p>{comment.created_at}</p>
+                      <p> {moment(comment.created_at).fromNow()}</p>
                     </Comment.Metadata>
                     <Comment.Text>{comment.text}</Comment.Text>
                   </Comment.Content>
