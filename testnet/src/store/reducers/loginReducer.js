@@ -8,7 +8,10 @@ import {
   STATUS_REQUEST,
   STATUS_SUCCESS,
   STATUS_FAILURE,
-  LOGOUT
+  LOGOUT,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } from "../actions";
 
 const initialState = {
@@ -19,7 +22,9 @@ const initialState = {
   logingIn: false,
   checkingStatus: false,
   registrationError: null,
-  loginError: false
+  loginError: false,
+  updatingUser: false,
+  updateError: null,
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -92,6 +97,26 @@ export const loginReducer = (state = initialState, action) => {
         loggedIn: false,
         token: null
       };
+    case UPDATE_USER_REQUEST:
+      return {
+        ...state,
+        updatingUser: true,
+      }
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        updatingUser: false,
+        user: {
+          ...state.user,
+          username: action.payload.username || state.user.username,
+        }
+      }
+    case UPDATE_USER_FAILURE:
+      return {
+        ...state,
+        updatingUser: false,
+        updateError: action.payload,
+      }
     default:
       return state;
   }

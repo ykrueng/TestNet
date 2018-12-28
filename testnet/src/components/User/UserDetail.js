@@ -6,13 +6,17 @@ import {
   Header,
   Form,
   Button,
-  Divider
+  Divider,
+  Confirm
 } from "semantic-ui-react";
 
 class UserDetail extends React.Component {
   state = {
     update: false,
-    updateUsername: false
+    updateUsername: false,
+    password: "",
+    value: "",
+    confirmation: false,
   };
 
   /*
@@ -23,13 +27,43 @@ class UserDetail extends React.Component {
   handleChangeClick = type => {
     this.setState({
       update: type === null ? false : true,
-      updateUsername: type
+      updateUsername: type,
+      password: "",
+      value: "",
+      confirmation: false,
     });
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  handleUpdate = () => {
+    const user = {
+      currentPassword: this.state.password
+    };
+
+    if (this.state.updateUsername) {
+      user.newUsername = this.state.value;
+    } else {
+      user.newPassword = this.state.value;
+    }
+
+    this.props.updateUser(user, this.props.token);
+    this.setState({
+      password: "",
+      value: "",
+      confirmation: false,
+    });
+
+    // TODO: confirm if update success/fail
   };
 
   render() {
     const { loggedIn, user } = this.props;
-    const { update, updateUsername } = this.state;
+    const { update, updateUsername, value, password, confirmation } = this.state;
     const display = !loggedIn ? (
       <Segment
         textAlign="center"
@@ -84,13 +118,25 @@ class UserDetail extends React.Component {
               maxWidth: "50rem",
               margin: "2rem auto"
             }}
+            onSubmit={() => this.setState({confirmation: true})}
           >
             <Form.Group>
               <Form.Input
                 required
+                  name="value"
+                  type={updateUsername ? 'text': 'password'}
+                  value={value}
+                  onChange={this.handleChange}
                 label={updateUsername ? "New Username" : "New Password"}
               />
-              <Form.Input required label="Password" />
+              <Form.Input
+                name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                required
+                type="password"
+                label="Password"
+              />
             </Form.Group>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Form.Button
@@ -106,7 +152,14 @@ class UserDetail extends React.Component {
               />
             </div>
           </Form>
-        )}
+          )}
+          <Confirm
+            open={confirmation}
+            content={`Are you sure you want to update your ${
+              updateUsername ? 'username' : 'password'}?`}
+            onCancel={() => this.handleChangeClick(null)}
+            onConfirm={this.handleUpdate}
+          />
       </Segment>
     );
 
@@ -122,5 +175,7 @@ UserDetail.propTypes = {
     id: PropTypes.number,
     url: PropTypes.url,
     username: PropTypes.string
-  })
+  }),
+  token: PropTypes.string,
+  updateUser: PropTypes.func.isRequired
 };

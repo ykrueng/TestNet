@@ -15,6 +15,10 @@ export const STATUS_REQUEST = "STATUS_REQUEST";
 export const STATUS_SUCCESS = "STATUS_SUCCESS";
 export const STATUS_FAILURE = "STATUS_FAILURE";
 
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+
 export const LOGOUT = "LOGOUT";
 
 /*
@@ -88,3 +92,32 @@ export const logout = () => {
   localStorage.removeItem("testnet-user");
   return { type: LOGOUT };
 };
+
+export const updateUser = (update, token) => dispatch => {
+  dispatch({ type: UPDATE_USER_REQUEST });
+  study({
+    method: "patch",
+    url: `/auth/update`,
+    headers: { Authorization: token },
+    data: update,
+  })
+    .then(res => {
+      if (res.data.user.username) {
+        let newUser = JSON.parse(
+          localStorage.getItem("testnet-user")
+        );
+        newUser.username = res.data.user.username;
+        localStorage.setItem("testnet-user", JSON.stringify(newUser));
+      }
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { username: res.data.user.username }
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: UPDATE_USER_FAILURE,
+        payload: { err }
+      });
+    });
+}
