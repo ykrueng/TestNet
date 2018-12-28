@@ -63,7 +63,7 @@ class NavBar extends React.Component {
                 color: "white",
                 justifyContent: "flex-end",
                 alignItems: "center",
-                width: "100%"
+                width: "80%"
               }}
             >
               Logged in as: {user.username}
