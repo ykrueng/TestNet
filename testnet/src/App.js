@@ -66,8 +66,8 @@ class App extends React.Component {
 
         <PostRoutes user={user} />
 
-        <Route exact path="/user" render={props => (<UserView {...props} />)} />
-
+        <Route exact path="/user"
+          render={props => (<UserView {...props} getSignInForm={this.handleClick} />)} />
       </div>
     );
   }

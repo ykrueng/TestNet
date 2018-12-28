@@ -34,7 +34,7 @@ const QuizRoutes = ({ quizzes, topics, loggedIn, user, getLoginForm, clearQuiz }
       <Route
         exact
         path="/quizzes/quiz/update/:id"
-        render={props => <UpdateForm {...props} />}
+        render={props => <UpdateForm getLoginForm={getLoginForm} {...props} />}
       />
       
     </Fragment>

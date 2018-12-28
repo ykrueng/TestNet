@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import { Segment, Header, Form, Button, Divider, Icon } from "semantic-ui-react";
+import {
+  Segment,
+  Header,
+  Form,
+  Button,
+  Divider,
+} from "semantic-ui-react";
 import { connect } from "react-redux";
+
+import Unauthorized from "../Login/Unauthorized";
 
 import {
   getQuizz,
@@ -53,29 +61,43 @@ class UpdateForm extends Component {
     const id = Number(match.params.id);
     deleteQuizz(id, token);
 
-    // console.log("deleted");
     history.push("/quizzes");
   };
 
   render() {
     const { title, topic } = this.state;
-    const { history, match, quiz, questions, token, user } = this.props;
-    if (!token || (quiz.author && user.id !== quiz.author.id)) {
+    const {
+      history,
+      match,
+      quiz,
+      questions,
+      token,
+      user,
+      getLoginForm
+    } = this.props;
+
+    // user not logged in
+    if (!token)
       return (
-        <Segment
-          style={{
-            maxWidth: "60rem",
-            margin: "2rem auto"
-          }}
-          textAlign="center"
-        >
-          <Header as="h2">This Quiz is not Yours</Header>
-          <Button onClick={() => history.push("/quizzes")}>
-            <Icon className="arrow left" />Back To Quiz List
-          </Button>
-        </Segment>
+        <Unauthorized
+          onCancel={() => history.push("/quizzes")}
+          onSubmit={getLoginForm}
+          headerText="Sign In to Edit Quiz"
+          cancelText="Back to Quiz List"
+        />
       );
-    }
+
+    // user not the author of quiz
+    if (quiz.author && user.id !== quiz.author.id)
+      return (
+        <Unauthorized
+          onCancel={() => history.push("/quizess")}
+          headerText="You are not the author of this quiz"
+          cancelText="Back to Quiz List"
+        />
+      );
+
+    // user is the author of quiz
     return (
       <Segment
         style={{

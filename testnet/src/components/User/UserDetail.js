@@ -10,13 +10,15 @@ import {
   Confirm
 } from "semantic-ui-react";
 
+import Unauthorized from "../Login/Unauthorized";
+
 class UserDetail extends React.Component {
   state = {
     update: false,
     updateUsername: false,
     password: "",
     value: "",
-    confirmation: false,
+    confirmation: false
   };
 
   /*
@@ -30,15 +32,15 @@ class UserDetail extends React.Component {
       updateUsername: type,
       password: "",
       value: "",
-      confirmation: false,
+      confirmation: false
     });
   };
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
-    })
-  }
+      [e.target.name]: e.target.value
+    });
+  };
 
   handleUpdate = () => {
     const user = {
@@ -55,26 +57,35 @@ class UserDetail extends React.Component {
     this.setState({
       password: "",
       value: "",
-      confirmation: false,
+      confirmation: false
     });
 
     // TODO: confirm if update success/fail
   };
 
   render() {
-    const { loggedIn, user } = this.props;
-    const { update, updateUsername, value, password, confirmation } = this.state;
-    const display = !loggedIn ? (
-      <Segment
-        textAlign="center"
-        style={{
-          margin: "2rem auto",
-          maxWidth: "60rem"
-        }}
-      >
-        You're Not Signed In
-      </Segment>
-    ) : (
+    const { getSignInForm, loggedIn, user, history } = this.props;
+    const {
+      update,
+      updateUsername,
+      value,
+      password,
+      confirmation
+    } = this.state;
+
+    // user not logged in
+    if (!loggedIn)
+      return (
+        <Unauthorized
+          onCancel={() => history.push("/quizzes")}
+          headerText="Sign in to access Setting"
+          cancelText="Back to Quiz List"
+          onSubmit={getSignInForm}
+        />
+      );
+    
+    // user logged in
+    return (
       <Segment
         style={{
           margin: "2rem auto",
@@ -118,21 +129,21 @@ class UserDetail extends React.Component {
               maxWidth: "50rem",
               margin: "2rem auto"
             }}
-            onSubmit={() => this.setState({confirmation: true})}
+            onSubmit={() => this.setState({ confirmation: true })}
           >
             <Form.Group>
               <Form.Input
                 required
-                  name="value"
-                  type={updateUsername ? 'text': 'password'}
-                  value={value}
-                  onChange={this.handleChange}
+                name="value"
+                type={updateUsername ? "text" : "password"}
+                value={value}
+                onChange={this.handleChange}
                 label={updateUsername ? "New Username" : "New Password"}
               />
               <Form.Input
                 name="password"
-                  value={password}
-                  onChange={this.handleChange}
+                value={password}
+                onChange={this.handleChange}
                 required
                 type="password"
                 label="Password"
@@ -152,18 +163,17 @@ class UserDetail extends React.Component {
               />
             </div>
           </Form>
-          )}
-          <Confirm
-            open={confirmation}
-            content={`Are you sure you want to update your ${
-              updateUsername ? 'username' : 'password'}?`}
-            onCancel={() => this.handleChangeClick(null)}
-            onConfirm={this.handleUpdate}
-          />
+        )}
+        <Confirm
+          open={confirmation}
+          content={`Are you sure you want to update your ${
+            updateUsername ? "username" : "password"
+          }?`}
+          onCancel={() => this.handleChangeClick(null)}
+          onConfirm={this.handleUpdate}
+        />
       </Segment>
     );
-
-    return display;
   }
 }
 
@@ -177,5 +187,6 @@ UserDetail.propTypes = {
     username: PropTypes.string
   }),
   token: PropTypes.string,
-  updateUser: PropTypes.func.isRequired
+  updateUser: PropTypes.func.isRequired,
+  getSignInForm: PropTypes.func.isRequired
 };
