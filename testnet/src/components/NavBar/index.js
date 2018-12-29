@@ -17,7 +17,7 @@ class NavBar extends React.Component {
     if (loggedIn) {
       logout();
     } else {
-      toggleAuthForm('signin');
+      toggleAuthForm("signin");
     }
   };
 
@@ -55,38 +55,42 @@ class NavBar extends React.Component {
             />
           </Menu.Menu>
 
-          {/* {user && user.username && (
-            <div
-              position="right"
-              style={{
-                display: "flex",
-                color: "white",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                width: "50%",
-                border: "1px solid red"
-              }}
-            >
-              Logged in as: {user.username}
-            </div>
-          )} */}
-
           <Menu.Menu position="right">
-            <Menu.Item >
-              {
-                loggedIn && (
-                  <Dropdown text={user.username} icon='user' floating labeled button className='icon'>
-                    <Dropdown.Menu >
-                      <Dropdown.Item onClick={() => history.push('/user')} value="setting" icon="setting" text='Account Setting' />
-                      <Dropdown.Item disabled value="quiz" icon="edit outline" text='Quizzes' />
-                      <Dropdown.Item disabled values="post" icon="edit outline" text='Posts' />
-                    </Dropdown.Menu>
-                  </Dropdown>
-                )
-              }
+            <Menu.Item>
+              {loggedIn && (
+                <Dropdown
+                  text={user.username}
+                  icon="user"
+                  floating
+                  labeled
+                  button
+                  className="icon"
+                >
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      onClick={() => history.push("/user")}
+                      value="setting"
+                      icon="setting"
+                      text="Account Settings"
+                    />
+                    <Dropdown.Item
+                      disabled
+                      value="quiz"
+                      icon="edit outline"
+                      text="Quizzes"
+                    />
+                    <Dropdown.Item
+                      disabled
+                      values="post"
+                      icon="edit outline"
+                      text="Posts"
+                    />
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
               <Button
                 primary
-                style={{marginLeft: "1rem", marginRight: "1rem"}}
+                style={{ marginLeft: "1rem", marginRight: "1rem" }}
                 icon={loggedIn ? "sign out" : "sign in"}
                 content={loggedIn ? "Sign Out" : "Sign In"}
                 onClick={this.handleClick}
@@ -98,7 +102,7 @@ class NavBar extends React.Component {
                   icon="add user"
                   content="Sign Up!"
                   style={{ marginLeft: ".75rem" }}
-                  onClick={() => toggleAuthForm('signup')}
+                  onClick={() => toggleAuthForm("signup")}
                 />
               )}
             </Menu.Item>
