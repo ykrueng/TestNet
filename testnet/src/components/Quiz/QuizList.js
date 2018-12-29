@@ -4,6 +4,7 @@ import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
   state = {
+    activeOnly: false,
     filterText: "",
     sort: "",
     field: "title",
@@ -13,6 +14,10 @@ class QuizList extends React.Component {
   handleFilterChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
+
+  handleSliderChange = () => {
+    this.setState(state => ({ activeOnly: !state.activeOnly }));
+  }
 
   componentDidMount() {
     this.props.clearQuiz();
@@ -24,9 +29,9 @@ class QuizList extends React.Component {
 
   render() {
     const { quizzes, topics, history, user, loggedIn } = this.props;
-    const { filterText, field, sort, selectedTopics } = this.state;
+    const { filterText, field, sort, selectedTopics, activeOnly } = this.state;
 
-    const filteredQuizzes = quizzes.filter(quiz => {
+    let filteredQuizzes = quizzes.filter(quiz => {
       if (field === "all") {
         return (
           (selectedTopics.length === 0 ||
@@ -41,6 +46,10 @@ class QuizList extends React.Component {
         quiz[field].toLowerCase().includes(filterText.toLowerCase())
       );
     });
+
+    if (activeOnly) {
+      filteredQuizzes = filteredQuizzes.filter(quiz => quiz.question_count > 0)
+    }
 
     sort &&
       filteredQuizzes.sort((quizA, quizB) => {
@@ -67,6 +76,7 @@ class QuizList extends React.Component {
             selectedTopics={selectedTopics}
             handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
+            handleSliderChange={this.handleSliderChange}
           />
         </Grid.Row>
         {filteredQuizzes.map(quiz => (

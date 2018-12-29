@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Input, Dropdown, Button } from "semantic-ui-react";
+import { Segment, Input, Dropdown, Button, Checkbox } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import SignInButton from "../Login/SignInButton";
@@ -12,7 +12,8 @@ const ToolBar = ({
   topics,
   selectedTopics,
   handleDropdownChange,
-  handleFilterChange
+  handleFilterChange,
+  handleSliderChange
 }) => {
   const searchValues = ["all", "title", "topic", "author"];
   const searchOptions = searchValues.map(value => ({
@@ -47,7 +48,6 @@ const ToolBar = ({
         onChange={handleDropdownChange}
       />
       <Input
-        style={{ width: "15rem" }}
         name="filterText"
         value={filterText}
         placeholder="Search quiz by..."
@@ -63,6 +63,11 @@ const ToolBar = ({
         labelPosition="right"
         onChange={handleFilterChange}
       />
+      <Checkbox slider
+        style={{ marginLeft: "1rem" }}
+        label="Show active quiz only"
+        onChange={handleSliderChange}
+      />
       <Dropdown
         style={{ marginTop: ".5rem" }}
         placeholder="Add topic..."
@@ -75,6 +80,7 @@ const ToolBar = ({
         options={topicOptions}
         onChange={handleDropdownChange}
       />
+
       <Segment
         textAlign="center"
         style={{ margin: "0 auto", border: "none", boxShadow: "none" }}
@@ -105,7 +111,8 @@ ToolBar.propTypes = {
   ).isRequired,
   selectedTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDropdownChange: PropTypes.func.isRequired,
-  handleFilterChange: PropTypes.func.isRequired
+  handleFilterChange: PropTypes.func.isRequired,
+  handleSliderChange: PropTypes.func.isRequired,
 };
 
 export default ToolBar;
