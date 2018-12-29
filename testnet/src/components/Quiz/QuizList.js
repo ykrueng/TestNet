@@ -79,8 +79,10 @@ class QuizList extends React.Component {
             handleSliderChange={this.handleSliderChange}
           />
         </Grid.Row>
-        {fetchingQuizzes && <Loader active inline>Loading</Loader>
-        }
+        <Grid.Row>
+          {fetchingQuizzes && <Loader active inline>Loading</Loader>
+          }
+        </Grid.Row>
         {filteredQuizzes.map(quiz => (
           <Grid.Column
             key={quiz.id}
