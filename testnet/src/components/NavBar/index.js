@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, Segment, Button, Dropdown } from "semantic-ui-react";
+import PropTypes from 'prop-types';
 
 class NavBar extends React.Component {
   state = {
@@ -114,3 +115,14 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
+
+NavBar.propTypes = {
+  logout:PropTypes.func.isRequired,
+  loggedIn:PropTypes.bool.isRequired,
+  history:PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string,
+  }).isRequired,
+  toggleAuthForm:PropTypes.func.isRequired,
+}
