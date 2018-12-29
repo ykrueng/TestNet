@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Header, Button, Grid, Icon } from "semantic-ui-react";
+import { Segment, Header, Button, Grid, Icon, Loader } from "semantic-ui-react";
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
@@ -28,7 +28,7 @@ class QuizList extends React.Component {
   };
 
   render() {
-    const { quizzes, topics, history, user, loggedIn } = this.props;
+    const { quizzes, topics, history, user, loggedIn, fetchingQuizzes } = this.props;
     const { filterText, field, sort, selectedTopics, activeOnly } = this.state;
 
     let filteredQuizzes = quizzes.filter(quiz => {
@@ -79,6 +79,8 @@ class QuizList extends React.Component {
             handleSliderChange={this.handleSliderChange}
           />
         </Grid.Row>
+        {fetchingQuizzes && <Loader active inline>Loading</Loader>
+        }
         {filteredQuizzes.map(quiz => (
           <Grid.Column
             key={quiz.id}
