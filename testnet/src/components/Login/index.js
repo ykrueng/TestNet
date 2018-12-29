@@ -7,6 +7,7 @@ import {
   Message,
   Segment
 } from "semantic-ui-react";
+import PropTypes from 'prop-types';
 
 class LoginForm extends React.Component {
   state = {
@@ -148,3 +149,12 @@ class LoginForm extends React.Component {
 }
 
 export default LoginForm;
+
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  signin: PropTypes.bool.isRequired,
+  toggleAuthForm: PropTypes.func.isRequired,
+  loginError: PropTypes.bool,
+  registrationError: PropTypes.bool,
+}
