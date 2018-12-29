@@ -10,7 +10,6 @@ class Quiz extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // TRYING TO OPTIMIZE THE BOOTY OUT THIS APP
     if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
       return true;
     }
@@ -45,7 +44,9 @@ class Quiz extends React.Component {
           <Header.Subheader>
             submitted by:
             {quiz.author ? (
-              <Image circular src={quiz.author.img_url} avatar />
+              quiz.author.img_url ? (
+                <Image circular src={quiz.author.img_url} avatar />
+              ) : null
             ) : null}
             {quiz.author ? quiz.author.username : "Loading"}
           </Header.Subheader>

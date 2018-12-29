@@ -81,19 +81,18 @@ class QuizList extends React.Component {
                 floated="right"
                 style={{
                   width: "60px",
-                  padding: "5px",
-                  color: quiz.votes < 0 ? "red" : "inherit"
+                  padding: "5px"
                 }}
               >
                 <i
                   className={`thumbs ${
                     quiz.votes < 0 ? "down" : "up"
                   } outline icon`}
+                  style={{ color: quiz.votes < 0 ? "red" : "green" }}
                 />
-                {quiz.votes}<br />
-                <i
-                  className="question circle outline icon"
-                />
+                {quiz.votes}
+                <br />
+                <i className="question circle outline icon" />
                 {quiz.question_count}
               </Segment>
               {user && user.username === quiz.author && (
