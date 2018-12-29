@@ -2,36 +2,38 @@ import React from "react";
 import { Header, Form, Grid } from "semantic-ui-react";
 
 import ResultForm from "./ResultForm";
-import Unauthorized from '../Login/Unauthorized'
+import Unauthorized from "../Login/Unauthorized";
 
 const Summary = ({ questions, answers, rubric, auth, quizId, history }) => {
   if (rubric) {
-    const score = rubric.filter(item => item.correct === true).length;
+    const score = rubric.filter(item => item.correct).length;
     return (
       <Grid.Column style={{ margin: "0 auto" }}>
         <Header as="h1" content="Your Result:" />
-        {questions.map((q, index) => (
-          <Header key={index}>
+        {questions.map((q, i) => (
+          <Header key={i}>
             {q.question}
             <Header
-              color={rubric[index].correct === true ? "green" : "red"}
-              content={rubric[index].correct === true ? "Correct" : "Incorrect"}
+              as="h3"
+              color={rubric[i].correct ? "green" : "red"}
+              content={rubric[i].correct ? "Correct" : "Incorrect"}
             />
           </Header>
         ))}
-        <Header textAlign="center">
-          {`Total Score: ${
-            rubric.filter(item => item.correct === true).length
+        <Header
+          textAlign="center"
+          content={`Total Score: ${
+            rubric.filter(item => item.correct).length
           } / ${rubric.length}`}
-        </Header>
+        />
+
         {!auth && (
           <Unauthorized
             headerText="Sign In to Save Future Score"
             cancelText="Back to Quiz List"
-            onCancel={() => { history.push("/quizzes") }}
+            onCancel={() => history.push("/quizzes")}
           />
-        )
-        }
+        )}
         {auth && (
           <Header block>
             <ResultForm score={score} id={quizId} />

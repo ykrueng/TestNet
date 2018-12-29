@@ -2,7 +2,7 @@ import React from "react";
 import { Segment, Input, Dropdown, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
-import SignInButton from '../Login/SignInButton';
+import SignInButton from "../Login/SignInButton";
 
 const ToolBar = ({
   history,
@@ -12,7 +12,7 @@ const ToolBar = ({
   topics,
   selectedTopics,
   handleDropdownChange,
-  handleFilterChange,
+  handleFilterChange
 }) => {
   const options = [
     { key: "all", text: "all", value: "all" },
@@ -29,10 +29,7 @@ const ToolBar = ({
   return (
     <Segment style={{ width: "100%" }} textAlign="left">
       <Dropdown
-        style={{
-          width: "10rem",
-          marginRight: "1rem"
-        }}
+        style={{ width: "10rem", marginRight: "1rem" }}
         placeholder="Sort by..."
         clearable
         selection
@@ -44,17 +41,13 @@ const ToolBar = ({
         onChange={handleDropdownChange}
       />
       <Input
-        style={{
-          width: "15rem"
-        }}
+        style={{ width: "15rem" }}
         name="filterText"
         value={filterText}
         placeholder="Search quiz by..."
         label={
           <Dropdown
-            style={{
-              textAlign: "right"
-            }}
+            style={{ textAlign: "right" }}
             onChange={handleDropdownChange}
             defaultValue={field}
             options={options}
@@ -65,9 +58,7 @@ const ToolBar = ({
         onChange={handleFilterChange}
       />
       <Dropdown
-        style={{
-          marginTop: ".5rem"
-        }}
+        style={{ marginTop: ".5rem" }}
         placeholder="Add topic..."
         fluid
         multiple
@@ -80,23 +71,17 @@ const ToolBar = ({
       />
       <Segment
         textAlign="center"
-        style={{
-          margin: "0 auto",
-          border: "none",
-          boxShadow: "none"
-        }}
+        style={{ margin: "0 auto", border: "none", boxShadow: "none" }}
       >
-        {
-          !loggedIn && <SignInButton text="Sign In to Add New Quiz" />
-        }
-        {
-          loggedIn && <Button
+        {!loggedIn && <SignInButton text="Sign In to Add New Quiz" />}
+        {loggedIn && (
+          <Button
             onClick={() => history.push("/quizzes/quiz/new/add")}
             color="teal"
             icon="add"
             content="Add New Quiz"
           />
-        }
+        )}
       </Segment>
     </Segment>
   );
@@ -114,7 +99,7 @@ ToolBar.propTypes = {
   ).isRequired,
   selectedTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDropdownChange: PropTypes.func.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
+  handleFilterChange: PropTypes.func.isRequired
 };
 
 export default ToolBar;

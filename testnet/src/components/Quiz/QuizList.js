@@ -10,8 +10,8 @@ class QuizList extends React.Component {
     selectedTopics: []
   };
 
-  handleFilterChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleFilterChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   };
 
   componentDidMount() {
@@ -29,16 +29,15 @@ class QuizList extends React.Component {
     const filteredQuizzes = quizzes.filter(quiz => {
       if (field === "all") {
         return (
-          (this.state.selectedTopics.length === 0 ||
-            this.state.selectedTopics.includes(quiz.topic)) &&
+          (selectedTopics.length === 0 ||
+            selectedTopics.includes(quiz.topic)) &&
           (quiz.title.toLowerCase().includes(filterText.toLowerCase()) ||
             quiz.topic.toLowerCase().includes(filterText.toLowerCase()) ||
             quiz.author.toLowerCase().includes(filterText.toLowerCase()))
         );
       }
       return (
-        (this.state.selectedTopics.length === 0 ||
-          this.state.selectedTopics.includes(quiz.topic)) &&
+        (selectedTopics.length === 0 || selectedTopics.includes(quiz.topic)) &&
         quiz[field].toLowerCase().includes(filterText.toLowerCase())
       );
     });
@@ -57,7 +56,7 @@ class QuizList extends React.Component {
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
-        <Grid.Row columns={2}>
+        <Grid.Row>
           <ToolBar
             history={history}
             loggedIn={loggedIn}
@@ -75,24 +74,19 @@ class QuizList extends React.Component {
             style={{ padding: "1rem", cursor: "pointer" }}
             onClick={() => history.push(`/quizzes/${quiz.id}`)}
           >
-            <Grid.Row stretched={true}>
+            <Grid.Row stretched>
               <Segment
                 circular
                 floated="right"
-                style={{
-                  width: "60px",
-                  padding: "5px"
-                }}
+                style={{ width: "60px", padding: "5px" }}
               >
-                <i
-                  className={`thumbs ${
-                    quiz.votes < 0 ? "down" : "up"
-                  } outline icon`}
-                  style={{ color: quiz.votes < 0 ? "red" : "green" }}
+                <Icon
+                  name={`thumbs ${quiz.votes < 0 ? "down" : "up"} outline`}
+                  color={quiz.votes < 0 ? "red" : "green"}
                 />
                 {quiz.votes}
                 <br />
-                <i className="question circle outline icon" />
+                <Icon name="question circle outline" />
                 {quiz.question_count}
               </Segment>
               {user && user.username === quiz.author && (
@@ -103,10 +97,7 @@ class QuizList extends React.Component {
                   content="Edit"
                   color="teal"
                   floated="right"
-                  style={{
-                    width: "60px",
-                    padding: "8px"
-                  }}
+                  style={{ width: "60px", padding: "8px" }}
                   onClick={e => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -125,8 +116,9 @@ class QuizList extends React.Component {
                 )}
                 <Header.Content>
                   {quiz.title}
-                  <Header.Subheader>
-                    <p>Topic: {quiz.topic}</p>
+                  <Header.Subheader as="p">
+                    {`Topic: ${quiz.topic}`}
+                    <br />
                     {user && user.username === quiz.author
                       ? "Author: You"
                       : `Author: ${quiz.author}`}

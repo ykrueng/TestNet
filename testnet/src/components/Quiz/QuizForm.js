@@ -1,9 +1,8 @@
 import React from "react";
-import { Segment, Header, Form, Button, } from "semantic-ui-react";
+import { Segment, Header, Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { postQuizz } from "../../store/actions";
-
-import Unauthorized from '../Login/Unauthorized';
+import Unauthorized from "../Login/Unauthorized";
 
 class QuizForm extends React.Component {
   state = {
@@ -12,7 +11,8 @@ class QuizForm extends React.Component {
   };
 
   componentWillReceiveProps(props) {
-    if (props.quiz.id) this.props.history.push(`/quizzes/quiz/update/${props.quiz.id}`);
+    if (props.quiz.id)
+      this.props.history.push(`/quizzes/quiz/update/${props.quiz.id}`);
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -28,16 +28,16 @@ class QuizForm extends React.Component {
       topic: this.state.topic
     };
     this.props.postQuizz(quiz, this.props.user.username, this.props.token);
-    // this.props.history.push("/quizzes");
   };
   render() {
-    if (!this.props.token) return (
-      <Unauthorized
-        headerText="Sign In to Add New Quiz"
-        cancelText="Back to Quiz List"
-        onCancel={() => this.props.history.push("/quizzes")}
-      />
-    )
+    if (!this.props.token)
+      return (
+        <Unauthorized
+          headerText="Sign In to Add New Quiz"
+          cancelText="Back to Quiz List"
+          onCancel={() => this.props.history.push("/quizzes")}
+        />
+      );
     return (
       <Segment
         style={{
@@ -82,7 +82,7 @@ export default connect(
   ({ loginReducer, quizzReducer }) => ({
     token: loginReducer.token,
     user: loginReducer.user,
-    quiz: quizzReducer.quizz,
+    quiz: quizzReducer.quizz
   }),
   { postQuizz }
 )(QuizForm);

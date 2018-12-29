@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Button, Icon, Grid } from "semantic-ui-react";
+import { Segment, Button, Grid } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { userResults } from "../../store/actions";
@@ -8,14 +8,15 @@ class ResultForm extends React.Component {
   state = {
     vote: 0,
     favorite: false,
-    score: this.props.score,
+    score: this.props.score
   };
 
   componentDidMount() {
-    this.props.token && this.setState({
-      vote: this.props.quiz.user_vote,
-      favorite: this.props.quiz.favorite,
-    })
+    this.props.token &&
+      this.setState({
+        vote: this.props.quiz.user_vote,
+        favorite: this.props.quiz.favorite
+      });
   }
 
   handleChange = e => {
@@ -49,19 +50,18 @@ class ResultForm extends React.Component {
     return (
       <Grid container centered>
         <Grid.Column>
-          <Segment.Group horizontal={true}>
+          <Segment.Group horizontal>
             <Segment>
               <Button.Group attached="top">
                 <Button
-                  icon
+                  icon="favorite"
+                  content={this.state.favorite ? "Unfavorite" : "Favorite"}
                   inverted={!this.state.favorite}
                   color="yellow"
                   labelPosition="left"
                   onClick={() => this.handleToggle()}
-                >
-                  <Icon name="favorite" color="yellow" />
-                  Favorite
-                </Button>
+                />
+
                 <Button
                   inverted={!(this.state.vote === 1)}
                   color="green"
@@ -80,12 +80,12 @@ class ResultForm extends React.Component {
             </Segment>
           </Segment.Group>
           <Button
+            primary
             attached="bottom"
-            color="blue"
             as={Link}
-            to="/"
+            to="/quizzes"
             onClick={this.save}
-            content={`Save Result & Exit`}
+            content="Save Result &amp; Exit"
           />
         </Grid.Column>
       </Grid>
@@ -96,7 +96,7 @@ class ResultForm extends React.Component {
 export default connect(
   ({ loginReducer, quizzReducer }) => ({
     token: loginReducer.token,
-    quiz: quizzReducer.quizz,
+    quiz: quizzReducer.quizz
   }),
   { userResults }
 )(ResultForm);

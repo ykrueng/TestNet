@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Header,
-  Form,
-  Button,
-  Divider,
-} from "semantic-ui-react";
+import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import Unauthorized from "../Login/Unauthorized";
@@ -66,14 +60,7 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic } = this.state;
-    const {
-      history,
-      match,
-      quiz,
-      questions,
-      token,
-      user,
-    } = this.props;
+    const { history, match, quiz, questions, token, user } = this.props;
 
     // user not logged in
     if (!token)
@@ -155,7 +142,7 @@ class UpdateForm extends Component {
         <Divider />
         <Header as="h2" content="Update Question" />
         {questions.length === 0 && (
-          <Segment textAlign="center">No question have been added.</Segment>
+          <Segment textAlign="center" content="No questions have been added." />
         )}
         {questions.map(question => (
           <QuestionForm
