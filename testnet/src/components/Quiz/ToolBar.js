@@ -14,12 +14,21 @@ const ToolBar = ({
   handleDropdownChange,
   handleFilterChange
 }) => {
-  const options = [
-    { key: "all", text: "all", value: "all" },
-    { key: "title", text: "title", value: "title" },
-    { key: "topic", text: "topic", value: "topic" },
-    { key: "author", text: "author", value: "author" }
-  ];
+  const searchValues = ["all", "title", "topic", "author"];
+  const searchOptions = searchValues.map(value => ({
+    key: value,
+    text: value,
+    value: value,
+  }));
+
+  const sortValues = ["votes_ascending", "votes_descending", "questions_ascending", "questions_descending"];
+  const sortOptions = sortValues.map(value => ({
+    key: value,
+    text: value.replace("_", " "),
+    value: value,
+    icon: `sort amount ${value.split("_")[1] === "ascending" ? "up" : "down"}`
+  }));
+
   const topicOptions = topics.map(topic => ({
     key: topic.name,
     text: topic.name,
@@ -34,10 +43,7 @@ const ToolBar = ({
         clearable
         selection
         name="sort"
-        options={[
-          { key: "most", value: "most", text: "Sort by: most votes" },
-          { key: "least", value: "leat", text: "Sort by: least votes" }
-        ]}
+        options={sortOptions}
         onChange={handleDropdownChange}
       />
       <Input
@@ -50,7 +56,7 @@ const ToolBar = ({
             style={{ textAlign: "right" }}
             onChange={handleDropdownChange}
             defaultValue={field}
-            options={options}
+            options={searchOptions}
             name="field"
           />
         }
