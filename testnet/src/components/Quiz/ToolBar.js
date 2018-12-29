@@ -63,11 +63,18 @@ const ToolBar = ({
         labelPosition="right"
         onChange={handleFilterChange}
       />
-      <Checkbox slider
-        style={{ marginLeft: "1rem" }}
-        label="Show active quiz only"
-        onChange={handleSliderChange}
-      />
+      <span style={{
+        padding: ".75rem .75rem .75rem 0rem",
+        marginLeft: "1rem",
+        borderRadius: ".25rem",
+        backgroundColor: "#FFFFFF"
+      }}>
+        <Checkbox slider
+          style={{ marginLeft: "1rem" }}
+          label="Show active quiz only"
+          onChange={handleSliderChange}
+        />
+      </span>
       <Dropdown
         style={{ marginTop: ".5rem" }}
         placeholder="Add topic..."
@@ -81,9 +88,10 @@ const ToolBar = ({
         onChange={handleDropdownChange}
       />
 
-      <Segment
-        textAlign="center"
-        style={{ margin: "0 auto", border: "none", boxShadow: "none" }}
+      <div
+        style={{
+          textAlign: "center", paddingTop: "1rem"
+        }}
       >
         {!loggedIn && <SignInButton text="Sign In to Add New Quiz" />}
         {loggedIn && (
@@ -94,7 +102,7 @@ const ToolBar = ({
             content="Add New Quiz"
           />
         )}
-      </Segment>
+      </div>
     </Segment>
   );
 };
