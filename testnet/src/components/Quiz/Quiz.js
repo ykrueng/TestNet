@@ -26,7 +26,7 @@ class Quiz extends React.Component {
       return <div />;
     }
     return (
-      <Segment style={{ maxWidth: "60rem", margin: "0 auto"}} clearing>
+      <Segment style={{ maxWidth: "60rem", margin: "2.5% auto" }} clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
           {quiz.favorite && <Icon name="star outline" />}
           {quiz.title}
@@ -51,13 +51,19 @@ class Quiz extends React.Component {
           </Header.Subheader>
 
           <Header.Subheader
-            content={`${quiz.votes} Votes Total (Your Vote: ${quiz.user_vote})`}
+            content={`${quiz.votes} Votes Total ${
+              quiz.user_vote !== undefined
+                ? `(Your Vote: ${quiz.user_vote})}`
+                : ""
+            }`}
           />
         </Header>
-        <Header
-          as="h5"
-          content={`Last Score: ${quiz.score}/${questions.length}`}
-        />
+        {quiz.score !== undefined && (
+          <Header
+            as="h5"
+            content={`Last Score: ${quiz.score}/${questions.length}`}
+          />
+        )}
       </Segment>
     );
   }
