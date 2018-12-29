@@ -90,7 +90,11 @@ class QuizList extends React.Component {
                     quiz.votes < 0 ? "down" : "up"
                   } outline icon`}
                 />
-                {quiz.votes}
+                {quiz.votes}<br />
+                <i
+                  className="question circle outline icon"
+                />
+                {quiz.question_count}
               </Segment>
               {user && user.username === quiz.author && (
                 <Button
