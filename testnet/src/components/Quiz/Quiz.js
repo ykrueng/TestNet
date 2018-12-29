@@ -53,7 +53,7 @@ class Quiz extends React.Component {
           <Header.Subheader
             content={`${quiz.votes} Votes Total ${
               quiz.user_vote !== undefined
-                ? `(Your Vote: ${quiz.user_vote})}`
+                ? `(Your Vote: ${quiz.user_vote})`
                 : ""
             }`}
           />
