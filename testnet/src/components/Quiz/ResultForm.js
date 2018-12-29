@@ -2,14 +2,21 @@ import React from "react";
 import { Segment, Button, Icon, Grid } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { userResults } from "../../store/actions/quizzActions";
+import { userResults } from "../../store/actions";
 
 class ResultForm extends React.Component {
   state = {
     vote: 0,
     favorite: false,
-    score: this.props.score
+    score: this.props.score,
   };
+
+  componentDidMount() {
+    this.props.token && this.setState({
+      vote: this.props.quiz.user_vote,
+      favorite: this.props.quiz.favorite,
+    })
+  }
 
   handleChange = e => {
     if (-1 <= this.state.vote <= 1) {
@@ -28,12 +35,17 @@ class ResultForm extends React.Component {
     this.setState({ favorite: !this.state.favorite });
   };
 
-  save = (id, obj, token) => {
-    this.props.userResults(id, obj, token);
-    this.setState({ vote: 0, score: 0 });
+  save = () => {
+    const { id, token, quiz } = this.props;
+    const { vote, favorite, score } = this.state;
+    let newStat = { score };
+    if (vote !== quiz.user_vote) newStat = { ...newStat, vote };
+    if (favorite !== quiz.favorite) newStat = { ...newStat, favorite };
+
+    this.props.userResults(id, newStat, token, vote - quiz.user_vote);
+    this.setState({ vote: 0, score: 0, favorite: false });
   };
   render() {
-    const { token, id } = this.props;
     return (
       <Grid container centered>
         <Grid.Column>
@@ -72,7 +84,7 @@ class ResultForm extends React.Component {
             color="blue"
             as={Link}
             to="/"
-            onClick={() => this.save(id, this.state, token)}
+            onClick={this.save}
             content={`Save Result & Exit`}
           />
         </Grid.Column>
@@ -82,8 +94,9 @@ class ResultForm extends React.Component {
 }
 
 export default connect(
-  ({ loginReducer }) => ({
-    token: loginReducer.token
+  ({ loginReducer, quizzReducer }) => ({
+    token: loginReducer.token,
+    quiz: quizzReducer.quizz,
   }),
   { userResults }
 )(ResultForm);

@@ -341,7 +341,7 @@ export const getQuestion = (quizId, questionId) => dispatch => {
     .catch(err => dispatch({ type: SINGLE_Q_FAILURE, payload: err }));
 };
 
-export const userResults = (quizId, info, token) => dispatch => {
+export const userResults = (quizId, info, token, diff) => dispatch => {
   dispatch({ type: RESULT_REQUEST });
   study({
     method: "patch",
@@ -351,7 +351,11 @@ export const userResults = (quizId, info, token) => dispatch => {
   })
     .then(res => {
       console.log(res.data);
-      dispatch({ type: RESULT_SUCCESS, payload: res.data });
+      dispatch({
+        type: RESULT_SUCCESS, payload: {
+          quizId,
+          vote: diff,
+      } });
     })
     .catch(err => dispatch({ type: RESULT_FAILURE, payload: err }));
 };

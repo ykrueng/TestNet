@@ -274,7 +274,13 @@ export const quizzReducer = (state = initialState, action) => {
     case RESULT_SUCCESS:
       return {
         ...state,
-        postingResults: false
+        postingResults: false,
+        quizzes: state.quizzes.map(quiz => {
+          if (quiz.id === Number(action.payload.quizId)) {
+            return {...quiz, votes: quiz.votes + action.payload.vote}
+          }
+          return quiz;
+        })
       };
     case RESULT_FAILURE:
       return {
