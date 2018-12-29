@@ -92,6 +92,7 @@ class UpdateForm extends Component {
           onCancel={() => history.push("/quizess")}
           headerText="You are not the author of this quiz"
           cancelText="Back to Quiz List"
+          submit={false}
         />
       );
 
