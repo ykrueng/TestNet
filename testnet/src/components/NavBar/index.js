@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Segment, Button, Dropdown } from "semantic-ui-react";
+import { Menu, Segment, Button, Dropdown, Confirm } from "semantic-ui-react";
 import PropTypes from 'prop-types';
 
 class NavBar extends React.Component {
   state = {
-    active: "home"
+    active: "home",
+    confirmation: false,
   };
 
   handleChange = ({ target: { name } }) => {
@@ -13,18 +14,18 @@ class NavBar extends React.Component {
   };
 
   handleClick = () => {
-    const { loggedIn, logout, toggleAuthForm } = this.props;
+    const { loggedIn, toggleAuthForm } = this.props;
 
     if (loggedIn) {
-      logout();
+      this.setState({ confirmation: true });
     } else {
       toggleAuthForm("signin");
     }
   };
 
   render() {
-    const { active } = this.state;
-    const { loggedIn, user, history, toggleAuthForm } = this.props;
+    const { active, confirmation } = this.state;
+    const { loggedIn, user, history, toggleAuthForm, logout } = this.props;
     return (
       <Segment>
         <Menu borderless inverted fixed="top">
@@ -109,6 +110,15 @@ class NavBar extends React.Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
+        <Confirm
+          open={confirmation}
+          content={`Are you sure you want to sign out?`}
+          onCancel={() => this.setState({confirmation: false})}
+          onConfirm={() => {
+            logout();
+            this.setState({confirmation: false})
+          }}
+        />
       </Segment>
     );
   }
