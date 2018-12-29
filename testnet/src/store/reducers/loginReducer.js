@@ -37,12 +37,14 @@ export const loginReducer = (state = initialState, action) => {
     case REGISTER_REQUEST:
       return {
         ...state,
-        registering: true
+        registering: true,
+        registrationError: false,
       };
     case LOGIN_REQUEST:
       return {
         ...state,
-        loggingIn: true
+        loggingIn: true,
+        loginError: false,
       };
     case REGISTER_SUCCESS:
       return {
@@ -91,19 +93,23 @@ export const loginReducer = (state = initialState, action) => {
       };
     case LOGIN_FAILURE:
       return {
+        ...state,
         loggingIn: false,
         registering: false,
-        loginError: true
+        loginError: true,
       };
     case REGISTER_FAILURE:
       return {
+        ...state,
         loggingIn: false,
         registering: false,
         registrationError: action.payload
       };
     case LOGOUT:
       return {
+        ...state,
         loggedIn: false,
+        user: {},
         token: null,
         modal: false,
         signInModal: true,
@@ -133,6 +139,8 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         modal: false,
         signInModal: true,
+        loginError: false,
+        registrationError: false,
       }
     case SHOW_SIGNIN_FORM:
       return {
