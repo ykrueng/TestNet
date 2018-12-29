@@ -37,7 +37,7 @@ const ToolBar = ({
   }));
 
   return (
-    <Segment style={{ width: "100%" }} textAlign="left">
+    <Segment inverted style={{ width: "100%" }} textAlign="left">
       <Dropdown
         style={{ width: "10rem", marginRight: "1rem" }}
         placeholder="Sort by..."
