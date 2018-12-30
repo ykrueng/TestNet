@@ -47,7 +47,8 @@ class QuizList extends React.Component {
       toggleActiveQuizzes,
       updateSelectedTopics,
       updateSorting,
-      sortingMethod
+      sortingMethod,
+      quizzesError
     } = this.props;
     const { filterText, field } = this.state;
 
@@ -83,6 +84,9 @@ class QuizList extends React.Component {
             <Loader active inline>
               Loading
             </Loader>
+          )}
+          {quizzesError && (
+            <Header as="h4">Cannot Fetch Quizzes</Header>
           )}
         </Grid.Row>
         {displayQuizzes.map(quiz => (
@@ -154,7 +158,8 @@ export default connect(
   state => ({
     activeOnly: state.toolReducer.activeOnly,
     selectedTopics: state.toolReducer.selectedTopics,
-    sortingMethod: state.toolReducer.sortingMethod
+    sortingMethod: state.toolReducer.sortingMethod,
+    quizzesError: state.quizzReducer.quizzesError,
   }),
   { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
 )(QuizList);

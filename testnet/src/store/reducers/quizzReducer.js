@@ -60,7 +60,8 @@ const initialState = {
   postingResults: false,
   deletingQuizz: false,
   deletingQuestion: false,
-  error: null
+  error: null,
+  quizzesError: null,
 };
 
 export const quizzReducer = (state = initialState, action) => {
@@ -68,18 +69,21 @@ export const quizzReducer = (state = initialState, action) => {
     case QUIZZES_REQUEST:
       return {
         ...state,
-        fetchingQuizzes: true
+        fetchingQuizzes: true,
+        quizzesError: false,
       };
     case QUIZZES_SUCCESS:
       return {
         ...state,
         fetchingQuizzes: false,
+        quizzesError: false,
         quizzes: action.payload
       };
     case QUIZZES_FAILURE:
       return {
         ...state,
         fetchingQuizzes: false,
+        quizzesError: true,
         error: action.payload
       };
     case QUIZZ_REQUEST:
