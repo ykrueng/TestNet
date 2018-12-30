@@ -52,13 +52,10 @@ class QuizList extends React.Component {
     } = this.props;
     const { filterText, field } = this.state;
 
-    let displayQuizzes = sortQuizzes(filterQuizzes(
-      quizzes,
-      activeOnly,
-      selectedTopics,
-      filterText,
-      field
-    ), sortingMethod);
+    let displayQuizzes = sortQuizzes(
+      filterQuizzes(quizzes, activeOnly, selectedTopics, filterText, field),
+      sortingMethod
+    );
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
@@ -106,7 +103,6 @@ class QuizList extends React.Component {
                   color={quiz.votes < 0 ? "red" : "green"}
                 />
                 {quiz.votes}
-                <br />
                 <Icon name="question circle outline" />
                 {quiz.question_count}
               </Segment>
@@ -155,11 +151,18 @@ class QuizList extends React.Component {
 }
 
 export default connect(
+<<<<<<< HEAD
   state => ({
     activeOnly: state.toolReducer.activeOnly,
     selectedTopics: state.toolReducer.selectedTopics,
     sortingMethod: state.toolReducer.sortingMethod,
     quizzesError: state.quizzReducer.quizzesError,
+=======
+  ({ toolReducer }) => ({
+    activeOnly: toolReducer.activeOnly,
+    selectedTopics: toolReducer.selectedTopics,
+    sortingMethod: toolReducer.sortingMethod
+>>>>>>> refactoring
   }),
   { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
 )(QuizList);
