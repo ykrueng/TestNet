@@ -77,14 +77,8 @@ class QuizList extends React.Component {
           />
         </Grid.Row>
         <Grid.Row>
-          {fetchingQuizzes && (
-            <Loader active inline>
-              Loading
-            </Loader>
-          )}
-          {quizzesError && (
-            <Header as="h4">Cannot Fetch Quizzes</Header>
-          )}
+          {fetchingQuizzes && <Loader active inline content="Loading" />}
+          {quizzesError && <Header as="h4">Cannot Fetch Quizzes</Header>}
         </Grid.Row>
         {displayQuizzes.map(quiz => (
           <Grid.Column
@@ -151,18 +145,11 @@ class QuizList extends React.Component {
 }
 
 export default connect(
-<<<<<<< HEAD
   state => ({
     activeOnly: state.toolReducer.activeOnly,
     selectedTopics: state.toolReducer.selectedTopics,
     sortingMethod: state.toolReducer.sortingMethod,
-    quizzesError: state.quizzReducer.quizzesError,
-=======
-  ({ toolReducer }) => ({
-    activeOnly: toolReducer.activeOnly,
-    selectedTopics: toolReducer.selectedTopics,
-    sortingMethod: toolReducer.sortingMethod
->>>>>>> refactoring
+    quizzesError: state.quizzReducer.quizzesError
   }),
   { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
 )(QuizList);
