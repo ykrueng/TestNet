@@ -121,3 +121,12 @@ export {
   updateComment,
   deleteComment
 } from "./postActions";
+
+export {
+  TOGGLE_ACTIVE_QUIZZES,
+  UPDATE_SELECTED_TOPICS,
+  UPDATE_SORTING,
+  toggleActiveQuizzes,
+  updateSelectedTopics,
+  updateSorting,
+} from "./toolActions"

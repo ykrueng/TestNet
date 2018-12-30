@@ -1,35 +1,45 @@
 import React from "react";
 import { Segment, Header, Button, Grid, Icon, Loader } from "semantic-ui-react";
+import { connect } from "react-redux";
+
+import { toggleActiveQuizzes, updateSelectedTopics, updateSorting } from "../../store/actions";
+
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
   state = {
-    activeOnly: false,
     filterText: "",
-    sort: "",
     field: "title",
-    selectedTopics: []
   };
-
-  handleFilterChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
-
-  handleSliderChange = () => {
-    this.setState(state => ({ activeOnly: !state.activeOnly }));
-  }
 
   componentDidMount() {
     this.props.clearQuiz();
   }
+
+  handleFilterChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
+  };
 
   handleDropdownChange = (e, data) => {
     this.setState({ [data.name]: data.value });
   };
 
   render() {
-    const { quizzes, topics, history, user, loggedIn, fetchingQuizzes } = this.props;
-    const { filterText, field, sort, selectedTopics, activeOnly } = this.state;
+    const {
+      quizzes,
+      topics,
+      history,
+      user,
+      loggedIn,
+      fetchingQuizzes,
+      activeOnly,
+      selectedTopics,
+      toggleActiveQuizzes,
+      updateSelectedTopics,
+      updateSorting,
+      sortingMethod,
+    } = this.props;
+    const { filterText, field } = this.state;
 
     let filteredQuizzes = quizzes.filter(quiz => {
       if (field === "all") {
@@ -48,13 +58,13 @@ class QuizList extends React.Component {
     });
 
     if (activeOnly) {
-      filteredQuizzes = filteredQuizzes.filter(quiz => quiz.question_count > 0)
+      filteredQuizzes = filteredQuizzes.filter(quiz => quiz.question_count > 0);
     }
 
-    sort &&
+    sortingMethod &&
       filteredQuizzes.sort((quizA, quizB) => {
-        const field = sort.includes('votes') ? "votes" : "question_count";
-        if (sort.includes("descending")) {
+        const field = sortingMethod.includes("votes") ? "votes" : "question_count";
+        if (sortingMethod.includes("descending")) {
           if (quizA[field] < quizB[field]) return 1;
           if (quizA[field] === quizB[field]) return 0;
           return -1;
@@ -76,12 +86,19 @@ class QuizList extends React.Component {
             selectedTopics={selectedTopics}
             handleDropdownChange={this.handleDropdownChange}
             handleFilterChange={this.handleFilterChange}
-            handleSliderChange={this.handleSliderChange}
+            handleSliderChange={toggleActiveQuizzes}
+            updateSelectedTopics={updateSelectedTopics}
+            activeOnly={activeOnly}
+            updateSorting={updateSorting}
+            sortingMethod={sortingMethod}
           />
         </Grid.Row>
         <Grid.Row>
-          {fetchingQuizzes && <Loader active inline>Loading</Loader>
-          }
+          {fetchingQuizzes && (
+            <Loader active inline>
+              Loading
+            </Loader>
+          )}
         </Grid.Row>
         {filteredQuizzes.map(quiz => (
           <Grid.Column
@@ -148,4 +165,11 @@ class QuizList extends React.Component {
   }
 }
 
-export default QuizList;
+export default connect(
+  state => ({
+    activeOnly: state.toolReducer.activeOnly,
+    selectedTopics: state.toolReducer.selectedTopics,
+    sortingMethod: state.toolReducer.sortingMethod,
+  }),
+  { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
+)(QuizList);

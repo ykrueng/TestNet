@@ -13,7 +13,11 @@ const ToolBar = ({
   selectedTopics,
   handleDropdownChange,
   handleFilterChange,
-  handleSliderChange
+  handleSliderChange,
+  updateSelectedTopics,
+  activeOnly,
+  updateSorting,
+  sortingMethod,
 }) => {
   const searchValues = ["all", "title", "topic", "author"];
   const searchOptions = searchValues.map(value => ({
@@ -42,10 +46,11 @@ const ToolBar = ({
         style={{ width: "10rem", marginRight: "1rem" }}
         placeholder="Sort by..."
         clearable
+        value={sortingMethod}
         selection
         name="sort"
         options={sortOptions}
-        onChange={handleDropdownChange}
+        onChange={(e, data) => updateSorting(data.value)}
       />
       <Input
         name="filterText"
@@ -72,6 +77,7 @@ const ToolBar = ({
         <Checkbox slider
           style={{ marginLeft: "1rem" }}
           label="Show active quiz only"
+          checked={activeOnly}
           onChange={handleSliderChange}
         />
       </span>
@@ -85,7 +91,7 @@ const ToolBar = ({
         name="selectedTopics"
         value={selectedTopics}
         options={topicOptions}
-        onChange={handleDropdownChange}
+        onChange={(e, data) => updateSelectedTopics(data.value)}
       />
 
       <div
@@ -121,6 +127,10 @@ ToolBar.propTypes = {
   handleDropdownChange: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   handleSliderChange: PropTypes.func.isRequired,
+  updateSelectedTopics: PropTypes.func.isRequired,
+  activeOnly: PropTypes.bool.isRequired,
+  updateSorting: PropTypes.func.isRequired,
+  sortingMethod: PropTypes.string.isRequired,
 };
 
 export default ToolBar;
