@@ -1,4 +1,5 @@
 import study from "../../apis/react-study";
+import _ from "lodash";
 
 /*
   Quizz Action Types
@@ -215,7 +216,7 @@ export const getQuestions = id => dispatch => {
     .then(res => {
       dispatch({
         type: QUESTIONS_SUCCESS,
-        payload: res.data
+        payload: _.shuffle(res.data)
       });
     })
     .catch(err => {
