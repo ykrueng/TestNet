@@ -245,7 +245,10 @@ export const postQuestion = (quizzId, question, token) => dispatch => {
       if (question.option4) newQuestion.options.push(question.option4);
       dispatch({
         type: POST_QUESTION_SUCCESS,
-        payload: newQuestion,
+        payload: {
+          id: quizzId,
+          question: newQuestion,
+        },
       });
     })
     .catch(err => {
@@ -320,7 +323,10 @@ export const deleteQuestion = (quizzId, questionId, token) => dispatch => {
       console.log(res);
       dispatch({
         type: DELETE_QUESTION_SUCCESS,
-        payload: questionId, // cannot use res.data coz its not returning questionId
+        payload: {
+          quizId: quizzId,
+          questionId: questionId,
+        }, // cannot use res.data coz its not returning questionId
       });
     })
     .catch(err => {

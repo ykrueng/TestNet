@@ -202,7 +202,16 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuestion: false,
-        questions: [...state.questions, action.payload],
+        questions: [...state.questions, action.payload.question],
+        quizzes: state.quizzes.map(quiz => {
+          if (quiz.id === Number(action.payload.id)) {
+            return {
+              ...quiz,
+              question_count: quiz.question_count + 1 || 1,
+            }
+          }
+          return quiz;
+        })
       };
     case POST_QUESTION_FAILURE:
       return {
@@ -240,8 +249,17 @@ export const quizzReducer = (state = initialState, action) => {
         ...state,
         deletingQuestion: false,
         questions: state.questions.filter(question => (
-          question.id !== action.payload
-        ))
+          question.id !== action.payload.questionId
+        )),
+        quizzes: state.quizzes.map(quiz => {
+          if (quiz.id === Number(action.payload.quizId)) {
+            return {
+              ...quiz,
+              question_count: quiz.question_count - 1,
+            }
+          }
+          return quiz;
+        })
       };
     case DELETE_QUESTION_FAILURE:
       return {
