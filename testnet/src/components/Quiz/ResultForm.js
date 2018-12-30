@@ -22,16 +22,13 @@ class ResultForm extends React.Component {
   handleChange = e => {
     if (-1 <= this.state.vote <= 1) {
       if (e.target.name === "up") {
-        this.state.vote === 1
-          ? this.setState({ vote: 0 })
-          : this.setState({ vote: 1 });
+        this.state.vote === 1 ? this.setState({ vote: 0 }) : this.setState({ vote: 1 });
       } else {
-        this.state.vote === -1
-          ? this.setState({ vote: 0 })
-          : this.setState({ vote: -1 });
+        this.state.vote === -1 ? this.setState({ vote: 0 }) : this.setState({ vote: -1 });
       }
     }
   };
+
   handleToggle = () => {
     this.setState({ favorite: !this.state.favorite });
   };

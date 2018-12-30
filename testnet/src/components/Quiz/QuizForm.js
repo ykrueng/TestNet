@@ -11,8 +11,7 @@ class QuizForm extends React.Component {
   };
 
   componentWillReceiveProps(props) {
-    if (props.quiz.id)
-      this.props.history.push(`/quizzes/quiz/update/${props.quiz.id}`);
+    if (props.quiz.id) this.props.history.push(`/quizzes/quiz/update/${props.quiz.id}`);
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -23,10 +22,7 @@ class QuizForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const quiz = {
-      title: this.state.title,
-      topic: this.state.topic
-    };
+    const quiz = { title: this.state.title, topic: this.state.topic };
     this.props.postQuizz(quiz, this.props.user.username, this.props.token);
   };
   render() {
@@ -42,11 +38,7 @@ class QuizForm extends React.Component {
       <Segment
         secondary
         color="teal"
-        style={{
-          maxWidth: "40rem",
-          margin: "10rem auto",
-          textAlign: "center"
-        }}
+        style={{ maxWidth: "40rem", margin: "10rem auto", textAlign: "center" }}
       >
         <Header as="h2">Create A New Quiz</Header>
         <Form onSubmit={this.handleSubmit}>
@@ -70,9 +62,7 @@ class QuizForm extends React.Component {
             basic
             content="Cancel"
             icon="cancel"
-            onClick={() => {
-              this.props.history.push("/quizzes");
-            }}
+            onClick={() => this.props.history.push("/quizzes")}
           />
         </Form>
       </Segment>

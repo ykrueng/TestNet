@@ -22,9 +22,8 @@ const Summary = ({ questions, answers, rubric, auth, quizId, history }) => {
         ))}
         <Header
           textAlign="center"
-          content={`Total Score: ${
-            rubric.filter(item => item.correct).length
-          } / ${rubric.length}`}
+          content={`Total Score: ${rubric.filter(item => item.correct).length} / ${rubric.length}`}
+          // SHOW CORRECT ANSWERS LENGTH / RUBRIC ARRAY LENGTH
         />
 
         {!auth && (
@@ -49,11 +48,7 @@ const Summary = ({ questions, answers, rubric, auth, quizId, history }) => {
         {`${index + 1}. ${q.question}`}
         <Form.Group style={{ marginTop: "2rem" }}>
           {q.options.map((ans, i) => (
-            <Form.Radio
-              key={i}
-              label={ans}
-              checked={ans === answers[index] ? true : false}
-            />
+            <Form.Radio key={i} label={ans} checked={ans === answers[index] ? true : false} />
           ))}
         </Form.Group>
       </Header>

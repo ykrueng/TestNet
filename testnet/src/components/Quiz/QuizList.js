@@ -7,11 +7,7 @@ import { connect } from "react-redux";
 import { filterQuizzes, sortQuizzes } from "../../helper";
 
 // import action creators from Store
-import {
-  toggleActiveQuizzes,
-  updateSelectedTopics,
-  updateSorting
-} from "../../store/actions";
+import { toggleActiveQuizzes, updateSelectedTopics, updateSorting } from "../../store/actions";
 
 // import component
 import ToolBar from "./ToolBar";
@@ -87,11 +83,7 @@ class QuizList extends React.Component {
             onClick={() => history.push(`/quizzes/${quiz.id}`)}
           >
             <Grid.Row stretched>
-              <Segment
-                circular
-                floated="right"
-                style={{ width: "60px", padding: "5px" }}
-              >
+              <Segment circular floated="right" style={{ width: "60px", padding: "5px" }}>
                 <Icon
                   name={`thumbs ${quiz.votes < 0 ? "down" : "up"} outline`}
                   color={quiz.votes < 0 ? "red" : "green"}
@@ -122,9 +114,7 @@ class QuizList extends React.Component {
                 attached="bottom"
                 dividing
               >
-                {user && user.username === quiz.author && (
-                  <Icon name="street view" />
-                )}
+                {user && user.username === quiz.author && <Icon name="street view" />}
                 <Header.Content>
                   {quiz.title}
                   <Header.Subheader as="p">
@@ -145,11 +135,11 @@ class QuizList extends React.Component {
 }
 
 export default connect(
-  state => ({
-    activeOnly: state.toolReducer.activeOnly,
-    selectedTopics: state.toolReducer.selectedTopics,
-    sortingMethod: state.toolReducer.sortingMethod,
-    quizzesError: state.quizzReducer.quizzesError
+  ({ toolReducer, quizzReducer }) => ({
+    activeOnly: toolReducer.activeOnly,
+    selectedTopics: toolReducer.selectedTopics,
+    sortingMethod: toolReducer.sortingMethod,
+    quizzesError: quizzReducer.quizzesError
   }),
   { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
 )(QuizList);

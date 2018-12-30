@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { Segment, Form, Dropdown, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import {
-  postQuestion,
-  updateQuestion,
-  deleteQuestion
-} from "../../store/actions";
+import { postQuestion, updateQuestion, deleteQuestion } from "../../store/actions";
 
 class QuestionForm extends Component {
   state = {
@@ -61,9 +57,7 @@ class QuestionForm extends Component {
     if (option3) quiz.option3 = option3;
     if (option4) quiz.option4 = option4;
 
-    add
-      ? postQuestion(id, quiz, token)
-      : updateQuestion(id, this.props.question.id, quiz, token);
+    add ? postQuestion(id, quiz, token) : updateQuestion(id, this.props.question.id, quiz, token);
 
     this.setState({
       question: "",
@@ -88,12 +82,11 @@ class QuestionForm extends Component {
 
     const options = [
       { key: "option1", value: 1, text: "Option 1" },
-      { key: "option2", value: 2, text: "Option 2" },
+      { key: "option2", value: 2, text: "Option 2" }
     ];
 
     if (option3) options.push({ key: "option3", value: 3, text: "Option 3" });
     if (option4) options.push({ key: "option4", value: 4, text: "Option 4" });
-
 
     return (
       <Segment>
@@ -174,9 +167,5 @@ export default connect(
   ({ loginReducer }) => ({
     token: loginReducer.token
   }),
-  {
-    postQuestion,
-    updateQuestion,
-    deleteQuestion
-  }
+  { postQuestion, updateQuestion, deleteQuestion }
 )(QuestionForm);

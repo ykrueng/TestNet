@@ -4,12 +4,7 @@ import { connect } from "react-redux";
 
 import Unauthorized from "../Login/Unauthorized";
 
-import {
-  getQuizz,
-  getQuestions,
-  updateQuizz,
-  deleteQuizz
-} from "../../store/actions";
+import { getQuizz, getQuestions, updateQuizz, deleteQuizz } from "../../store/actions";
 import QuestionForm from "./QuestionForm";
 
 class UpdateForm extends Component {
@@ -146,12 +141,7 @@ class UpdateForm extends Component {
           <Segment textAlign="center" content="No questions have been added." />
         )}
         {questions.map(question => (
-          <QuestionForm
-            key={question.id}
-            question={question}
-            history={history}
-            match={match}
-          />
+          <QuestionForm key={question.id} question={question} history={history} match={match} />
         ))}
       </Segment>
     );

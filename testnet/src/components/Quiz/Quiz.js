@@ -24,11 +24,10 @@ class Quiz extends React.Component {
     if (fetching) {
       return (
         <Segment textAlign="center" style={{ maxWidth: "60rem", margin: "2.5% auto" }} clearing>
-          <Loader active inline>
-            Loading
-          </Loader>
+          <Loader active inline content="Loading" />
         </Segment>
-      )}
+      );
+    }
     return (
       <Segment style={{ maxWidth: "60rem", margin: "2.5% auto" }} clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
@@ -53,22 +52,17 @@ class Quiz extends React.Component {
                 <Image circular src={quiz.author.img_url} avatar />
               ) : null
             ) : null}
-            {quiz.author ? quiz.author.username : "Loading"}
+            {quiz.author && ` ${quiz.author.username}`}
           </Header.Subheader>
 
           <Header.Subheader
             content={`${quiz.votes} Votes Total ${
-              quiz.user_vote !== undefined
-                ? `(Your Vote: ${quiz.user_vote})`
-                : ""
+              quiz.user_vote !== undefined ? `(Your Vote: ${quiz.user_vote})` : ""
             }`}
           />
         </Header>
         {quiz.score !== undefined && (
-          <Header
-            as="h5"
-            content={`Last Score: ${quiz.score}/${questions.length}`}
-          />
+          <Header as="h5" content={`Last Score: ${quiz.score}/${questions.length}`} />
         )}
       </Segment>
     );

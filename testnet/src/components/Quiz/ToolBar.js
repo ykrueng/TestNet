@@ -101,13 +101,9 @@ const ToolBar = ({
         onChange={(e, data) => updateSelectedTopics(data.value)}
       />
 
-      <div
-        style={{
-          textAlign: "center",
-          paddingTop: "1rem"
-        }}
-      >
+      <div style={{ textAlign: "center", paddingTop: "1rem" }}>
         {!loggedIn && <SignInButton text="Sign In to Add New Quiz" />}
+
         {loggedIn && (
           <Button
             onClick={() => history.push("/quizzes/quiz/new/add")}
