@@ -1,15 +1,25 @@
+// import from libraries
 import React from "react";
 import { Segment, Header, Button, Grid, Icon, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import { toggleActiveQuizzes, updateSelectedTopics, updateSorting } from "../../store/actions";
+// import helper functions to filter and sort quizzes
+import { filterQuizzes, sortQuizzes } from "../../helper";
 
+// import action creators from Store
+import {
+  toggleActiveQuizzes,
+  updateSelectedTopics,
+  updateSorting
+} from "../../store/actions";
+
+// import component
 import ToolBar from "./ToolBar";
 
 class QuizList extends React.Component {
   state = {
     filterText: "",
-    field: "title",
+    field: "title"
   };
 
   componentDidMount() {
@@ -37,42 +47,17 @@ class QuizList extends React.Component {
       toggleActiveQuizzes,
       updateSelectedTopics,
       updateSorting,
-      sortingMethod,
+      sortingMethod
     } = this.props;
     const { filterText, field } = this.state;
 
-    let filteredQuizzes = quizzes.filter(quiz => {
-      if (field === "all") {
-        return (
-          (selectedTopics.length === 0 ||
-            selectedTopics.includes(quiz.topic)) &&
-          (quiz.title.toLowerCase().includes(filterText.toLowerCase()) ||
-            quiz.topic.toLowerCase().includes(filterText.toLowerCase()) ||
-            quiz.author.toLowerCase().includes(filterText.toLowerCase()))
-        );
-      }
-      return (
-        (selectedTopics.length === 0 || selectedTopics.includes(quiz.topic)) &&
-        quiz[field].toLowerCase().includes(filterText.toLowerCase())
-      );
-    });
-
-    if (activeOnly) {
-      filteredQuizzes = filteredQuizzes.filter(quiz => quiz.question_count > 0);
-    }
-
-    sortingMethod &&
-      filteredQuizzes.sort((quizA, quizB) => {
-        const field = sortingMethod.includes("votes") ? "votes" : "question_count";
-        if (sortingMethod.includes("descending")) {
-          if (quizA[field] < quizB[field]) return 1;
-          if (quizA[field] === quizB[field]) return 0;
-          return -1;
-        }
-        if (quizA[field] < quizB[field]) return -1;
-        if (quizA[field] === quizB[field]) return 0;
-        return 1;
-      });
+    let displayQuizzes = sortQuizzes(filterQuizzes(
+      quizzes,
+      activeOnly,
+      selectedTopics,
+      filterText,
+      field
+    ), sortingMethod);
 
     return (
       <Grid centered container columns={2} relaxed padded="vertically">
@@ -100,7 +85,7 @@ class QuizList extends React.Component {
             </Loader>
           )}
         </Grid.Row>
-        {filteredQuizzes.map(quiz => (
+        {displayQuizzes.map(quiz => (
           <Grid.Column
             key={quiz.id}
             style={{ padding: "1rem", cursor: "pointer" }}
@@ -169,7 +154,7 @@ export default connect(
   state => ({
     activeOnly: state.toolReducer.activeOnly,
     selectedTopics: state.toolReducer.selectedTopics,
-    sortingMethod: state.toolReducer.sortingMethod,
+    sortingMethod: state.toolReducer.sortingMethod
   }),
   { toggleActiveQuizzes, updateSelectedTopics, updateSorting }
 )(QuizList);
