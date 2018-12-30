@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Button, Image, Segment, Icon } from "semantic-ui-react";
+import { Header, Button, Image, Segment, Icon, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getQuizz, getQuestions } from "../../store/actions/quizzActions";
 
@@ -22,8 +22,13 @@ class Quiz extends React.Component {
     const { id } = this.props.match.params;
     const firstQuestion = questions ? questions[0] : null;
     if (fetching) {
-      return <div />;
-    }
+      return (
+        <Segment textAlign="center" style={{ maxWidth: "60rem", margin: "2.5% auto" }} clearing>
+          <Loader active inline>
+            Loading
+          </Loader>
+        </Segment>
+      )}
     return (
       <Segment style={{ maxWidth: "60rem", margin: "2.5% auto" }} clearing>
         <Header as="h2" color={quiz.favorite ? "yellow" : null} size="large">
