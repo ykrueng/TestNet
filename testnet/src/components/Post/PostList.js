@@ -46,9 +46,11 @@ const PostList = ({ posts, history, user }) => {
           />
         </Card.Content>
 
-        <Card.Content extra textAlign="right">
-          All posts are subject to approval by our team of Moderators
-        </Card.Content>
+        <Card.Content
+          extra
+          textAlign="right"
+          content="All posts are subject to approval by our team od moderators"
+        />
       </Card>
     </Segment>
   );
