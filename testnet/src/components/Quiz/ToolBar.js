@@ -17,16 +17,21 @@ const ToolBar = ({
   updateSelectedTopics,
   activeOnly,
   updateSorting,
-  sortingMethod,
+  sortingMethod
 }) => {
   const searchValues = ["all", "title", "topic", "author"];
   const searchOptions = searchValues.map(value => ({
     key: value,
     text: value,
-    value: value,
+    value: value
   }));
 
-  const sortValues = ["votes_ascending", "votes_descending", "questions_ascending", "questions_descending"];
+  const sortValues = [
+    "votes_ascending",
+    "votes_descending",
+    "questions_ascending",
+    "questions_descending"
+  ];
   const sortOptions = sortValues.map(value => ({
     key: value,
     text: value.replace("_", " "),
@@ -41,7 +46,7 @@ const ToolBar = ({
   }));
 
   return (
-    <Segment inverted style={{ width: "100%" }} textAlign="left">
+    <Segment secondary color="teal" style={{ width: "100%" }} textAlign="left">
       <Dropdown
         style={{ width: "10rem", marginRight: "1rem" }}
         placeholder="Sort by..."
@@ -68,15 +73,17 @@ const ToolBar = ({
         labelPosition="right"
         onChange={handleFilterChange}
       />
-      <span style={{
-        padding: ".75rem .75rem .75rem 0rem",
-        marginLeft: "1rem",
-        borderRadius: ".25rem",
-        backgroundColor: "#FFFFFF"
-      }}>
-        <Checkbox slider
+      <span
+        style={{
+          padding: ".75rem .75rem .75rem 0rem",
+          marginLeft: "1rem",
+          borderRadius: ".25rem"
+        }}
+      >
+        <Checkbox
+          slider
           style={{ marginLeft: "1rem" }}
-          label="Show active quiz only"
+          label="Show active quizzes only"
           checked={activeOnly}
           onChange={handleSliderChange}
         />
@@ -96,7 +103,8 @@ const ToolBar = ({
 
       <div
         style={{
-          textAlign: "center", paddingTop: "1rem"
+          textAlign: "center",
+          paddingTop: "1rem"
         }}
       >
         {!loggedIn && <SignInButton text="Sign In to Add New Quiz" />}
@@ -130,7 +138,7 @@ ToolBar.propTypes = {
   updateSelectedTopics: PropTypes.func.isRequired,
   activeOnly: PropTypes.bool.isRequired,
   updateSorting: PropTypes.func.isRequired,
-  sortingMethod: PropTypes.string.isRequired,
+  sortingMethod: PropTypes.string.isRequired
 };
 
 export default ToolBar;
