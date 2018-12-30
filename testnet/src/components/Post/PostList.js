@@ -4,7 +4,7 @@ import moment from "moment";
 
 const PostList = ({ posts, history, user }) => {
   return (
-    <Segment>
+    <Segment style={{ maxWidth: "80%", margin: "3% auto" }}>
       {posts.map((post, index) => (
         <Segment
           key={index}
