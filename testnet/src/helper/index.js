@@ -1,10 +1,4 @@
-export const filterQuizzes = (
-  quizzes,
-  activeOnly,
-  topics,
-  searchText,
-  searchField
-) => {
+export const filterQuizzes = (quizzes, activeOnly, topics, searchText, searchField) => {
   return quizzes.filter(quiz => {
     if (activeOnly && quiz.question_count <= 0) {
       return false;

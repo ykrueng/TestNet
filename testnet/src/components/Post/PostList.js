@@ -25,9 +25,7 @@ const PostList = ({ posts, history, user }) => {
           </Header>
           <Comment>
             {post.body}
-            <Comment.Metadata>
-              {moment(post.created_at).fromNow()}
-            </Comment.Metadata>
+            <Comment.Metadata>{moment(post.created_at).fromNow()}</Comment.Metadata>
           </Comment>
         </Segment>
       ))}

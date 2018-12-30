@@ -30,9 +30,7 @@ class SinglePost extends React.Component {
           >
             {post.title}
             <Header.Subheader
-              content={`submitted by: ${
-                post.author ? `${post.author.username}` : "Loading"
-              }`}
+              content={`submitted by: ${post.author ? `${post.author.username}` : "Loading"}`}
             />
             <Header.Subheader content={moment(post.created_at).fromNow()} />
           </Header>

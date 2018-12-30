@@ -9,20 +9,9 @@ import AddEditPost from "../AddEditPost";
 const PostRoutes = ({ user }) => {
   return (
     <Fragment>
-      <Route
-        exact
-        path="/forum"
-        render={props => <Forum {...props} user={user} />}
-      />
-      <Route
-        path="/posts/:id"
-        render={props => <SinglePost {...props} user={user} />}
-      />
-      <Route
-        exact
-        path="/forum/create"
-        render={props => <AddEditPost {...props} />}
-      />
+      <Route exact path="/forum" render={props => <Forum {...props} user={user} />} />
+      <Route path="/posts/:id" render={props => <SinglePost {...props} user={user} />} />
+      <Route exact path="/forum/create" render={props => <AddEditPost {...props} />} />
       <Route
         exact
         path="/posts/:id/comments"
@@ -33,10 +22,7 @@ const PostRoutes = ({ user }) => {
         path="/posts/:id/comments/:commentId"
         render={props => <SingleComment {...props} user={user} />}
       />
-      <Route
-        path="/posts/:id/edit"
-        render={props => <AddEditPost {...props} edit />}
-      />
+      <Route path="/posts/:id/edit" render={props => <AddEditPost {...props} edit />} />
     </Fragment>
   );
 };

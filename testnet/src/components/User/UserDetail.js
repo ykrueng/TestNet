@@ -1,14 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Segment,
-  Image,
-  Header,
-  Form,
-  Button,
-  Divider,
-  Confirm
-} from "semantic-ui-react";
+import { Segment, Image, Header, Form, Button, Divider, Confirm } from "semantic-ui-react";
 
 import Unauthorized from "../Login/Unauthorized";
 
@@ -36,16 +28,14 @@ class UserDetail extends React.Component {
     });
   };
 
-  handleChange = e => {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
   handleUpdate = () => {
-    const user = {
-      currentPassword: this.state.password
-    };
+    const user = { currentPassword: this.state.password };
 
     if (this.state.updateUsername) {
       user.newUsername = this.state.value;
@@ -65,13 +55,7 @@ class UserDetail extends React.Component {
 
   render() {
     const { loggedIn, user, history } = this.props;
-    const {
-      update,
-      updateUsername,
-      value,
-      password,
-      confirmation
-    } = this.state;
+    const { update, updateUsername, value, password, confirmation } = this.state;
 
     // user not logged in
     if (!loggedIn)
@@ -82,15 +66,10 @@ class UserDetail extends React.Component {
           cancelText="Back to Quiz List"
         />
       );
-    
+
     // user logged in
     return (
-      <Segment
-        style={{
-          margin: "2rem auto",
-          maxWidth: "60rem"
-        }}
-      >
+      <Segment style={{ margin: "2rem auto", maxWidth: "60rem" }}>
         <Image
           centered
           src={
@@ -101,10 +80,7 @@ class UserDetail extends React.Component {
           size="small"
           circular
         />
-        <Segment
-          textAlign="center"
-          style={{ border: "none", boxShadow: "none" }}
-        >
+        <Segment textAlign="center" style={{ border: "none", boxShadow: "none" }}>
           <Header as="h1">{user.username}</Header>
           <Button
             color="teal"
@@ -124,10 +100,7 @@ class UserDetail extends React.Component {
         {update && (
           <Form
             widths="equal"
-            style={{
-              maxWidth: "50rem",
-              margin: "2rem auto"
-            }}
+            style={{ maxWidth: "50rem", margin: "2rem auto" }}
             onSubmit={() => this.setState({ confirmation: true })}
           >
             <Form.Group>
@@ -154,12 +127,7 @@ class UserDetail extends React.Component {
                 content="Cancel"
                 onClick={() => this.handleChangeClick(null)}
               />
-              <Form.Button
-                color="teal"
-                icon="save"
-                content="Change"
-                type="submit"
-              />
+              <Form.Button color="teal" icon="save" content="Change" type="submit" />
             </div>
           </Form>
         )}
@@ -186,5 +154,5 @@ UserDetail.propTypes = {
     username: PropTypes.string
   }),
   token: PropTypes.string,
-  updateUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
 };

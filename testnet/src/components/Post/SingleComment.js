@@ -4,11 +4,7 @@ import { connect } from "react-redux";
 import debounce from "lodash/debounce";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import {
-  getComment,
-  updateComment,
-  deleteComment
-} from "../../store/actions/postActions";
+import { getComment, updateComment, deleteComment } from "../../store/actions/postActions";
 
 const SITE_KEY = "6LeP1YMUAAAAAP3dZkGkycis0iE0IhxMe3iEXXUe";
 
@@ -76,12 +72,8 @@ class SingleComment extends React.Component {
                   <Comment.Text>{comment.text}</Comment.Text>
                   {user.id === comment.author.id && (
                     <Comment.Actions>
-                      <Comment.Action onClick={this.revealer}>
-                        Edit
-                      </Comment.Action>
-                      <Comment.Action
-                        onClick={() => this.deleteComment(id, commentId)}
-                      >
+                      <Comment.Action onClick={this.revealer}>Edit</Comment.Action>
+                      <Comment.Action onClick={() => this.deleteComment(id, commentId)}>
                         Delete
                       </Comment.Action>
                     </Comment.Actions>
@@ -90,10 +82,7 @@ class SingleComment extends React.Component {
               </Comment>
               {this.state.reveal && (
                 <Form reply>
-                  <Form.TextArea
-                    value={this.state.comment}
-                    onChange={this.handleChange}
-                  />
+                  <Form.TextArea value={this.state.comment} onChange={this.handleChange} />
                   <ReCAPTCHA
                     style={{ margin: "1% auto" }}
                     sitekey={SITE_KEY}

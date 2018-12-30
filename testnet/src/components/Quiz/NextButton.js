@@ -13,12 +13,7 @@ const NextButton = ({ checking, next, progress, quizId, questionId }) => {
         onClick={() => next(quizId, questionId)}
         style={{ margin: "1.5rem 0" }}
       />
-      <Progress
-        percent={progress}
-        color="green"
-        label="Percent Completed"
-        size="tiny"
-      />
+      <Progress percent={progress} color="green" label="Percent Completed" size="tiny" />
     </Fragment>
   );
 };

@@ -1,14 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import {
-  Button,
-  Comment,
-  Form,
-  Segment,
-  Grid,
-  Header
-} from "semantic-ui-react";
+import { Button, Comment, Form, Segment, Grid, Header } from "semantic-ui-react";
 import { getComments, postComment } from "../../store/actions/postActions";
 
 class CommentSection extends React.PureComponent {
@@ -42,16 +35,12 @@ class CommentSection extends React.PureComponent {
       <Segment>
         <Grid centered>
           <Grid.Column>
-            {comments.length === 0 && (
-              <Header content="Be the First to Comment!" />
-            )}
+            {comments.length === 0 && <Header content="Be the First to Comment!" />}
             <Comment.Group style={{ margin: "0 auto" }}>
               {comments.map((comment, i) => (
                 <Comment
                   key={i}
-                  onClick={() =>
-                    history.push(`/posts/${id}/comments/${comment.id}`)
-                  }
+                  onClick={() => history.push(`/posts/${id}/comments/${comment.id}`)}
                 >
                   <Comment.Avatar src={comment.author_img} />
                   <Comment.Content>
@@ -65,10 +54,7 @@ class CommentSection extends React.PureComponent {
               ))}
 
               <Form reply>
-                <Form.TextArea
-                  value={this.state.text}
-                  onChange={this.handleChange}
-                />
+                <Form.TextArea value={this.state.text} onChange={this.handleChange} />
                 <Button
                   content="Reply"
                   type="submit"

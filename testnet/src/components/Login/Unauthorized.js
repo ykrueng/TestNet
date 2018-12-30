@@ -1,10 +1,10 @@
 import React from "react";
 import { Segment, Header, Button } from "semantic-ui-react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import SignInButton from './SignInButton';
+import SignInButton from "./SignInButton";
 
-const Unauthorized = ({headerText="", cancelText="", onCancel, submit=true }) => {
+const Unauthorized = ({ headerText = "", cancelText = "", onCancel, submit = true }) => {
   return (
     <Segment
       style={{
@@ -14,14 +14,8 @@ const Unauthorized = ({headerText="", cancelText="", onCancel, submit=true }) =>
       textAlign="center"
     >
       <Header as="h2">{headerText || "Unauthorized Request"}</Header>
-      <Button
-        onClick={onCancel}
-        icon="arrow left"
-        content={cancelText || "Cancel"}
-      />
-      {
-        submit && <SignInButton />
-      }
+      <Button onClick={onCancel} icon="arrow left" content={cancelText || "Cancel"} />
+      {submit && <SignInButton />}
     </Segment>
   );
 };
@@ -32,5 +26,5 @@ Unauthorized.proptypes = {
   headerText: PropTypes.string,
   cancelText: PropTypes.string,
   onCancel: PropTypes.func.isRequired,
-  submit: PropTypes.bool,
-}
+  submit: PropTypes.bool
+};

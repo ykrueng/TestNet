@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, Segment, Button, Dropdown, Confirm } from "semantic-ui-react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class NavBar extends React.Component {
   state = {
     active: "home",
-    confirmation: false,
+    confirmation: false
   };
 
   handleChange = ({ target: { name } }) => {
@@ -60,14 +60,7 @@ class NavBar extends React.Component {
           <Menu.Menu position="right">
             <Menu.Item>
               {loggedIn && (
-                <Dropdown
-                  text={user.username}
-                  icon="user"
-                  floating
-                  labeled
-                  button
-                  className="icon"
-                >
+                <Dropdown text={user.username} icon="user" floating labeled button className="icon">
                   <Dropdown.Menu>
                     <Dropdown.Item
                       onClick={() => history.push("/user")}
@@ -75,18 +68,8 @@ class NavBar extends React.Component {
                       icon="setting"
                       text="Account Settings"
                     />
-                    <Dropdown.Item
-                      disabled
-                      value="quiz"
-                      icon="edit outline"
-                      text="Quizzes"
-                    />
-                    <Dropdown.Item
-                      disabled
-                      values="post"
-                      icon="edit outline"
-                      text="Posts"
-                    />
+                    <Dropdown.Item disabled value="quiz" icon="edit outline" text="Quizzes" />
+                    <Dropdown.Item disabled values="post" icon="edit outline" text="Posts" />
                   </Dropdown.Menu>
                 </Dropdown>
               )}
@@ -113,10 +96,10 @@ class NavBar extends React.Component {
         <Confirm
           open={confirmation}
           content={`Are you sure you want to sign out?`}
-          onCancel={() => this.setState({confirmation: false})}
+          onCancel={() => this.setState({ confirmation: false })}
           onConfirm={() => {
             logout();
-            this.setState({confirmation: false})
+            this.setState({ confirmation: false });
           }}
         />
       </Segment>
@@ -127,12 +110,12 @@ class NavBar extends React.Component {
 export default NavBar;
 
 NavBar.propTypes = {
-  logout:PropTypes.func.isRequired,
-  loggedIn:PropTypes.bool.isRequired,
-  history:PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
-    username: PropTypes.string,
+    username: PropTypes.string
   }).isRequired,
-  toggleAuthForm:PropTypes.func.isRequired,
-}
+  toggleAuthForm: PropTypes.func.isRequired
+};

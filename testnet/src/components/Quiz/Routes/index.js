@@ -14,29 +14,26 @@ const QuizRoutes = ({ quizzes, topics, loggedIn, user, clearQuiz, fetchingQuizze
       <Route
         exact
         path="/quizzes"
-        render={props => <QuizList {...props} quizzes={quizzes} topics={topics} user={user} loggedIn={loggedIn} clearQuiz={clearQuiz} fetchingQuizzes={fetchingQuizzes}/>}
+        render={props => (
+          <QuizList
+            {...props}
+            quizzes={quizzes}
+            topics={topics}
+            user={user}
+            loggedIn={loggedIn}
+            clearQuiz={clearQuiz}
+            fetchingQuizzes={fetchingQuizzes}
+          />
+        )}
       />
       <Route
         exact
         path={`/quizzes/:id`}
         render={props => <Quiz {...props} loggedIn={loggedIn} user={user} />}
       />
-      <Route
-        exact
-        path="/quizzes/:id/:questionId"
-        render={props => <QuestionPage {...props} />}
-      />
-      <Route
-        exact
-        path="/quizzes/quiz/new/add"
-        render={props => <QuizForm {...props} />}
-      />
-      <Route
-        exact
-        path="/quizzes/quiz/update/:id"
-        render={props => <UpdateForm {...props} />}
-      />
-      
+      <Route exact path="/quizzes/:id/:questionId" render={props => <QuestionPage {...props} />} />
+      <Route exact path="/quizzes/quiz/new/add" render={props => <QuizForm {...props} />} />
+      <Route exact path="/quizzes/quiz/update/:id" render={props => <UpdateForm {...props} />} />
     </Fragment>
   );
 };

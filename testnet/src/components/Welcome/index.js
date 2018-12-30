@@ -4,13 +4,7 @@ import { Header, Image, Segment } from "semantic-ui-react";
 const Welcome = () => {
   return (
     <Segment
-      style={{
-        width: "100%",
-        maxHeight: "94vh",
-        overflow: "hidden",
-        margin: "0",
-        padding: "0"
-      }}
+      style={{ width: "100%", maxHeight: "94vh", overflow: "hidden", margin: "0", padding: "0" }}
     >
       <Header as="h1" textAlign="center" style={{ paddingTop: "1rem" }}>
         Welcome to TestNet

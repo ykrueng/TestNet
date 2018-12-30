@@ -7,9 +7,7 @@ class VoicePlayer extends Component {
     if ("speechSynthesis" in window) {
       this.speech = this.createSpeech();
     } else {
-      console.warn(
-        "The current browser does not support the speechSynthesis API."
-      );
+      console.warn("The current browser does not support the speechSynthesis API.");
     }
 
     this.state = {
@@ -63,7 +61,7 @@ class VoicePlayer extends Component {
   end = () => {
     this.setState({ started: false });
     this.props.onEnd();
-  }
+  };
 
   componentWillReceiveProps({ pause }) {
     if (pause && this.state.playing && this.state.started) {
@@ -111,8 +109,6 @@ class VoicePlayer extends Component {
     });
 
     this.speech.removeEventListener("end", this.end);
-
-
 
     this.cancel();
   }
