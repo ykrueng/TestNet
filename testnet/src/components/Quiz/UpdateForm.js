@@ -86,6 +86,8 @@ class UpdateForm extends Component {
     // user is the author of quiz
     return (
       <Segment
+        secondary
+        color="teal"
         style={{
           maxWidth: "60rem",
           margin: "2rem auto"
@@ -103,10 +105,9 @@ class UpdateForm extends Component {
         )}
         <Button
           basic
-          color="grey"
           floated="right"
           icon="arrow left"
-          content="Quiz List"
+          content="Back to Quizzes"
           onClick={() => history.push("/quizzes")}
         />
         <Button

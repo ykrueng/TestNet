@@ -40,6 +40,8 @@ class QuizForm extends React.Component {
       );
     return (
       <Segment
+        secondary
+        color="teal"
         style={{
           maxWidth: "40rem",
           margin: "10rem auto",
