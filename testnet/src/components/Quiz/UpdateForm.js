@@ -21,13 +21,16 @@ class UpdateForm extends Component {
     getQuestions(match.params.id);
   }
 
-  componentWillReceiveProps({ quiz }) {
+  componentWillReceiveProps({ quiz, quizDeleted }) {
     if (quiz.id === Number(this.props.match.params.id)) {
       this.setState({
         title: quiz.title,
         topic: quiz.topic
       });
     }
+
+    // successfully deleted a quiz
+    quizDeleted && this.props.history.push("/quizzes");
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -51,14 +54,16 @@ class UpdateForm extends Component {
     const { match, token, history, deleteQuizz } = this.props;
     const id = Number(match.params.id);
     deleteQuizz(id, token);
+    this.setState({confirmation: false})
 
-    history.push("/quizzes");
+    // history.push("/quizzes");
   };
 
   render() {
     const { title, topic, confirmation } = this.state;
-    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError, updatingQuiz, updateQuizError } = this.props;
-
+    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError, updatingQuiz, updateQuizError, deletingQuiz, deleteQuizError } = this.props;
+    
+    console.log(deletingQuiz)
     // user not logged in
     if (!token)
       return (
@@ -142,6 +147,7 @@ class UpdateForm extends Component {
         </Form>
         <LoaderOrError process={fetchingQuiz} error={quizError} errorMsg="Failed to Fetch Quiz" />
         <LoaderOrError process={updatingQuiz} error={updateQuizError} errorMsg="Failed to Update Quiz" text="Updating" />
+        <LoaderOrError process={deletingQuiz} error={deleteQuizError} errorMsg="Failed to Delete Quiz" text="Deleting" />
         <Divider />
         <Header as="h2" content="Add Question" />
         <QuestionForm add history={history} match={match} />
@@ -166,8 +172,11 @@ export default connect(
     questions: quizzReducer.questions,
     fetchingQuiz: quizzReducer.fetchingQuizz,
     updatingQuiz: quizzReducer.updatingQuiz,
+    deletingQuiz: quizzReducer.deletingQuiz,
     quizError: quizzReducer.quizError,
     updateQuizError: quizzReducer.updateQuizError,
+    deleteQuizError: quizzReducer.deleteQuizError,
+    quizDeleted: quizzReducer.quizDeleted,
   }),
   { getQuizz, updateQuizz, deleteQuizz, getQuestions }
 )(UpdateForm);
