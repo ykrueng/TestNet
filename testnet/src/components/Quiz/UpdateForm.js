@@ -51,7 +51,7 @@ class UpdateForm extends Component {
   };
 
   handleDelete = () => {
-    const { match, token, history, deleteQuizz } = this.props;
+    const { match, token, deleteQuizz } = this.props;
     const id = Number(match.params.id);
     deleteQuizz(id, token);
     this.setState({confirmation: false})
