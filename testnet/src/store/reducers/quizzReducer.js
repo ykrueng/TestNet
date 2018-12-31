@@ -51,6 +51,7 @@ const initialState = {
   questionPosted: false,
   fetchingQuizzes: false,
   fetchingQuizz: false,
+  updatingQuiz: false,
   checkingAnswer: false,
   checkDone: false,
   fetchingTopics: false,
@@ -63,6 +64,7 @@ const initialState = {
   error: null,
   quizzesError: null,
   quizError: null,
+  updateQuizError: null,
 };
 
 export const quizzReducer = (state = initialState, action) => {
@@ -162,13 +164,15 @@ export const quizzReducer = (state = initialState, action) => {
     case PATCH_QUIZZ_REQUEST:
       return {
         ...state,
-        checkingAnswer: true,
+        updatingQuiz: true,
+        updateQuizError: false,
         checkDone: false
       };
     case PATCH_QUIZZ_SUCCESS:
       return {
         ...state,
-        checkingAnswer: false,
+        updatingQuiz: false,
+        updateQuizError: false,
         checkDone: true,
         quizzes: state.quizzes.map(quiz => {
           if (quiz.id === action.payload.id) {
@@ -181,7 +185,8 @@ export const quizzReducer = (state = initialState, action) => {
     case PATCH_QUIZZ_FAILURE:
       return {
         ...state,
-        checkingAnswer: false,
+        updatingQuiz: false,
+        updateQuizError: true,
         error: action.payload
       };
     case DELETE_QUIZZ_REQUEST:

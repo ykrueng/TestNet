@@ -57,7 +57,7 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic, confirmation } = this.state;
-    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError } = this.props;
+    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError, updatingQuiz, updateQuizError } = this.props;
 
     // user not logged in
     if (!token)
@@ -141,6 +141,7 @@ class UpdateForm extends Component {
           </Form.Group>
         </Form>
         <LoaderOrError process={fetchingQuiz} error={quizError} errorMsg="Failed to Fetch Quiz" />
+        <LoaderOrError process={updatingQuiz} error={updateQuizError} errorMsg="Failed to Update Quiz" text="Updating" />
         <Divider />
         <Header as="h2" content="Add Question" />
         <QuestionForm add history={history} match={match} />
@@ -164,7 +165,9 @@ export default connect(
     quiz: quizzReducer.quizz,
     questions: quizzReducer.questions,
     fetchingQuiz: quizzReducer.fetchingQuizz,
+    updatingQuiz: quizzReducer.updatingQuiz,
     quizError: quizzReducer.quizError,
+    updateQuizError: quizzReducer.updateQuizError,
   }),
   { getQuizz, updateQuizz, deleteQuizz, getQuestions }
 )(UpdateForm);
