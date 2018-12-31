@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 class NavBar extends React.Component {
   state = {
-    active: "home",
+    active: "",
     confirmation: false
   };
 

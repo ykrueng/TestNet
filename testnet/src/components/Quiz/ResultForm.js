@@ -48,7 +48,7 @@ class ResultForm extends React.Component {
       <Grid container centered>
         <Grid.Column>
           <Segment.Group horizontal>
-            <Segment>
+            <Segment color="teal">
               <Button.Group attached="top">
                 <Button
                   icon="favorite"
