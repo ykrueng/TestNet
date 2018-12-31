@@ -67,6 +67,7 @@ const initialState = {
   updateQuizError: null,
   deleteQuizError: null,
   quizDeleted: false,
+  questionsError: null,
 };
 
 export const quizzReducer = (state = initialState, action) => {
@@ -132,18 +133,21 @@ export const quizzReducer = (state = initialState, action) => {
     case QUESTIONS_REQUEST:
       return {
         ...state,
-        fetchingQuestions: true
+        fetchingQuestions: true,
+        questionsError: false,
       };
     case QUESTIONS_SUCCESS:
       return {
         ...state,
         fetchingQuestions: false,
+        questionsError: false,
         questions: action.payload
       };
     case QUESTIONS_FAILURE:
       return {
         ...state,
         fetchingQuestions: false,
+        questionsError: true,
         error: action.payload
       };
     case POST_QUIZZ_REQUEST:

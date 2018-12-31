@@ -61,9 +61,8 @@ class UpdateForm extends Component {
 
   render() {
     const { title, topic, confirmation } = this.state;
-    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError, updatingQuiz, updateQuizError, deletingQuiz, deleteQuizError } = this.props;
-    
-    console.log(deletingQuiz)
+    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError, updatingQuiz, updateQuizError, deletingQuiz, deleteQuizError, fetchingQuestions, questionsError} = this.props;
+
     // user not logged in
     if (!token)
       return (
@@ -164,7 +163,10 @@ class UpdateForm extends Component {
 
         {/* Update Questions Section */}
         <Header as="h2" content="Update Question" />
-        {questions.length === 0 && (
+        {/* Loader and Error handler for fetching questions */}
+        <LoaderOrError process={fetchingQuestions} error={questionsError} errorMsg="Failed to Fetch Questions"/>
+        {/* No Question added */}
+        {!questionsError && questions.length === 0 && (
           <Segment textAlign="center" content="No questions have been added." />
         )}
         {questions.map(question => (
@@ -185,10 +187,12 @@ export default connect(
     fetchingQuiz: quizzReducer.fetchingQuizz,
     updatingQuiz: quizzReducer.updatingQuiz,
     deletingQuiz: quizzReducer.deletingQuiz,
+    fetchingQuestions: quizzReducer.fetchingQuestions,
     quizError: quizzReducer.quizError,
     updateQuizError: quizzReducer.updateQuizError,
     deleteQuizError: quizzReducer.deleteQuizError,
     quizDeleted: quizzReducer.quizDeleted,
+    questionsError: quizzReducer.questionsError,
   }),
   { getQuizz, updateQuizz, deleteQuizz, getQuestions }
 )(UpdateForm);
