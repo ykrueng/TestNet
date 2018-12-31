@@ -74,7 +74,8 @@ class NavBar extends React.Component {
                 </Dropdown>
               )}
               <Button
-                primary
+                inverted
+                color="teal"
                 style={{ marginLeft: "1rem", marginRight: "1rem" }}
                 icon={loggedIn ? "sign out" : "sign in"}
                 content={loggedIn ? "Sign Out" : "Sign In"}
