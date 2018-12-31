@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import { Segment, Header, Form, Button, Divider } from "semantic-ui-react";
+import { Segment, Header, Form, Button, Divider, Confirm } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import Unauthorized from "../Login/Unauthorized";
+import LoaderOrError from "../LoaderOrError/LoaderOrError";
+import QuestionForm from "./QuestionForm";
 
 import { getQuizz, getQuestions, updateQuizz, deleteQuizz } from "../../store/actions";
-import QuestionForm from "./QuestionForm";
 
 class UpdateForm extends Component {
   state = {
     title: "",
-    topic: ""
+    topic: "",
+    confirmation: false,
   };
 
   componentDidMount() {
@@ -54,8 +56,8 @@ class UpdateForm extends Component {
   };
 
   render() {
-    const { title, topic } = this.state;
-    const { history, match, quiz, questions, token, user } = this.props;
+    const { title, topic, confirmation } = this.state;
+    const { history, match, quiz, questions, token, user, fetchingQuiz, quizError } = this.props;
 
     // user not logged in
     if (!token)
@@ -111,7 +113,13 @@ class UpdateForm extends Component {
           floated="right"
           icon="trash alternate outline"
           content="Delete"
-          onClick={this.handleDelete}
+          onClick={() => this.setState({ confirmation: true })}
+        />
+        <Confirm
+          open={confirmation}
+          content={`Are you sure you want to delete this quiz?`}
+          onCancel={() => this.setState({ confirmation: false })}
+          onConfirm={this.handleDelete}
         />
         <Header as="h2">Update Quiz</Header>
         <Form onSubmit={this.handleUpdate}>
@@ -132,6 +140,7 @@ class UpdateForm extends Component {
             />
           </Form.Group>
         </Form>
+        <LoaderOrError process={fetchingQuiz} error={quizError} errorMsg="Failed to Fetch Quiz" />
         <Divider />
         <Header as="h2" content="Add Question" />
         <QuestionForm add history={history} match={match} />
@@ -154,7 +163,8 @@ export default connect(
     user: loginReducer.user,
     quiz: quizzReducer.quizz,
     questions: quizzReducer.questions,
-    fetchingQuizz: quizzReducer.fetchingQuizz
+    fetchingQuiz: quizzReducer.fetchingQuizz,
+    quizError: quizzReducer.quizError,
   }),
   { getQuizz, updateQuizz, deleteQuizz, getQuestions }
 )(UpdateForm);
