@@ -343,7 +343,13 @@ export const getQuestion = (quizId, questionId) => dispatch => {
   study
     .get(`/quizzes/${quizId}/questions/${questionId}`)
     .then(res => {
-      dispatch({ type: SINGLE_Q_SUCCESS, payload: res.data });
+      dispatch({
+        type: SINGLE_Q_SUCCESS,
+        payload: {
+          ...res.data,
+          options: _.shuffle(res.data.options.map((option, i) => [i, option]))
+        }
+      });
     })
     .catch(err => dispatch({ type: SINGLE_Q_FAILURE, payload: err }));
 };

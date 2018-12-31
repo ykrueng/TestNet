@@ -16,13 +16,13 @@ const QuestionDisplay = ({ play, playVoice, stopVoice, question, change, current
         <Icon style={{ cursor: "pointer" }} onClick={playVoice} className="volume up" />
         {` ${question.question}`}
       </Header>
-      {question.options.map((ans, index) => (
+      {question.options.map((option) => (
         <Form.Radio
-          key={index}
-          label={ans}
-          value={ans}
-          onChange={() => change(index, ans, question.quiz_id, questionId)}
-          checked={current === ans}
+          key={option[0]}
+          label={option[1]}
+          value={option[1]}
+          onChange={() => change(option[0], option[1], question.quiz_id, questionId)}
+          checked={current === option[1]}
         />
       ))}
     </Form>
