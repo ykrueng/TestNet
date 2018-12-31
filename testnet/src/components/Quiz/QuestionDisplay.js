@@ -9,7 +9,7 @@ const QuestionDisplay = ({ play, playVoice, stopVoice, question, change, current
         <VoicePlayer
           play
           onEnd={stopVoice}
-          text={`${question.question} ${question.options.join(". ")}`}
+          text={`${question.question} ${question.options.map(option => option[1]).join(". ")}`}
         />
       )}
       <Header as="h3" style={{ margin: "2.5rem 0" }}>
