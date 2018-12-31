@@ -70,6 +70,7 @@ class QuizList extends React.Component {
             activeOnly={activeOnly}
             updateSorting={updateSorting}
             sortingMethod={sortingMethod}
+            quizzes={displayQuizzes}
           />
         </Grid.Row>
         <Grid.Row>

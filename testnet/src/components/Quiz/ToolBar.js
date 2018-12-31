@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Input, Dropdown, Button, Checkbox } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import _ from 'lodash';
 
 import SignInButton from "../Login/SignInButton";
 
@@ -17,7 +18,8 @@ const ToolBar = ({
   updateSelectedTopics,
   activeOnly,
   updateSorting,
-  sortingMethod
+  sortingMethod,
+  quizzes
 }) => {
   const searchValues = ["all", "title", "topic", "author"];
   const searchOptions = searchValues.map(value => ({
@@ -45,6 +47,8 @@ const ToolBar = ({
     value: topic.name
   }));
 
+  const randomActiveQuiz = _.sample(quizzes.filter(quiz => quiz.question_count > 0));
+
   return (
     <Segment secondary color="teal" style={{ width: "100%" }} textAlign="left">
       <Dropdown
@@ -60,7 +64,7 @@ const ToolBar = ({
       <Input
         name="filterText"
         value={filterText}
-        placeholder="Search quiz by..."
+        placeholder="Search by..."
         label={
           <Dropdown
             style={{ textAlign: "right" }}
@@ -102,14 +106,20 @@ const ToolBar = ({
       />
 
       <div style={{ textAlign: "center", paddingTop: "1rem" }}>
-        {!loggedIn && <SignInButton text="Sign In to Add New Quiz" />}
+        <Button
+          onClick={() => history.push(`/quizzes/${randomActiveQuiz.id}`)}
+          color="teal"
+          icon="question"
+          content="Take A Random Quiz"
+        />
+        {!loggedIn && <SignInButton text="Sign In to Add A New Quiz" />}
 
         {loggedIn && (
           <Button
             onClick={() => history.push("/quizzes/quiz/new/add")}
             color="teal"
             icon="add"
-            content="Add New Quiz"
+            content="Add A New Quiz"
           />
         )}
       </div>
@@ -134,7 +144,8 @@ ToolBar.propTypes = {
   updateSelectedTopics: PropTypes.func.isRequired,
   activeOnly: PropTypes.bool.isRequired,
   updateSorting: PropTypes.func.isRequired,
-  sortingMethod: PropTypes.string.isRequired
+  sortingMethod: PropTypes.string.isRequired,
+  quizzes: PropTypes.array.isRequired,
 };
 
 export default ToolBar;
