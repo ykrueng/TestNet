@@ -1,8 +1,11 @@
 import React from "react";
 import { Segment, Header, Form, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
+
 import { postQuizz } from "../../store/actions";
+
 import Unauthorized from "../Login/Unauthorized";
+import LoaderOrError from '../LoaderOrError/LoaderOrError';
 
 class QuizForm extends React.Component {
   state = {
@@ -25,7 +28,9 @@ class QuizForm extends React.Component {
     const quiz = { title: this.state.title, topic: this.state.topic };
     this.props.postQuizz(quiz, this.props.user.username, this.props.token);
   };
+
   render() {
+    const { postingQuiz, postingQuizError } = this.props;
     if (!this.props.token)
       return (
         <Unauthorized
@@ -41,7 +46,7 @@ class QuizForm extends React.Component {
         style={{ maxWidth: "40rem", margin: "10rem auto", textAlign: "center" }}
       >
         <Header as="h2">Create A New Quiz</Header>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} style={{marginBottom: "1rem"}}>
           <Form.Input
             required
             name="title"
@@ -65,6 +70,7 @@ class QuizForm extends React.Component {
             onClick={() => this.props.history.push("/quizzes")}
           />
         </Form>
+        <LoaderOrError process={postingQuiz} error={postingQuizError} errorMsg="Failed to Post A Quiz" text="Posting..." />
       </Segment>
     );
   }
@@ -74,7 +80,9 @@ export default connect(
   ({ loginReducer, quizzReducer }) => ({
     token: loginReducer.token,
     user: loginReducer.user,
-    quiz: quizzReducer.quizz
+    quiz: quizzReducer.quizz,
+    postingQuiz: quizzReducer.postingQuiz,
+    postingQuizError: quizzReducer.postingQuizError,
   }),
   { postQuizz }
 )(QuizForm);
