@@ -95,6 +95,7 @@ class UpdateForm extends Component {
           margin: "2rem auto"
         }}
       >
+        {/* Action buttons for update, delete, and back to quiz list */}
         {(quiz.title !== title || quiz.topic !== topic) && (
           <Button
             basic
@@ -120,12 +121,8 @@ class UpdateForm extends Component {
           content="Delete"
           onClick={() => this.setState({ confirmation: true })}
         />
-        <Confirm
-          open={confirmation}
-          content={`Are you sure you want to delete this quiz?`}
-          onCancel={() => this.setState({ confirmation: false })}
-          onConfirm={this.handleDelete}
-        />
+
+        {/* Update Quiz title or topic Section */}
         <Header as="h2">Update Quiz</Header>
         <Form onSubmit={this.handleUpdate}>
           <Form.Group widths="equal">
@@ -145,13 +142,27 @@ class UpdateForm extends Component {
             />
           </Form.Group>
         </Form>
+
+        {/* Loaders & Error notifications for Quiz fetching, updating, and deleting */}
         <LoaderOrError process={fetchingQuiz} error={quizError} errorMsg="Failed to Fetch Quiz" />
         <LoaderOrError process={updatingQuiz} error={updateQuizError} errorMsg="Failed to Update Quiz" text="Updating" />
         <LoaderOrError process={deletingQuiz} error={deleteQuizError} errorMsg="Failed to Delete Quiz" text="Deleting" />
         <Divider />
+
+        {/* Confirm Quiz Deletion */}
+        <Confirm
+          open={confirmation}
+          content={`Are you sure you want to delete this quiz?`}
+          onCancel={() => this.setState({ confirmation: false })}
+          onConfirm={this.handleDelete}
+        />
+
+        {/* Add Question Section */}
         <Header as="h2" content="Add Question" />
         <QuestionForm add history={history} match={match} />
         <Divider />
+
+        {/* Update Questions Section */}
         <Header as="h2" content="Update Question" />
         {questions.length === 0 && (
           <Segment textAlign="center" content="No questions have been added." />
@@ -159,6 +170,7 @@ class UpdateForm extends Component {
         {questions.map(question => (
           <QuestionForm key={question.id} question={question} history={history} match={match} />
         ))}
+
       </Segment>
     );
   }
