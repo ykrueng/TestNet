@@ -70,6 +70,7 @@ const initialState = {
   quizDeleted: false,
   questionsError: null,
   postingQuizError: null,
+  postingQuestionError: null,
 };
 
 export const quizzReducer = (state = initialState, action) => {
@@ -228,12 +229,14 @@ export const quizzReducer = (state = initialState, action) => {
     case POST_QUESTION_REQUEST:
       return {
         ...state,
-        postingQuestion: true
+        postingQuestion: true,
+        postingQuestionError: false,
       };
     case POST_QUESTION_SUCCESS:
       return {
         ...state,
         postingQuestion: false,
+        postingQuestionError: false,
         questions: [...state.questions, action.payload.question],
         quizzes: state.quizzes.map(quiz => {
           if (quiz.id === Number(action.payload.id)) {
@@ -249,12 +252,13 @@ export const quizzReducer = (state = initialState, action) => {
       return {
         ...state,
         postingQuestion: false,
+        postingQuestionError: true,
         error: action.payload
       };
     case PATCH_QUESTION_REQUEST:
       return {
         ...state,
-        postingQuestion: true
+        postingQuestion: true,
       };
     case PATCH_QUESTION_SUCCESS:
       return {

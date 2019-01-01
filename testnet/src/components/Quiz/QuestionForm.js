@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { postQuestion, updateQuestion, deleteQuestion } from "../../store/actions";
 
+import LoaderOrError from "../LoaderOrError/LoaderOrError";
+
 class QuestionForm extends Component {
   state = {
     question: "",
@@ -78,7 +80,7 @@ class QuestionForm extends Component {
 
   render() {
     const { question, option1, option2, option3, option4 } = this.state;
-    const { add } = this.props;
+    const { add, postingQuestion, postingQuestionError } = this.props;
 
     const options = [
       { key: "option1", value: 1, text: "Option 1" },
@@ -158,14 +160,22 @@ class QuestionForm extends Component {
             />
           )}
         </Form>
+        <LoaderOrError
+          process={postingQuestion}
+          error={postingQuestionError}
+          errorMsg="Failed to post the question."
+          text="Posting"
+      />
       </Segment>
     );
   }
 }
 
 export default connect(
-  ({ loginReducer }) => ({
-    token: loginReducer.token
+  ({ loginReducer, quizzReducer }) => ({
+    token: loginReducer.token,
+    postingQuestion: quizzReducer.postingQuestion,
+    postingQuestionError: quizzReducer.postingQuestionError,
   }),
   { postQuestion, updateQuestion, deleteQuestion }
 )(QuestionForm);
