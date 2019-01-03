@@ -21,7 +21,7 @@
   },
   "engines": {
     "npm": "6.7.0",
-    "node": "11.5.0"
+    "node": "v11.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
